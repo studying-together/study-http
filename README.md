@@ -1,6 +1,7 @@
 # HTTP 공부하기
 
 ### 공부 방법
+- HTTP Client/Server 구현해보기
 - HTTP Client open source 를 분석하기 ([참고](https://github.com/square/okhttp/))
 
 ### 공부 목적
@@ -14,6 +15,12 @@
 
 ### 더 알아보기
 - HTTP 버전 히스토리 1.0 -> 1.1 -> 2.0 -> 3.0
-- 
 
+## 시작하기
+- main 메서드를 이용해서 실행하자
 
+### HTTP Server 를 만들어보자
+- ServerSocket을 이용해 이벤트를 감시하고 요청이 왔을 때 소켓을 얻어 ThreadPool 을 이용해 처리하자.
+
+### HTTP Client 를 만들어보자
+- Socket 을 이용해 접속해보자
