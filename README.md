@@ -7,10 +7,11 @@
 ### 공부 목적
 - HttpClient(브라우저) 에서 [**ConnectionPool** 은 어떻게 동작할까](/documents/connection_pool.md)
 - 실제로 어떻게 [**Connection** 이 맺어질까](/documents/connection.md)
-- HTTP 1.0 / 1.1 / 2.0 은 어떻게 구현해야 할까
+- HTTP 1.0 / 1.1 / 2.0 은 어떻게 통신하며 그러기 위해 어떻게 구현해야 할까 
 
 ### 공부 목표
 - 간단한 HttpClient 를 만들어보자
+- 간단한 HttpServer 를 만들어보자
 - open source 에 PR 을 날려보자
 
 ### 더 알아보기
