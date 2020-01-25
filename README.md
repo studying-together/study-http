@@ -1,5 +1,13 @@
 # HTTP 공부하기
 
+## 스터디 방법
+
+- 방식
+  - 질문이나 토의 주제는 Issues 등록
+- 구조
+  - Master branch 는 기능이 없는 뼈대로 사용
+  - 개인의 branch 를 만들고 기능 구현
+
 ### 공부 방법
 - HTTP Client/Server 구현해보기
 - HTTP Client open source 를 분석하기 ([참고](https://github.com/square/okhttp/))
