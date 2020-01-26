@@ -23,6 +23,7 @@
 - open source 에 PR 을 날려보자
 
 ### 더 알아보기
+- Java 의 Socket 은 어떻게 동작하는가, In/Out putStream 은 어떻게 사용할까
 - HTTP 버전 히스토리 1.0 -> 1.1 -> 2.0 -> 3.0
 
 ## 시작하기
