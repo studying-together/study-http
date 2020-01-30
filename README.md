@@ -38,7 +38,7 @@
 ## 일정
 
 0. 들어가며
-  - 왜 HTTP 를 공부해야 할까? [참고자료](https://www.slideshare.net/deview/d2-campus-http)
+   - 왜 HTTP 를 공부해야 할까? [참고자료](https://www.slideshare.net/deview/d2-campus-http)
 1. Socket 과 ServerSocket 이해하기 (1주)
   - stream 을 어떻게 처리할 것인가?
 2. HTTP Request Line, Response 이해하기 (1주)
