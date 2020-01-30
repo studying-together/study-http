@@ -38,17 +38,22 @@
 ## 일정
 
 0. 들어가며
-   - 왜 HTTP 를 공부해야 할까? [참고자료](https://www.slideshare.net/deview/d2-campus-http)
-1. Socket 과 ServerSocket 이해하기 (1주)
-  - stream 을 어떻게 처리할 것인가?
-2. HTTP Request Line, Response 이해하기 (1주)
-  - 어떻게 파싱하고 관리할 것인가?
-3. HTTP Headers 이해하기 (2주)
-  - 어떤 헤더가 있고 어떻게 사용할까?
-4. HTTP Body 사용하기 (2주)
-  - Request/Response Body 를 사용하는 경우는?
-5. HTTP 파고들기 (2주)
-  - 어떻게 응용할 것인가?
-6. HTTP Version 차이 이해하기
-  - 1.0 -> 1.1 -> 2.0 -> 3.0 무엇이 달라졌는가?
+왜 HTTP 를 공부해야 할까? [참고자료](https://www.slideshare.net/deview/d2-campus-http)
 
+1. Socket 과 ServerSocket 이해하기 (1주)
+  stream 을 어떻게 처리할 것인가?
+
+2. HTTP Request Line, Response 이해하기 (1주)
+  어떻게 파싱하고 관리할 것인가?
+
+3. HTTP Headers 이해하기 (2주)
+  어떤 헤더가 있고 어떻게 사용할까?
+
+4. HTTP Body 사용하기 (2주)
+  Request/Response Body 를 사용하는 경우는?
+
+5. HTTP 파고들기 (2주)
+  어떻게 응용할 것인가?
+
+6. HTTP Version 차이 이해하기
+  1.0 -> 1.1 -> 2.0 -> 3.0 무엇이 달라졌는가?
