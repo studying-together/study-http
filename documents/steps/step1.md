@@ -36,11 +36,17 @@
 #### 토의 내용
 
 ##### YHJ : HTTP 는 Stateless 한 통신방법이고 버전으로 0.9/1.0/1.1/2.0/3.0 이 있으며 최근에는 전송계층의 통신방법이 TCP 에서 UDP 통신으로 바뀌었다.
+##### KYS : 
+##### CHH : 
+##### KDH : 
+##### KDH : 
+##### JMS : 
 
 ## :scream: 첫번째 과제
+
+> 작업하면서 토의하거나 궁금한게 있다면 **Issues** 에 꼭 등록해주세요 !!
 
 1. Socket 과 ServerSocket 을 이용해 메시지를 주고받는 Echo 서버를 만들어 본다.
 2. Client 는 Socket 을 이용해 RequestLine 을 보내고 서버는 ServerSocket 을 이용해 RequestLine 을 파싱해서 데이터를 보관하고 특정값을 반환한다.
 3. 가능하다면 URL 로 파일을 요청하고 응답으로 내려보내주는 구현도 해본다.
-
 
