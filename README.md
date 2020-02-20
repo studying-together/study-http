@@ -22,6 +22,9 @@
 - 간단한 HttpServer 를 만들어보자
 - open source 에 PR 을 날려보자
 
+## 스터디 진행상황
+1. :checkered_flag:[한걸음](/documents/steps/step1.md)
+
 ### 더 알아보기
 - Java 의 Socket 은 어떻게 동작하는가, In/Out putStream 은 어떻게 사용할까
 - HTTP 버전 히스토리 1.0 -> 1.1 -> 2.0 -> 3.0
