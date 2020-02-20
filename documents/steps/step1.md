@@ -1,4 +1,4 @@
-# 첫번째 모임
+# :checkered_flag: 첫번째 모임
 
 ## 스터디 진행 내용
 
@@ -33,4 +33,10 @@
 
 - HTTP 는 무엇인가에 대해서 돌아가면서 얘기해보기
 
-  
+## 첫번째 과제
+
+1. Socket 과 ServerSocket 을 이용해 메시지를 주고받는 Echo 서버를 만들어 본다.
+2. Client 는 Socket 을 이용해 RequestLine 을 보내고 서버는 ServerSocket 을 이용해 RequestLine 을 파싱해서 데이터를 보관하고 특정값을 반환한다.
+3. 가능하다면 URL 로 파일을 요청하고 응답으로 내려보내주는 구현도 해본다.
+
+
