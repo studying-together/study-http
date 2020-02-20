@@ -22,7 +22,7 @@
 - 간단한 HttpServer 를 만들어보자
 - open source 에 PR 을 날려보자
 
-## 스터디 진행상황
+## :trolleybus: 스터디 진행상황
 1. :checkered_flag: [2020-02-18-첫번째 걸음](/documents/steps/step1.md)
 
 ### 더 알아보기
