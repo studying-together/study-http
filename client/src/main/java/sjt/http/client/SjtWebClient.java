@@ -8,12 +8,10 @@ public class SjtWebClient {
 
     public static void main(String[] args) throws IOException {
 
-        Socket socket = new Socket("127.0.0.1", 8081);
+        Socket socket = new Socket("127.0.0.1", 8088);
 
         final OutputStream out = socket.getOutputStream();
         out.write("GET /index.html HTTP/1.1".getBytes());
-
-
         socket.close();
     }
 
