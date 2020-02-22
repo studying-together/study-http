@@ -1,4 +1,4 @@
-package sjt.http.client;
+package sjt.http.server;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,7 +16,9 @@ public class SjtWebClient {
         final OutputStream out = socket.getOutputStream();
         StringBuilder response = new StringBuilder();
 
-        out.write("GET /index.html HTTP/1.1".getBytes());
+        out.write("GET /index.html HTTP/1.1\r\n".getBytes());
+
+        // write end
         out.write(0);
 
         while (true) {
