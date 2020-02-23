@@ -52,9 +52,7 @@
 
 ### 참고
 - 멀티 모듈로 만들어진 클라이언트 서버의 main 메서드를 이용해서 실행하자
-
-#### HTTP Server 를 만들어보자
-- ServerSocket을 이용해 이벤트를 감시하고 요청이 왔을 때 소켓을 얻어 ThreadPool 로 처리하자.
-
-#### HTTP Client 를 만들어보자
-- Socket 을 이용해 접속해보자
+- HTTP Server 를 만들어보자
+  - ServerSocket을 이용해 이벤트를 감시하고 요청이 왔을 때 소켓을 얻어 ThreadPool 로 처리하자.
+- HTTP Client 를 만들어보자
+  - Socket 을 이용해 접속해보자
