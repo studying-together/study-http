@@ -37,7 +37,7 @@
 
 ##### YHJ : HTTP 는 Stateless 한 통신방법이고 버전으로 0.9/1.0/1.1/2.0/3.0 이 있으며 최근에는 전송계층의 통신방법이 TCP 에서 UDP 통신으로 바뀌었다.
 ##### KYS : 
-##### CHH : 
+##### CHH : HTTP는 OSI 5계층에 속하며, HyperText 문서를 인터넷 상에서 주고 받을 수 있도록 하는 규약(protocol)이다.
 ##### KDH : 
 ##### KDH : HTTP는 request,reponse 메세지 포맷을 갖추고 있으며 쿠키를 이용해 인증을 수행하기도 한다. HTTP의 약점을 보완한 HTTPS도 있다. 
 ##### JMS : 
