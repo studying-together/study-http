@@ -39,7 +39,7 @@
 ##### KYS : 
 ##### CHH : 
 ##### KDH : 
-##### KDH : 
+##### KDH : HTTP는 나름의 request,reponse 메세지 구조를 갖추고 있으며 쿠키를 이용해 인증을 수행하기도 한다. HTTPS도 있다. 
 ##### JMS : 
 
 ## :scream: 첫번째 과제
