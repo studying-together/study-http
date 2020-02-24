@@ -1,20 +1,27 @@
-package sjt.http.server;
+package sjt.http.client;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.ServerSocket;
 import java.net.Socket;
 
-public class SjtWebServer {
+public class HttpExecutor {
 
-    public static void main(String[] args) throws IOException {
-        System.out.println("[SERVER] connection start");
+    private final Socket socket;
 
-        int port = 8081;
-        ServerSocket serverSocket = new ServerSocket(port);
+    public HttpExecutor(Socket socket) {
+        this.socket = socket;
+    }
 
-        Socket socket = serverSocket.accept();
+    public void execute() {
+        try {
+            doExecute();
+        } catch (IOException e) {
+            throw new RuntimeException("IO failed");
+        }
+    }
+
+    public void doExecute() throws IOException {
         InputStream in = socket.getInputStream();
         OutputStream out = socket.getOutputStream();
         StringBuilder requestLine = new StringBuilder();
@@ -37,7 +44,4 @@ public class SjtWebServer {
 
         System.out.println("[SERVER] connection end");
     }
-
-
-
 }
