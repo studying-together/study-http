@@ -18,6 +18,14 @@ public class SjtWebServer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SjtWebServer.class);
 
+    private Socket clientSocket;
+    private ServerSocket serverSocket;
+
+    public SjtWebServer(ServerSocket serverSocket, Socket clientSocket) {
+        this.serverSocket = serverSocket;
+        this.clientSocket = clientSocket;
+    }
+
     public static void main(String[] args) throws IOException {
 
         int port = 8088;
@@ -25,15 +33,14 @@ public class SjtWebServer {
 
         while (true) {
             LOGGER.info("Server is listening on {} port number.", port);
-            SjtWebServer sjtWebServer = new SjtWebServer();
-            sjtWebServer.acceptRequest(serverSocket.accept());
-            //            Thread requestThread = new Thread(sjtWebServer::acceptRequest);
-            //            LOGGER.info("Connection is opened - {} thread!!", requestThread.getName());
-            //            requestThread.start();
+            SjtWebServer sjtWebServer = new SjtWebServer(serverSocket, serverSocket.accept());
+            Thread requestThread = new Thread(sjtWebServer::acceptRequest);
+            LOGGER.info("Connection is opened - {} thread!!", requestThread.getName());
+            requestThread.start();
         }
     }
 
-    private void acceptRequest(Socket clientSocket) {
+    private void acceptRequest() {
 
         InputStream inputStream = null;
         InputStreamReader inputStreamReader = null;
@@ -68,19 +75,6 @@ public class SjtWebServer {
             LOGGER.info("send to client!!");
         } catch (IOException ioe) {
             LOGGER.error("IOException is occurred :: ", ioe);
-        } finally {
-            try {
-                assert inputStream != null;
-                inputStream.close();
-                inputStreamReader.close();
-                bufferedReader.close();
-                assert outputStream != null;
-                outputStream.close();
-                assert printWriter != null;
-                printWriter.close();
-            } catch (IOException ioe) {
-                LOGGER.error("IOException is occurred while closing resources:: ", ioe);
-            }
         }
     }
 
