@@ -4,15 +4,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.PrintWriter;
+import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.URL;
 import java.net.UnknownHostException;
+
+import static java.lang.Thread.sleep;
 
 public class SjtWebClient {
 
@@ -39,25 +42,16 @@ public class SjtWebClient {
         Socket clientSocket = null;
 
         OutputStream outputStream = null;
-        PrintWriter printWriter = null;
-
+        OutputStreamWriter outputStreamWriter = null;
+        BufferedWriter bufferedWriter = null;
         try {
-
             clientSocket = new Socket(host, 8088);
-
             outputStream = clientSocket.getOutputStream();
-            printWriter = new PrintWriter(outputStream, true);
+            outputStreamWriter = new OutputStreamWriter(outputStream);
+            bufferedWriter = new BufferedWriter(outputStreamWriter);
 
-            printWriter.println("HEAD " + path + " HTTP/1.1");
-            printWriter.println("Host: " + host);
-            printWriter.println("User-Agent: Simple Http Client");
-            printWriter.println("Accept: text/html");
-            printWriter.println("Accept-Language: en-US");
-            printWriter.println("Connection: close");
-            printWriter.println();
-
-            outputStream.close();
-            printWriter.close();
+            bufferedWriter.write("HEAD " + path + " HTTP/1.1");
+            bufferedWriter.write("Host: " + host);
 
             LOGGER.info("send to server!!!!!");
 
@@ -67,6 +61,12 @@ public class SjtWebClient {
             LOGGER.error("IOException is occurred :: ", ioe);
         }
 
+        try {
+            sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         InputStream inputStream = null;
         InputStreamReader inputStreamReader = null;
         BufferedReader bufferedReader = null;
@@ -74,30 +74,21 @@ public class SjtWebClient {
         try {
             inputStream = clientSocket.getInputStream();
             inputStreamReader = new InputStreamReader(inputStream);
-
-            StringBuilder stringBuilder = new StringBuilder();
-
             bufferedReader = new BufferedReader(inputStreamReader);
-            int character;
-            while ((character = inputStreamReader.read()) != -1) {
-                stringBuilder.append((char) character);
-            }
-
-            inputStream.close();
-            inputStreamReader.close();
-            bufferedReader.close();
-
-            LOGGER.info(stringBuilder.toString());
-
-            //            bufferedReader.lines().forEach(line -> {
-            //                if (!(line == null || line.length() == 0)) {
-            //                    LOGGER.info(line);
-            //                }
-            //            });
+            bufferedReader.lines().forEach(line -> {
+                if (!(line == null || line.length() == 0)) {
+                    LOGGER.info(line);
+                }
+            });
             LOGGER.info("finished");
         } catch (IOException ioe) {
             LOGGER.error("IOException is occurred :: ", ioe);
         }
-    }
 
+        try {
+            clientSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
