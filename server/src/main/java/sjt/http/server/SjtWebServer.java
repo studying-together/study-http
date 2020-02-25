@@ -46,6 +46,9 @@ public class SjtWebServer {
         InputStreamReader inputStreamReader = null;
         BufferedReader bufferedReader = null;
 
+        OutputStream outputStream = null;
+        PrintWriter printWriter = null;
+
         try {
             inputStream = clientSocket.getInputStream();
             inputStreamReader = new InputStreamReader(inputStream);
@@ -56,14 +59,6 @@ public class SjtWebServer {
                 LOGGER.info(line);
             }
 
-        } catch (IOException ioe) {
-            LOGGER.error("IOException is occurred :: ", ioe);
-        }
-
-        OutputStream outputStream = null;
-        PrintWriter printWriter = null;
-        try {
-
             outputStream = clientSocket.getOutputStream();
             printWriter = new PrintWriter(outputStream, true);
 
@@ -71,10 +66,24 @@ public class SjtWebServer {
             printWriter.println("Date: " + LocalDateTime.now().atZone(ZoneId.systemDefault()));
             printWriter.println("Server: 127.0.0.1");
             printWriter.println();
-
             LOGGER.info("send to client!!");
         } catch (IOException ioe) {
             LOGGER.error("IOException is occurred :: ", ioe);
+        } finally {
+            try {
+                assert inputStream != null;
+                inputStream.close();
+                assert inputStreamReader != null;
+                inputStreamReader.close();
+                assert bufferedReader != null;
+                bufferedReader.close();
+                assert outputStream != null;
+                outputStream.close();
+                assert printWriter != null;
+                printWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
