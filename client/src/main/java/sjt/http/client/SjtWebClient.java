@@ -13,7 +13,7 @@ public class SjtWebClient {
         try {
             Socket socket = new Socket("127.0.0.1", 8081); // 통신할 server socket
 
-        Socket socket = new Socket("127.0.0.1", 8081);
+//            final OutputStream out = socket.getOutputStream();
 
             final OutputStream out = socket.getOutputStream();
             PrintWriter writer = new PrintWriter(out, true);
