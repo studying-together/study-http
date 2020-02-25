@@ -41,63 +41,54 @@ public class SjtWebClient {
         OutputStream outputStream = null;
         PrintWriter printWriter = null;
 
-        try {
-
-            clientSocket = new Socket(host, 8088);
-
-            outputStream = clientSocket.getOutputStream();
-            printWriter = new PrintWriter(outputStream, true);
-
-            printWriter.println("HEAD " + path + " HTTP/1.1");
-            printWriter.println("Host: " + host);
-            printWriter.println("User-Agent: Simple Http Client");
-            printWriter.println("Accept: text/html");
-            printWriter.println("Accept-Language: en-US");
-            printWriter.println("Connection: close");
-            printWriter.println();
-
-            outputStream.close();
-            printWriter.close();
-
-            LOGGER.info("send to server!!!!!");
-
-        } catch (UnknownHostException ukhe) {
-            LOGGER.error("UnknownHostException is occurred :: ", ukhe);
-        } catch (IOException ioe) {
-            LOGGER.error("IOException is occurred :: ", ioe);
-        }
-
         InputStream inputStream = null;
         InputStreamReader inputStreamReader = null;
         BufferedReader bufferedReader = null;
 
         try {
+            clientSocket = new Socket(host, 8088);
+            outputStream = clientSocket.getOutputStream();
+            printWriter = new PrintWriter(outputStream, true);
+
+            printWriter.write("HEAD " + path + " HTTP/1.1");
+            printWriter.write("Host: " + host);
+            LOGGER.info("send to server!!!!!");
+
             inputStream = clientSocket.getInputStream();
             inputStreamReader = new InputStreamReader(inputStream);
-
-            StringBuilder stringBuilder = new StringBuilder();
-
             bufferedReader = new BufferedReader(inputStreamReader);
-            int character;
-            while ((character = inputStreamReader.read()) != -1) {
-                stringBuilder.append((char) character);
-            }
-
-            inputStream.close();
-            inputStreamReader.close();
-            bufferedReader.close();
-
-            LOGGER.info(stringBuilder.toString());
-
-            //            bufferedReader.lines().forEach(line -> {
-            //                if (!(line == null || line.length() == 0)) {
-            //                    LOGGER.info(line);
-            //                }
-            //            });
+            bufferedReader.lines().forEach(line -> {
+                if (!(line == null || line.length() == 0)) {
+                    LOGGER.info(line);
+                }
+            });
             LOGGER.info("finished");
+
+        } catch (UnknownHostException ukhe) {
+            LOGGER.error("UnknownHostException is occurred :: ", ukhe);
         } catch (IOException ioe) {
             LOGGER.error("IOException is occurred :: ", ioe);
+        } finally {
+            try {
+                assert outputStream != null;
+                outputStream.close();
+                assert printWriter != null;
+                printWriter.close();
+                assert inputStream != null;
+                inputStream.close();
+                assert inputStreamReader != null;
+                inputStreamReader.close();
+                assert bufferedReader != null;
+                bufferedReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            clientSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-
 }

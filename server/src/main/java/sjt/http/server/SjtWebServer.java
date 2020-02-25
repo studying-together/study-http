@@ -18,6 +18,14 @@ public class SjtWebServer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SjtWebServer.class);
 
+    private Socket clientSocket;
+    private ServerSocket serverSocket;
+
+    public SjtWebServer(ServerSocket serverSocket, Socket clientSocket) {
+        this.serverSocket = serverSocket;
+        this.clientSocket = clientSocket;
+    }
+
     public static void main(String[] args) throws IOException {
 
         int port = 8088;
@@ -25,19 +33,21 @@ public class SjtWebServer {
 
         while (true) {
             LOGGER.info("Server is listening on {} port number.", port);
-            SjtWebServer sjtWebServer = new SjtWebServer();
-            sjtWebServer.acceptRequest(serverSocket.accept());
-            //            Thread requestThread = new Thread(sjtWebServer::acceptRequest);
-            //            LOGGER.info("Connection is opened - {} thread!!", requestThread.getName());
-            //            requestThread.start();
+            SjtWebServer sjtWebServer = new SjtWebServer(serverSocket, serverSocket.accept());
+            Thread requestThread = new Thread(sjtWebServer::acceptRequest);
+            LOGGER.info("Connection is opened - {} thread!!", requestThread.getName());
+            requestThread.start();
         }
     }
 
-    private void acceptRequest(Socket clientSocket) {
+    private void acceptRequest() {
 
         InputStream inputStream = null;
         InputStreamReader inputStreamReader = null;
         BufferedReader bufferedReader = null;
+
+        OutputStream outputStream = null;
+        PrintWriter printWriter = null;
 
         try {
             inputStream = clientSocket.getInputStream();
@@ -49,14 +59,6 @@ public class SjtWebServer {
                 LOGGER.info(line);
             }
 
-        } catch (IOException ioe) {
-            LOGGER.error("IOException is occurred :: ", ioe);
-        }
-
-        OutputStream outputStream = null;
-        PrintWriter printWriter = null;
-        try {
-
             outputStream = clientSocket.getOutputStream();
             printWriter = new PrintWriter(outputStream, true);
 
@@ -64,7 +66,6 @@ public class SjtWebServer {
             printWriter.println("Date: " + LocalDateTime.now().atZone(ZoneId.systemDefault()));
             printWriter.println("Server: 127.0.0.1");
             printWriter.println();
-
             LOGGER.info("send to client!!");
         } catch (IOException ioe) {
             LOGGER.error("IOException is occurred :: ", ioe);
@@ -72,14 +73,16 @@ public class SjtWebServer {
             try {
                 assert inputStream != null;
                 inputStream.close();
+                assert inputStreamReader != null;
                 inputStreamReader.close();
+                assert bufferedReader != null;
                 bufferedReader.close();
                 assert outputStream != null;
                 outputStream.close();
                 assert printWriter != null;
                 printWriter.close();
-            } catch (IOException ioe) {
-                LOGGER.error("IOException is occurred while closing resources:: ", ioe);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
