@@ -29,13 +29,8 @@ public class SjtWebClient {
         writer.flush();
 
         // 서버에서 받은 응답 값 출력.
-
-//        String response = reader.readLine();
         Stream<String> reponse = reader.lines();
         reponse.forEach(System.out::println);
-//        do {
-//            System.out.println(response);
-//        } while (reader.ready() && (response = reader.readLine()) != null);
 
         socket.close();
     }

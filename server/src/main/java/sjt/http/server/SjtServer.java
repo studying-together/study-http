@@ -71,7 +71,6 @@ public class SjtServer implements Runnable {
 
             // response 입력
             writer.write("HTTP/1.1 200 OK \r\n");
-            writer.flush();
             writer.write(httpRequest.toString());
             writer.flush();
 
