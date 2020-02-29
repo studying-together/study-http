@@ -20,7 +20,7 @@ public class SjtWebServer {
 
     private Socket clientSocket;
 
-    public SjtWebServer(Socket clientSocket) {
+    private SjtWebServer(Socket clientSocket) {
         this.clientSocket = clientSocket;
     }
 
