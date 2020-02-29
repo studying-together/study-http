@@ -19,10 +19,8 @@ public class SjtWebServer {
     private static final Logger LOGGER = LoggerFactory.getLogger(SjtWebServer.class);
 
     private Socket clientSocket;
-    private ServerSocket serverSocket;
 
-    public SjtWebServer(ServerSocket serverSocket, Socket clientSocket) {
-        this.serverSocket = serverSocket;
+    public SjtWebServer(Socket clientSocket) {
         this.clientSocket = clientSocket;
     }
 
@@ -33,7 +31,7 @@ public class SjtWebServer {
 
         while (true) {
             LOGGER.info("Server is listening on {} port number.", port);
-            SjtWebServer sjtWebServer = new SjtWebServer(serverSocket, serverSocket.accept());
+            SjtWebServer sjtWebServer = new SjtWebServer(serverSocket.accept());
             Thread requestThread = new Thread(sjtWebServer::acceptRequest);
             LOGGER.info("Connection is opened - {} thread!!", requestThread.getName());
             requestThread.start();
