@@ -1,21 +1,38 @@
-package sjt.http.client;
+package sjt.http.server;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class SjtWebServer {
 
     public static void main(String[] args) throws IOException {
 
-        int port = 8081;
+        int port = 8080;
         ServerSocket serverSocket = new ServerSocket(port);
+        Socket socket = serverSocket.accept();
 
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+
+        StringBuilder request = new StringBuilder();
+        String msg;
+        do {
+            msg = bufferedReader.readLine() + ",";
+            request.append(msg);
+        } while (!msg.equals(" ,"));
+
+        System.out.println("[Client] : " + request.toString());
+        HttpHeader httpHeader = HttpHeader.getHeader(request);
+
+        bufferedWriter.write("200 OK ! \r\n");
+        bufferedWriter.flush();
+
+        socket.close();
     }
-
-
 
 }
