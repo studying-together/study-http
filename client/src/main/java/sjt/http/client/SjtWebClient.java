@@ -1,20 +1,60 @@
 package sjt.http.client;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.MalformedURLException;
 import java.net.Socket;
+import java.net.URL;
+import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
+
+import static sun.nio.ch.IOStatus.EOF;
 
 public class SjtWebClient {
 
-    public static void main(String[] args) throws IOException {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SjtWebClient.class);
 
-        Socket socket = new Socket("127.0.0.1", 8081);
+    public static void main(String[] args) {
 
-        final OutputStream out = socket.getOutputStream();
-        out.write("GET /index.html HTTP/1.1".getBytes());
+        if (args.length < 1) {
+            LOGGER.error("접속할 도메인을 입력해 주세요.");
+            return;
+        }
 
+        String host;
+        String path;
+        try {
+            URL url = new URL(args[0]);
+            host = url.getHost();
+            path = url.getPath();
+        } catch (MalformedURLException e) {
+            LOGGER.error("MalformedURLException is occurred :: ", e);
+            return;
+        }
 
-        socket.close();
+        try (
+                Socket clientSocket = new Socket(host, 8088);
+                PrintWriter printWriter = new PrintWriter(clientSocket.getOutputStream());
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), StandardCharsets.UTF_8))
+        ) {
+            printWriter.print("POST " + path + " HTTP/1.1\r\n");
+            printWriter.print("Host: " + host + "\r\n");
+            printWriter.print("Content-Type: application/json;charset=UTF-8\r\n");
+            printWriter.print("\r\n");
+            printWriter.print("{\"hong\":\"hee\"}\r\n");
+            printWriter.flush();
+
+            bufferedReader.lines().forEach(LOGGER::info);
+
+        } catch (UnknownHostException ukhe) {
+            LOGGER.error("UnknownHostException is occurred :: ", ukhe);
+        } catch (IOException ioe) {
+            LOGGER.error("IOException is occurred :: ", ioe);
+        }
     }
-
 }
