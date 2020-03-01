@@ -37,9 +37,9 @@
 
 ##### YHJ : HTTP 는 Stateless 한 통신방법이고 버전으로 0.9/1.0/1.1/2.0/3.0 이 있으며 최근에는 전송계층의 통신방법이 TCP 에서 UDP 통신으로 바뀌었다.
 ##### KYS : 
-##### CHH : 
-##### KDH : 
-##### KDH : 
+##### CHH : HTTP는 OSI 5계층에 속하며, HyperText 문서를 인터넷 상에서 주고 받을 수 있도록 하는 규약(protocol)이다.
+##### KDH : HTTP는 요청과 응답으로 나누어진다. 보안상으로 취약점이 존재하는데 그 중 하나는 xss(크로스 사이트 스크립트)이다.
+##### KDH : HTTP는 request,reponse 메세지 포맷을 갖추고 있으며 쿠키를 이용해 인증을 수행하기도 한다. HTTP의 약점을 보완한 HTTPS도 있다. 
 ##### JMS : 
 
 ## :scream: 첫번째 과제
@@ -50,3 +50,9 @@
 2. Client 는 Socket 을 이용해 RequestLine 을 보내고 서버는 ServerSocket 을 이용해 RequestLine 을 파싱해서 데이터를 보관하고 특정값을 반환한다.
 3. 가능하다면 URL 로 파일을 요청하고 응답으로 내려보내주는 구현도 해본다.
 
+### 참고
+- 멀티 모듈로 만들어진 클라이언트 서버의 main 메서드를 이용해서 실행하자
+- HTTP Server 를 만들어보자
+  - ServerSocket을 이용해 이벤트를 감시하고 요청이 왔을 때 소켓을 얻어 ThreadPool 로 처리하자.
+- HTTP Client 를 만들어보자
+  - Socket 을 이용해 접속해보자
