@@ -5,14 +5,15 @@ import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
+
+import static sun.nio.ch.IOStatus.EOF;
 
 public class SjtWebClient {
 
@@ -36,59 +37,24 @@ public class SjtWebClient {
             return;
         }
 
-        Socket clientSocket = null;
+        try (
+                Socket clientSocket = new Socket(host, 8088);
+                PrintWriter printWriter = new PrintWriter(clientSocket.getOutputStream());
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), StandardCharsets.UTF_8))
+        ) {
+            printWriter.print("POST " + path + " HTTP/1.1\r\n");
+            printWriter.print("Host: " + host + "\r\n");
+            printWriter.print("Content-Type: application/json;charset=UTF-8\r\n");
+            printWriter.print("\r\n");
+            printWriter.print("{\"hong\":\"hee\"}\r\n");
+            printWriter.flush();
 
-        OutputStream outputStream = null;
-        PrintWriter printWriter = null;
-
-        InputStream inputStream = null;
-        InputStreamReader inputStreamReader = null;
-        BufferedReader bufferedReader = null;
-
-        try {
-            clientSocket = new Socket(host, 8088);
-            outputStream = clientSocket.getOutputStream();
-            printWriter = new PrintWriter(outputStream, true);
-
-            printWriter.write("HEAD " + path + " HTTP/1.1");
-            printWriter.write("Host: " + host);
-            LOGGER.info("send to server!!!!!");
-
-            inputStream = clientSocket.getInputStream();
-            inputStreamReader = new InputStreamReader(inputStream);
-            bufferedReader = new BufferedReader(inputStreamReader);
-            bufferedReader.lines().forEach(line -> {
-                if (!(line == null || line.length() == 0)) {
-                    LOGGER.info(line);
-                }
-            });
-            LOGGER.info("finished");
+            bufferedReader.lines().forEach(LOGGER::info);
 
         } catch (UnknownHostException ukhe) {
             LOGGER.error("UnknownHostException is occurred :: ", ukhe);
         } catch (IOException ioe) {
             LOGGER.error("IOException is occurred :: ", ioe);
-        } finally {
-            try {
-                assert outputStream != null;
-                outputStream.close();
-                assert printWriter != null;
-                printWriter.close();
-                assert inputStream != null;
-                inputStream.close();
-                assert inputStreamReader != null;
-                inputStreamReader.close();
-                assert bufferedReader != null;
-                bufferedReader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        try {
-            clientSocket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

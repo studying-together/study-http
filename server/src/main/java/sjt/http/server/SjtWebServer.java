@@ -5,12 +5,11 @@ import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
@@ -40,48 +39,24 @@ public class SjtWebServer {
 
     private void acceptRequest() {
 
-        InputStream inputStream = null;
-        InputStreamReader inputStreamReader = null;
-        BufferedReader bufferedReader = null;
+        try (
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), StandardCharsets.UTF_8));
+                PrintWriter printWriter = new PrintWriter(clientSocket.getOutputStream())
+        ) {
 
-        OutputStream outputStream = null;
-        PrintWriter printWriter = null;
-
-        try {
-            inputStream = clientSocket.getInputStream();
-            inputStreamReader = new InputStreamReader(inputStream);
-            bufferedReader = new BufferedReader(inputStreamReader);
-
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                LOGGER.info(line);
+            while (bufferedReader.ready()) {
+                LOGGER.info(bufferedReader.readLine());
             }
 
-            outputStream = clientSocket.getOutputStream();
-            printWriter = new PrintWriter(outputStream, true);
-
-            printWriter.println("HTTP/1.1 200 OK");
-            printWriter.println("Date: " + LocalDateTime.now().atZone(ZoneId.systemDefault()));
-            printWriter.println("Server: 127.0.0.1");
-            printWriter.println();
-            LOGGER.info("send to client!!");
+            printWriter.print("HTTP/1.1 200 OK\r\n");
+            printWriter.print("Date: " + LocalDateTime.now().atZone(ZoneId.systemDefault()) + "\r\n");
+            printWriter.print("Server: 127.0.0.1\r\n");
+            printWriter.print("Content-Type: application/json;charset=UTF-8\r\n");
+            printWriter.print("\r\n");
+            printWriter.print("{\"data\":[],\"httpStatus\":\"OK\",\"httpCode\":200}\r\n");
+            printWriter.flush();
         } catch (IOException ioe) {
             LOGGER.error("IOException is occurred :: ", ioe);
-        } finally {
-            try {
-                assert inputStream != null;
-                inputStream.close();
-                assert inputStreamReader != null;
-                inputStreamReader.close();
-                assert bufferedReader != null;
-                bufferedReader.close();
-                assert outputStream != null;
-                outputStream.close();
-                assert printWriter != null;
-                printWriter.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
