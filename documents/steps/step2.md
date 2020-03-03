@@ -25,4 +25,4 @@
 
 > 작업하면서 토의하거나 궁금한게 있다면 **Issues** 에 꼭 등록해주세요 !!
 
-1. HTTP Header 구현해보기 ![참고 RFC-2616](https://tools.ietf.org/html/rfc2616#page-31)
+1. HTTP Header 구현해보기 [참고 RFC-2616](https://tools.ietf.org/html/rfc2616#page-31)
