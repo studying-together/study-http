@@ -15,11 +15,11 @@
 
 ### 재밌거나 신기하거나 어려웠거나
 
-### Http Header 란 무엇인가
+### Http Header 무엇 ?
 
-### Http Header 를 왜 사용할까
+### Http Header 왜 사용 ?
 
-### Http Header 를 어떻게 써볼까
+### Http Header 어떻게 써보지 ?
 
 ## :angry: 두번째 과제
 
