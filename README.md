@@ -1,5 +1,12 @@
 # HTTP 공부하기
 
+## :trolleybus: 스터디 진행상황
+1. :checkered_flag: [2020-02-18-첫번째 걸음](/documents/steps/step1.md)
+2. :house: [2020-03-05-두번째 걸음](/documents/steps/step2.md)
+
+## RFC 2616 (HTTP 1.1) 번역
+- 
+
 ## 스터디
 
 - 방식
@@ -21,10 +28,6 @@
 - 간단한 HttpClient 를 만들어보자
 - 간단한 HttpServer 를 만들어보자
 - open source 에 PR 을 날려보자
-
-## :trolleybus: 스터디 진행상황
-1. :checkered_flag: [2020-02-18-첫번째 걸음](/documents/steps/step1.md)
-2. :house: [2020-03-05-두번째 걸음](/documents/steps/step2.md)
 
 ### 더 알아보기
 - Java 의 Socket 은 어떻게 동작하는가, In/Out putStream 은 어떻게 사용할까
