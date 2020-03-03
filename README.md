@@ -4,8 +4,7 @@
 1. :checkered_flag: [2020-02-18-첫번째 걸음](/documents/steps/step1.md)
 2. :house: [2020-03-05-두번째 걸음](/documents/steps/step2.md)
 
-## RFC 2616 (HTTP 1.1) 번역
-- 
+## [RFC 2616 (HTTP 1.1) 번역](https://github.com/Study-Java-Together/study-http/blob/master/rfc-2616-HTTP1.1/ko/context.md )
 
 ## 스터디
 
