@@ -9,7 +9,7 @@
 ##### CHH : HTTP는 OSI 5계층에 속하며, HyperText 문서를 인터넷 상에서 주고 받을 수 있도록 하는 규약(protocol)이다.
 ##### KDH : HTTP는 요청과 응답으로 나누어진다. 보안상으로 취약점이 존재하는데 그 중 하나는 xss(크로스 사이트 스크립트)이다.
 ##### KDH : HTTP는 request,reponse 메세지 포맷을 갖추고 있으며 쿠키를 이용해 인증을 수행하기도 한다. HTTP의 약점을 보완한 HTTPS도 있다. 
-##### JMS : 
+##### JMS : HTTP는 웹서버와 클라이언트간의 문서를 주고 받는 통신규약이며 HTTP 1.1 부터는 Keep-Alive를 지원한다.
 
 <hr>
 
