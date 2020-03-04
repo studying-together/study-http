@@ -21,9 +21,7 @@
 
 3. HTTP RequestLine
 
-#### REST ?
-
-> Http Header 무엇 ?
+  - REST ?
 
 4. HTTP Header
 
