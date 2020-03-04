@@ -15,19 +15,21 @@
 
 ## 스터디 진행 내용
 
-### 첫 번째 과제 공유
+1. 첫 번째 과제 공유
 
-### 재밌거나 신기하거나 어려웠거나
+2. 재밌거나 신기하거나 어려웠거나
 
-### HTTP RequestLine
+3. HTTP RequestLine
 
 #### REST ?
 
 > Http Header 무엇 ?
 
-#### Header 의 종류 
+4. HTTP Header
 
-Header 란???
+### HTTP Header 무엇?
+
+#### Header 의 종류 
 
 ##### 일반 헤더(General Headers)
 클라이언트와 서버를 가지리 않고 다양한 목적으로 사용하는 헤더<br>
