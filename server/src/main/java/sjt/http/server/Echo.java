@@ -15,6 +15,7 @@ public class Echo implements Runnable {
     private final static int CARRIAGE_RETURN = '\r';
     private final static int LINE_FEED = '\n';
     private final static String CRLF = String.valueOf(new char[]{CARRIAGE_RETURN, LINE_FEED});
+    private final static int END_OF_STREAM = -1;
 
     private final Socket connection;
 
@@ -25,9 +26,10 @@ public class Echo implements Runnable {
     @Override
     public void run() {
 
-        System.out.println("## " + Thread.currentThread());
+        System.out.println("## " + Thread.currentThread().getName());
         System.out.println("connect from " + connection.getRemoteSocketAddress());
-        try (InputStream in = connection.getInputStream(); OutputStream out = connection.getOutputStream()) {
+        try (InputStream in = connection.getInputStream();
+             OutputStream out = connection.getOutputStream()) {
 
             List<String> lines = new ArrayList<>();
 
@@ -37,7 +39,14 @@ public class Echo implements Runnable {
             do {
                 StringBuilder buffer = new StringBuilder();
                 for (; ; ) {
+                    long start = System.currentTimeMillis();
                     currentChar = in.read();
+
+                    if (currentChar == END_OF_STREAM) {
+                        long finish = System.currentTimeMillis();
+                        System.out.printf("timeout: %d\n", finish - start);
+                        return;
+                    }
                     buffer.append((char) currentChar);
                     if (prevChar == CARRIAGE_RETURN && currentChar == LINE_FEED) break;
                     prevChar = currentChar;
@@ -56,6 +65,12 @@ public class Echo implements Runnable {
 
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            System.out.println("## finally " + Thread.currentThread().getName());
+            try {
+                connection.close();
+            } catch (IOException ignored) {
+            }
         }
 
     }
