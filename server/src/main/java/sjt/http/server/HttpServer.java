@@ -1,5 +1,8 @@
 package sjt.http.server;
 
+import sjt.http.server.handler.Echo;
+import sjt.http.server.handler.RequestHandler;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -36,8 +39,8 @@ public class HttpServer {
             System.out.println("Server start with " + this.port);
             Socket connection;
             while ((connection = server.accept()) != null) {
-                service.execute(new Echo(connection));
-
+//                service.execute(new Echo(connection));
+                service.execute(new RequestHandler(connection));
             }
         } catch (IOException e) {
             e.printStackTrace();

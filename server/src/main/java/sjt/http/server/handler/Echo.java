@@ -1,4 +1,4 @@
-package sjt.http.server;
+package sjt.http.server.handler;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,8 +28,7 @@ public class Echo implements Runnable {
 
         System.out.println("## " + Thread.currentThread().getName());
         System.out.println("connect from " + connection.getRemoteSocketAddress());
-        try (InputStream in = connection.getInputStream();
-             OutputStream out = connection.getOutputStream()) {
+        try (InputStream in = connection.getInputStream(); OutputStream out = connection.getOutputStream()) {
 
             List<String> lines = new ArrayList<>();
 
