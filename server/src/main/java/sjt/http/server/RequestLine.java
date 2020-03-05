@@ -1,4 +1,4 @@
-package sjt.http.client;
+package sjt.http.server;
 
 public class RequestLine {
 

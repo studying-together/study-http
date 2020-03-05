@@ -1,4 +1,4 @@
-package sjt.http.client;
+package sjt.http.server;
 
 import java.io.IOException;
 import java.io.InputStream;
