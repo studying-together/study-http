@@ -1,12 +1,18 @@
-package sjt.http.server;
+package sjt.http.server.model.request;
+
+import sjt.http.server.model.HttpMethodType;
+import sjt.http.server.model.header.HttpHeader;
+import sjt.http.server.model.header.HttpRequestHeader;
+
+import java.util.Map;
 
 public class HttpRequest {
     // request line
     private HttpMethodType method;
     private String uri;
-    private String protocolType;
-    // TODO : 세분화해서 구현 예정 (헤더 정보..)
-    private String requestHeader;
+    private String protocolVersion;
+
+    private Map<HttpHeader, String> requestHeader;
     private String requestBody;
 
     public HttpMethodType getMethod() {
@@ -25,19 +31,19 @@ public class HttpRequest {
         this.uri = uri;
     }
 
-    public String getProtocolType() {
-        return protocolType;
+    public String getProtocolVersion() {
+        return protocolVersion;
     }
 
-    public void setProtocolType(String protocolType) {
-        this.protocolType = protocolType;
+    public void setProtocolVersion(String protocolVersion) {
+        this.protocolVersion = protocolVersion;
     }
 
-    public String getRequestHeader() {
+    public Map<HttpHeader, String> getRequestHeader() {
         return requestHeader;
     }
 
-    public void setRequestHeader(String requestHeader) {
+    public void setRequestHeader(Map<HttpHeader, String> requestHeader) {
         this.requestHeader = requestHeader;
     }
 
@@ -50,13 +56,28 @@ public class HttpRequest {
         this.requestBody = requestBody;
     }
 
+    public void parseRequestLine(String requestLine) {
+        String[] requestDatas = requestLine.split(" ");
+
+        if (requestDatas.length == 3) {
+            setMethod(HttpMethodType.valueOf(requestDatas[0]));
+            setUri(requestDatas[1]);
+            setProtocolVersion(requestDatas[2]);
+        }
+    }
+
+    public void parseRequestHeader(String requestHeaderLine) {
+        String[] splitedHeader = requestHeaderLine.split(": ");
+
+    }
+
     @Override public String toString() {
         return "HttpRequest{" + '\n' +
                 "==================================\n"+
                 "requestLine=" + '\n' +
                 "    method=" + method + '\n' +
                 "    uri='" + uri + '\'' + '\n' +
-                "    protocolType='" + protocolType + '\'' + '\n' +
+                "    protocolVersion='" + protocolVersion + '\'' + '\n' +
                 "==================================\n"+
                 "requestHeader= \n'" + requestHeader + '\'' + '\n' +
                 "==================================\n"+

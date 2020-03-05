@@ -1,13 +1,26 @@
 package sjt.http.server;
 
+import sjt.http.server.model.HttpMethodType;
+import sjt.http.server.model.HttpStatusCode;
+import sjt.http.server.model.request.HttpRequest;
+import sjt.http.server.model.response.HttpResponse;
+
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class SjtServer implements Runnable {
     private Socket socket;
+    private final String RESOURCE_PATH = "resource";
 
     public SjtServer(Socket socket) {
         this.socket = socket;
@@ -29,9 +42,8 @@ public class SjtServer implements Runnable {
             String requestLine = reader.readLine();
 
             if (requestLine != null) {
-                parsingRequestLine(requestLine, httpRequest);
+                httpRequest.parseRequestLine(requestLine);
             }
-
 
             // 2. request header
             String requestHeaderLine;
@@ -45,11 +57,6 @@ public class SjtServer implements Runnable {
                 requestHeader.append("\n");
             }
 
-            if (requestHeader.length() > 2) {
-                requestHeader.setLength(requestHeader.length() - 1);
-                httpRequest.setRequestHeader(requestHeader.toString());
-            }
-
 
             // 3. request body
             String requestBodyLine;
@@ -60,11 +67,6 @@ public class SjtServer implements Runnable {
                 requestBody.append("\n");
             }
 
-            if (requestBody.length() > 2) {
-                requestBody.setLength(requestBody.length() - 1); // 마지막 \n 제거
-                httpRequest.setRequestBody(requestBody.toString());
-            }
-
 
             // request 출력
             System.out.println("request : " + httpRequest);
@@ -73,6 +75,7 @@ public class SjtServer implements Runnable {
             writer.write("HTTP/1.1 200 OK \r\n");
             writer.write(httpRequest.toString());
             writer.flush();
+
 
             // close
             reader.close();
@@ -85,16 +88,43 @@ public class SjtServer implements Runnable {
 
     }
 
-    private void parsingRequestLine(String request, HttpRequest httpRequest) {
-        // Request-Line = Method SP Request-URI SP HTTP-Version CRLF
-        String[] requestDatas = request.split(" ");
+    private void writeResponse(HttpRequest httpRequest, HttpResponse httpResponse, OutputStream outputStream) {
+        FileInputStream fileInputStream = null;
+        BufferedOutputStream bufferedOutputStream = null;
 
-        // TODO : null check , 예외 처리
-        if (requestDatas.length == 3) {
-            httpRequest.setMethod(HttpMethodType.valueOf(requestDatas[0]));
-            httpRequest.setUri(requestDatas[1]);
-            httpRequest.setProtocolType(requestDatas[2]);
+        try {
+            Path path = Paths.get(RESOURCE_PATH + httpRequest.getUri());
+            String contentType = Files.probeContentType(path);
+
+
+            fileInputStream = new FileInputStream(path.toString());
+            bufferedOutputStream = new BufferedOutputStream(outputStream);
+
+            int readCount = 0;
+            byte[] buffer = new byte[1024];
+
+            bufferedOutputStream.write(HttpStatusCode.HTTP_STATUS_OK.getStatusCode().getBytes());
+
+            while((readCount = fileInputStream.read(buffer)) != -1){
+                bufferedOutputStream.write(buffer,0, readCount);
+            }
+
+//            .flush();
+
+            fileInputStream.close();
+            bufferedOutputStream.close();
+
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            try{ fileInputStream.close(); }catch(Exception ignore){}
+            try{ bufferedOutputStream.close(); }catch (Exception ignore){}
         }
+
+    }
+
+    private void getResource(String uri, HttpResponse response, OutputStream outputStream) {
 
     }
 

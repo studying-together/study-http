@@ -1,4 +1,4 @@
-package sjt.http.server;
+package sjt.http.server.model;
 
 public enum HttpMethodType {
     GET,
