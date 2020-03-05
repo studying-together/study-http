@@ -50,10 +50,20 @@
 
 ### Http Header 왜 사용 ?
 
+요청과 응답 메시지는 Start Line 과 Header, Entity 로 나뉜다.
+이렇게 나누는 이유는 각각의 역할을 담당하기 위해서인데 Header 는 Entity 와 통신에 대한 정보를 제공함으로써 클라이언트와 서버가
+서로를 주고받는 내용과 통신 방법에 대해 좀 더 잘 이해하도록 돕는다.
+
 ### Http Header 어떻게 써보지 ?
+
+Content-Type 과 Redirect, Cookie 를 이용해서 클라이언트와 서버를 구현해봄으로써 현실적인 사용 방법을 고찰해본다.
 
 ## :angry: 두번째 과제
 
 > 작업하면서 토의하거나 궁금한게 있다면 **Issues** 에 꼭 등록해주세요 !!
 
 1. HTTP Header 구현해보기 ([참고 RFC-2616](https://tools.ietf.org/html/rfc2616#page-31))
+
+##### Header 로 사용할 수 있는 필드 중 일부를 사용해 실제로 클라이언트와 서버를 구현해본다.
+
+예: Content-type, Redirect, Cookie/Set-Cookie
