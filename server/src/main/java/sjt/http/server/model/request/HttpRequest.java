@@ -11,10 +11,10 @@ public class HttpRequest {
     private HttpMethodType method;
     private String uri;
     private String protocolVersion;
-
     private Map<HttpHeader, String> requestHeader;
     private String requestBody;
 
+    // getter setter
     public HttpMethodType getMethod() {
         return method;
     }
@@ -46,7 +46,6 @@ public class HttpRequest {
     public void setRequestHeader(Map<HttpHeader, String> requestHeader) {
         this.requestHeader = requestHeader;
     }
-
 
     public String getRequestBody() {
         return requestBody;

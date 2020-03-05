@@ -16,7 +16,8 @@ public class SjtWebClient {
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
-        writer.write("POST /cgi-bin/process.cgi HTTP/1.1\r\n");
+        //writer.write("POST /cgi-bin/process.cgi HTTP/1.1\r\n");
+        writer.write("GET /text.txt HTTP/1.1\r\n");
         writer.write("User-Agent: Mozilla/4.0 (compatible; MSIE5.01; Windows NT)\r\n");
         writer.write("Host: www.tutorialspoint.com\r\n");
         writer.write("Content-Type: application/x-www-form-urlencoded\r\n");

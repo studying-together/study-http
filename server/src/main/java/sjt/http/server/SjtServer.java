@@ -1,18 +1,14 @@
 package sjt.http.server;
 
-import sjt.http.server.model.HttpMethodType;
 import sjt.http.server.model.HttpStatusCode;
 import sjt.http.server.model.request.HttpRequest;
 import sjt.http.server.model.response.HttpResponse;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileInputStream;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,7 +16,7 @@ import java.nio.file.Paths;
 
 public class SjtServer implements Runnable {
     private Socket socket;
-    private final String RESOURCE_PATH = "resource";
+    private final String RESOURCE_PATH = "server/src/main/resource";
 
     public SjtServer(Socket socket) {
         this.socket = socket;
@@ -34,7 +30,6 @@ public class SjtServer implements Runnable {
     private void readRequest(Socket socket) {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
             HttpRequest httpRequest = new HttpRequest();
 
@@ -57,6 +52,7 @@ public class SjtServer implements Runnable {
                 requestHeader.append("\n");
             }
 
+            //httpRequest.setRequestHeader(requestHeader.toString());
 
             // 3. request body
             String requestBodyLine;
@@ -71,15 +67,10 @@ public class SjtServer implements Runnable {
             // request 출력
             System.out.println("request : " + httpRequest);
 
-            // response 입력
-            writer.write("HTTP/1.1 200 OK \r\n");
-            writer.write(httpRequest.toString());
-            writer.flush();
+            HttpResponse httpResponse = new HttpResponse();
+            writeResponse(httpRequest, httpResponse, socket.getOutputStream());
 
-
-            // close
             reader.close();
-            writer.close();
             socket.close();
 
         } catch (Exception e) {
@@ -96,7 +87,6 @@ public class SjtServer implements Runnable {
             Path path = Paths.get(RESOURCE_PATH + httpRequest.getUri());
             String contentType = Files.probeContentType(path);
 
-
             fileInputStream = new FileInputStream(path.toString());
             bufferedOutputStream = new BufferedOutputStream(outputStream);
 
@@ -108,8 +98,6 @@ public class SjtServer implements Runnable {
             while((readCount = fileInputStream.read(buffer)) != -1){
                 bufferedOutputStream.write(buffer,0, readCount);
             }
-
-//            .flush();
 
             fileInputStream.close();
             bufferedOutputStream.close();
