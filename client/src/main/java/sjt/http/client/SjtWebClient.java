@@ -1,4 +1,6 @@
-package sjt.http.server;
+package sjt.http.client;
+
+import sjt.http.core.HttpStreamReader;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,17 +19,16 @@ public class SjtWebClient {
         StringBuilder response = new StringBuilder();
 
         out.write("GET /index.html HTTP/1.1\r\n".getBytes());
+        out.write("Accept: *.*\r\n".getBytes());
+        out.write("Connection: keep-alive\r\n".getBytes());
+        out.write("HOST: www.jun.com\r\n".getBytes());
+        out.write("\r\n".getBytes());
 
-        // write end
-        out.write(0);
+        String statusLine = HttpStreamReader.readStartLine(in);
+        String headers = HttpStreamReader.readHeader(in);
 
-        while (true) {
-            int c = in.read();
-            if (c <= 0) {
-                break;
-            }
-            response.append((char) c);
-        }
+        System.out.println(statusLine);
+        System.out.println(headers);
 
         System.out.println("[CLIENT] response : " + response.toString());
         socket.close();
