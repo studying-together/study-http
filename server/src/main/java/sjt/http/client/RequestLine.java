@@ -1,5 +1,7 @@
 package sjt.http.client;
 
+import sjt.http.core.Method;
+
 public class RequestLine {
 
     private Method method;
@@ -46,6 +48,6 @@ public class RequestLine {
 
     @Override
     public String toString() {
-        return "\n Method: " + method.name() + "\n URL: " + url + "\n Version: " + version;
+        return "Method: " + method.name() + ", URL: " + url + ", Version: " + version;
     }
 }

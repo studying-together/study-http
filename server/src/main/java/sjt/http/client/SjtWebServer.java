@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 
 public class SjtWebServer {
 
-    public static boolean ON = true;
+    public static boolean RUNNING = true;
 
     public static void main(String[] args) throws IOException {
         System.out.println("[SERVER] connection start");
@@ -16,7 +16,7 @@ public class SjtWebServer {
         ServerSocket serverSocket = new ServerSocket(port);
         ExecutorService executor = Executors.newFixedThreadPool(200);
 
-        while (ON) {
+        while (RUNNING) {
             Socket socket = serverSocket.accept();
             executor.execute(() -> new HttpExecutor(socket).execute());
         }

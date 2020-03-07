@@ -1,4 +1,4 @@
-package sjt.http.client;
+package sjt.http.core;
 
 public enum Method {
 
