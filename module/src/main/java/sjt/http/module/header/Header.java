@@ -1,4 +1,4 @@
-package sjt.http.header;
+package sjt.http.module.header;
 
 import java.util.Arrays;
 import java.util.Collections;

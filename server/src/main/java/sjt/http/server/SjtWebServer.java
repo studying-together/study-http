@@ -1,10 +1,10 @@
 package sjt.http.server;
 
-import sjt.http.header.EntityHeader;
-import sjt.http.header.GeneralHeader;
-import sjt.http.header.Header;
-import sjt.http.header.RequestHeader;
-import sjt.http.header.ResponseHeader;
+import sjt.http.module.HttpMessage;
+import sjt.http.module.header.EntityHeader;
+import sjt.http.module.header.Header;
+import sjt.http.module.header.GeneralHeader;
+import sjt.http.module.header.ResponseHeader;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

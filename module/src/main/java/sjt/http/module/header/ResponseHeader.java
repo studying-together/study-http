@@ -1,4 +1,4 @@
-package sjt.http.header;
+package sjt.http.module.header;
 
 /**
  * https://tools.ietf.org/html/rfc2616#section-6.2

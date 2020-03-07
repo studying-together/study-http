@@ -1,7 +1,7 @@
-package sjt.http.server;
+package sjt.http.module;
 
 import lombok.Builder;
-import sjt.http.header.Header;
+import sjt.http.module.header.Header;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
