@@ -11,5 +11,12 @@
 
     <artifactId>client</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.squareup.okhttp</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
 
 </project>
