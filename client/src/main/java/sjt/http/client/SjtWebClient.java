@@ -1,5 +1,6 @@
 package sjt.http.client;
 
+import sjt.http.module.header.EntityHeader;
 import sjt.http.module.header.GeneralHeader;
 import sjt.http.module.header.Header;
 import sjt.http.module.header.RequestHeader;
@@ -29,11 +30,12 @@ public class SjtWebClient {
 
 
         // Send Request Message
-        Header header = new Header();
-        header.setHeader(GeneralHeader.CONNECTION, "keep-alive"); // default
-        header.setHeader(RequestHeader.HOST, "https://github.com/Study-Java-Together/study-http");
-        String acceptLanguage = "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7";
-        header.setHeaders(RequestHeader.ACCEPT_LANGUAGE, Stream.of(acceptLanguage).collect(Collectors.toList()));
+        Header header = new Header()
+                .setHeader(GeneralHeader.CONNECTION, "keep-alive")
+                .setHeader(RequestHeader.HOST, "https://github.com/Study-Java-Together/study-http")
+                .setHeader(EntityHeader.CONTENT_TYPE, "application/json;charset=UTF-8") //"text/plain;charset=UTF-8"
+                .setHeaders(RequestHeader.ACCEPT_LANGUAGE, Stream.of("ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7")
+                        .collect(Collectors.toList()));
 
         HttpMessage requestMessage = HttpMessage.builder()
                 .startLine(HttpMethods.GET + SPACE + "/index.html" + SPACE + "HTTP/1.1")

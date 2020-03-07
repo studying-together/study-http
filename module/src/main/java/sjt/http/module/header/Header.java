@@ -8,20 +8,23 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Header {
-//    private GeneralHeader generalHeader;
-//    private RequestHeader requestHeader;
-//    private ResponseHeader responseHeader;
-//    private EntityHeader entityHeader;
-//    private CustomHeader customHeader;
     private Map<String, List<String>> headers = new HashMap<>();
 
-    public void setHeader(String headerName, String headerValue) {
-        List<String> headerValues = Collections.singletonList(headerValue);
-        this.headers.put(headerName, headerValues);
+    public static Header setManyHeaders() {
+        return new Header();
     }
 
-    public void setHeaders(String headerName, List<String> headerValue){
+    public Header setHeader(String headerName, String headerValue) {
+        List<String> headerValues = Collections.singletonList(headerValue);
+        this.headers.put(headerName, headerValues);
+
+        return this;
+    }
+
+    public Header setHeaders(String headerName, List<String> headerValue){
         this.headers.put(headerName, headerValue);
+
+        return this;
     }
 
     @Override

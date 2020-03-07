@@ -13,6 +13,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -46,11 +49,10 @@ public class SjtWebServer {
 
 
         // Send Response Message
-        Header header = new Header();
-        header.setHeader(GeneralHeader.CONNECTION, "keep-alive"); // default
-        header.setHeader(ResponseHeader.SERVER, "nginx");
-        String acceptLanguage = "ko-KR";
-        header.setHeaders(EntityHeader.CONTENT_LANGUAGE, Stream.of(acceptLanguage).collect(Collectors.toList()));
+        Header header = new Header()
+                .setHeader(GeneralHeader.CONNECTION, "keep-alive")
+                .setHeader(ResponseHeader.SERVER, "nginx")
+                .setHeaders(EntityHeader.CONTENT_LANGUAGE, Stream.of("ko-KR").collect(Collectors.toList()));
 
         HttpMessage responseMessage = HttpMessage.builder()
                 .startLine("HTTP/1.1" + SPACE + "200" + SPACE + "OK")
