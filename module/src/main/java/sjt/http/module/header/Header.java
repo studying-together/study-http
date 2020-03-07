@@ -10,19 +10,15 @@ import java.util.stream.Collectors;
 public class Header {
     private Map<String, List<String>> headers = new HashMap<>();
 
-    public static Header setManyHeaders() {
-        return new Header();
-    }
-
-    public Header setHeader(String headerName, String headerValue) {
+    public Header setHeader(HeaderType headerName, String headerValue) {
         List<String> headerValues = Collections.singletonList(headerValue);
-        this.headers.put(headerName, headerValues);
+        this.headers.put(headerName.getName(), headerValues);
 
         return this;
     }
 
-    public Header setHeaders(String headerName, List<String> headerValue){
-        this.headers.put(headerName, headerValue);
+    public Header setHeaders(HeaderType headerName, List<String> headerValue){
+        this.headers.put(headerName.getName(), headerValue);
 
         return this;
     }

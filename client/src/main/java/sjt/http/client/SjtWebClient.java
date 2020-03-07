@@ -1,11 +1,11 @@
 package sjt.http.client;
 
+import sjt.http.module.HttpMessage;
+import sjt.http.module.HttpMethods;
 import sjt.http.module.header.EntityHeader;
 import sjt.http.module.header.GeneralHeader;
 import sjt.http.module.header.Header;
 import sjt.http.module.header.RequestHeader;
-import sjt.http.module.HttpMessage;
-import sjt.http.module.HttpMethods;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

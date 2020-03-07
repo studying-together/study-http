@@ -2,8 +2,8 @@ package sjt.http.server;
 
 import sjt.http.module.HttpMessage;
 import sjt.http.module.header.EntityHeader;
-import sjt.http.module.header.Header;
 import sjt.http.module.header.GeneralHeader;
+import sjt.http.module.header.Header;
 import sjt.http.module.header.ResponseHeader;
 
 import java.io.BufferedReader;
@@ -13,9 +13,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
