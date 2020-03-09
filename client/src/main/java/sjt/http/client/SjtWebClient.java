@@ -53,7 +53,7 @@ public class SjtWebClient {
             response.append(msg).append(CARRIAGE_RETURN).append(LINE_FEED);
         } while (!msg.equals(SPACE));
 
-        System.out.println("------ [SERVER] ------");
+        System.out.println("[SERVER] :");
         System.out.println(response.toString());
 
         socket.close();
