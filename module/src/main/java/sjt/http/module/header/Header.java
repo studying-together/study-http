@@ -1,11 +1,11 @@
 package sjt.http.module.header;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Header {
     private Map<String, List<String>> headers = new HashMap<>();
@@ -23,6 +23,10 @@ public class Header {
         return this;
     }
 
+    public Map<String, List<String>> getHeaders() {
+        return headers;
+    }
+
     @Override
     public String toString() {
         return this.headers.keySet().stream()
@@ -33,8 +37,19 @@ public class Header {
                 + "\r\n";
     }
 
-    public static Header getHeader(StringBuilder request) {
-        List<String> headers = Arrays.asList(request.toString().split(" "));
-        return new Header();
+    public Header() {
     }
+
+    public Header (String header) {
+        Stream.of(header.split("\r\n"))
+                .filter(h -> h.contains(":"))
+                .forEach(h -> headers.put(h.substring(0, h.indexOf(":"))
+                        , parsingMultiHeaders(h.substring(h.indexOf(":")+1))));
+    }
+
+    private List<String> parsingMultiHeaders(String multiHeader) {
+        return Stream.of(multiHeader.split(","))
+                .collect(Collectors.toList());
+    }
+
 }

@@ -16,10 +16,11 @@ import java.net.Socket;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static sjt.http.module.util.Utils.CARRIAGE_RETURN;
+import static sjt.http.module.util.Utils.LINE_FEED;
+import static sjt.http.module.util.Utils.SPACE;
+
 public class SjtWebClient {
-    private static final String CARRIAGE_RETURN = "\r";
-    private static final String LINE_FEED = "\n";
-    private static final String SPACE = " ";
 
     public static void main(String[] args) throws IOException {
 
@@ -40,7 +41,7 @@ public class SjtWebClient {
         HttpMessage requestMessage = HttpMessage.builder()
                 .startLine(HttpMethods.GET + SPACE + "/index.html" + SPACE + "HTTP/1.1")
                 .header(header)
-                .body("message body")
+                .body("{\"name\":\"heedi\", \"age\":\"3\"}")
                 .build();
         requestMessage.sendMessage(bufferedWriter);
 
@@ -51,7 +52,7 @@ public class SjtWebClient {
         do {
             msg = bufferedReader.readLine();
             response.append(msg).append(CARRIAGE_RETURN).append(LINE_FEED);
-        } while (!msg.equals(SPACE));
+        } while (!msg.equals(""));
 
         System.out.println("[SERVER] :");
         System.out.println(response.toString());

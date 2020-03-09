@@ -1,5 +1,6 @@
 package sjt.http.server;
 
+import sjt.http.module.HttpBody;
 import sjt.http.module.HttpMessage;
 import sjt.http.module.header.EntityHeader;
 import sjt.http.module.header.GeneralHeader;
@@ -15,11 +16,10 @@ import java.net.Socket;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static sjt.http.module.util.Utils.SPACE;
+
 public class SjtWebServer implements Runnable{
 
-    private static final String CARRIAGE_RETURN = "\r";
-    private static final String LINE_FEED = "\n";
-    private static final String SPACE = " ";
     private final Socket socket;
 
     public SjtWebServer(Socket socket) {
@@ -33,28 +33,15 @@ public class SjtWebServer implements Runnable{
             System.out.println("---------------- [SERVER] ----------------");
             System.out.println("## THREAD START : " + Thread.currentThread() + "\r\n");
 
-            // Get Request Message
-            StringBuilder request = new StringBuilder();
-            String msg;
-
-            while ((msg = bufferedReader.readLine()) != null) {
-                request.append(msg).append(CARRIAGE_RETURN).append(LINE_FEED);
-
-                // TODO : 메세지 끝 처리 고민
-                if(msg.equals("")) {
-                    break;
-                }
-            }
-
-            System.out.println("[CLIENT] : ");
-            System.out.println(request.toString());
-            HttpMessage requestMessage = HttpMessage.from(request);
+            HttpMessage httpMessage = HttpMessage.getRequestMessage(bufferedReader);
+            Object body = HttpBody.parsing(httpMessage);
 
 
             // Send Response Message
             Header header = new Header()
                     .setHeader(GeneralHeader.CONNECTION, "keep-alive")
                     .setHeader(ResponseHeader.SERVER, "nginx")
+                    .setHeader(EntityHeader.CONTENT_TYPE, "application/json;charset=UTF-8") //"text/plain;charset=UTF-8"
                     .setHeaders(EntityHeader.CONTENT_LANGUAGE, Stream.of("ko-KR").collect(Collectors.toList()));
 
             HttpMessage responseMessage = HttpMessage.builder()
