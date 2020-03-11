@@ -1,7 +1,10 @@
 package sjt.http.server;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sjt.http.server.request.HttpRequest;
+import sjt.http.server.service.HttpRequestService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -44,9 +47,11 @@ public class SjtWebServer {
                 PrintWriter printWriter = new PrintWriter(clientSocket.getOutputStream())
         ) {
 
-            while (bufferedReader.ready()) {
-                LOGGER.info(bufferedReader.readLine());
-            }
+            HttpRequestService httpRequestService = new HttpRequestService();
+            HttpRequest httpRequest = new HttpRequest();
+
+            String firstLine = bufferedReader.readLine();
+            httpRequestService.populateEntityHeader(httpRequest, firstLine);
 
             printWriter.print("HTTP/1.1 200 OK\r\n");
             printWriter.print("Date: " + LocalDateTime.now().atZone(ZoneId.systemDefault()) + "\r\n");
@@ -59,5 +64,4 @@ public class SjtWebServer {
             LOGGER.error("IOException is occurred :: ", ioe);
         }
     }
-
 }
