@@ -13,8 +13,6 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 
-import static sun.nio.ch.IOStatus.EOF;
-
 public class SjtWebClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SjtWebClient.class);
