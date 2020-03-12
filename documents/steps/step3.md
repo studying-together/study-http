@@ -35,7 +35,7 @@
 
 #### 다음을 참고하자
 
-> () 는 클래스를 의미
+> 괄호() 는 클래스를 의미
 
 1. 클라이언트 생성 (OkHttpClient)
 2. 클라이언트 URL 설정 및 초기화 (OkHttpClient -> HttpURLConnectionImpl)
