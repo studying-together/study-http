@@ -29,12 +29,12 @@ public class SjtWebServer implements Runnable{
     @Override public void run() {
 
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()))){
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()))) {
             System.out.println("---------------- [SERVER] ----------------");
             System.out.println("## THREAD START : " + Thread.currentThread() + "\r\n");
 
             HttpMessage httpMessage = HttpMessage.getRequestMessage(bufferedReader);
-            Object body = HttpBody.parsing(httpMessage);
+            Object httpBody = HttpBody.parsing(httpMessage);
 
 
             // Send Response Message

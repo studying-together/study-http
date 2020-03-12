@@ -1,8 +1,9 @@
 package sjt.http.module.header;
 
-import java.util.HashMap;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
 import java.util.Map;
-import java.util.stream.Stream;
 
 public enum ContentType {
     TEXT_PLAIN("text/plain") {
@@ -16,18 +17,17 @@ public enum ContentType {
         }
     },
     APPLICATION_JSON("application/json"){ // RFC 4627
-    public Map<String, String> parse(String body) {
-        // 스프링 컨트롤러에서 @RequestMapping과 함께 @RequestBody로 요청 페이로드를 Jackson ObjectMapper를 통해 JSON으로 받을 수 있다. ?????
-        // object / array
-        Map<String, String> jsonObject = new HashMap<>();
-        body = body.replaceAll("[\"\r\n\\s]", "");
-        body = body.substring(1, body.length()-1);
+        public Map<String, Object> parse(String body) {
+            body = body.replaceAll("[\r\n]", "");
 
-        Stream.of(body.split(","))
-                .forEach(b -> jsonObject.put(b.substring(0, b.indexOf(":")), b.substring(b.indexOf(":")+1)));
-
-        return jsonObject;
-    }
+            ObjectMapper objectMapper = new ObjectMapper();
+            try {
+                return objectMapper.readValue(body, Map.class);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
     },
     APPLICATION_X_WWW_FORM_URLENCODE("application/x-www-form-urlencode"){
         public String parse(String body) {
@@ -44,6 +44,8 @@ public enum ContentType {
     private String text;
 
     public static ContentType findContentType(String contentType) {
+        contentType = contentType.substring(0, contentType.indexOf(";"));
+
         for(ContentType contentTypeEnum : ContentType.values()) {
             if(contentTypeEnum.getText().equalsIgnoreCase(contentType)) {
                 return contentTypeEnum;

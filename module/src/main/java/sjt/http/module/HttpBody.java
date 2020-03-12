@@ -16,12 +16,13 @@ public class HttpBody {
                 .map(text -> text.replaceAll(" ", ""))
                 .orElse("");
 
-        return parse(body, contentType);
+        return doParsing(body, contentType);
     }
 
-    private static Object parse(String body, String contentType) {
+    private static Object doParsing(String body, String contentType) {
         return Optional.ofNullable(ContentType.findContentType(contentType))
                 .map(contentTypeEnum -> contentTypeEnum.parse(body))
                 .orElse("");
+
     }
 }

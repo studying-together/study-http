@@ -16,49 +16,6 @@ public class HttpMessage {
     private Header header;
     private String body;
 
-    public static HttpMessage getRequestMessage(BufferedReader bufferedReader) throws IOException {
-        StringBuilder request = new StringBuilder();
-        String msg;
-        String startLine = "";
-        String header = "";
-        boolean startLineRead = false;
-        boolean headerRead = false;
-
-        do {
-            // TODO : 브라우저로 요청시 여기에서 멈춤 -> ready() 사용하니 증상 해결
-            // TODO : client의 요청값을 제대로 출력하지 못할때가 있음.
-            msg = bufferedReader.ready()? bufferedReader.readLine() : null;
-            if (msg == null) {
-                break;
-            }
-
-            request.append(msg).append(CARRIAGE_RETURN).append(LINE_FEED);
-
-            if(!startLineRead) {
-                startLine = request.toString();
-                request = new StringBuilder();
-            }
-
-            startLineRead = true;
-
-            // TODO : 메세지 끝 처리 고민
-            if (msg.equals("") && headerRead) {
-                break;
-            }
-
-            if (msg.equals("")) {
-                headerRead = true;
-                header = request.toString();
-                request = new StringBuilder();
-            }
-
-        } while (true);
-
-        System.out.println("[CLIENT] : " + startLine + "\r\n" +  header +  "\r\n" + request.toString());
-
-        return HttpMessage.from(startLine, header, request.toString());
-    }
-
     public String getStartLine() {
         return startLine;
     }
@@ -88,6 +45,52 @@ public class HttpMessage {
                 .header(headers)
                 .body(body)
                 .build();
+    }
+
+    public static HttpMessage getRequestMessage(BufferedReader bufferedReader) throws IOException {
+        StringBuilder request = new StringBuilder();
+        String msg;
+        String startLine = "";
+        String header = "";
+        boolean startLineRead = false;
+        boolean headerRead = false;
+
+        do {
+            // TODO : 브라우저로 요청시 여기에서 NPE 발생 -> ready() 사용하니 증상은 해결됐으나, Client의 요청값을 제대로 받지 못하는 문제 발생
+            // msg = bufferedReader.ready()? bufferedReader.readLine() : null;
+            // while((msg = bufferedReader.readLine() ) != null){
+            // readLine()은 개행문자가 포함되어야 내부 blocking이 풀리면서 wihle문이 실행한다.
+            msg = bufferedReader.readLine();
+            if (msg == null) {
+                break;
+            }
+
+            request.append(msg).append(CARRIAGE_RETURN).append(LINE_FEED);
+
+            if(!startLineRead) {
+                startLine = request.toString();
+                request = new StringBuilder();
+            }
+
+            startLineRead = true;
+
+            // TODO : 메세지 끝 처리 고민
+            if (msg.equals("") && headerRead) {
+                break;
+            }
+
+            if (msg.equals("")) {
+                headerRead = true;
+                header = request.toString();
+                request = new StringBuilder();
+
+            }
+
+        } while (true);
+
+        System.out.println("[CLIENT] : " + startLine + "\r\n" +  header +  "\r\n" + request.toString());
+
+        return HttpMessage.from(startLine, header, request.toString());
     }
 
     public void sendMessage(BufferedWriter bufferedWriter) throws IOException {

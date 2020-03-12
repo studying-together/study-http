@@ -41,7 +41,7 @@ public class SjtWebClient {
         HttpMessage requestMessage = HttpMessage.builder()
                 .startLine(HttpMethods.GET + SPACE + "/index.html" + SPACE + "HTTP/1.1")
                 .header(header)
-                .body("{\"name\":\"heedi\", \"age\":\"3\"}")
+                .body("{\"name\":\"heedi\", \"age\":\"3\", \"favorite\":{\"food\":\"japchae\", \"place\":\"in my bed\"}}")
                 .build();
         requestMessage.sendMessage(bufferedWriter);
 
