@@ -40,11 +40,11 @@
 3. 요청 및 응답 처리
    1) httpEngine 초기화
    2) 요청 보내기
-      1. 요청 헤더 준비하기
-      2. 캐시 판별하기
-      3. Socket 생성 (TCP 연결 맺기)
-      4. Https 확인하고 SSL 설정하기
-      5. RouteSelector 를 이용해 Connection 을 생성 (ConnectionPool 사용을 위해)
-      6. socket 생성
-      7. socket 연결
+      a. 요청 헤더 준비하기
+      b. 캐시 판별하기
+      c. Socket 생성 (TCP 연결 맺기)
+      d. Https 확인하고 SSL 설정하기
+      e. RouteSelector 를 이용해 Connection 을 생성 (ConnectionPool 사용을 위해)
+      f. socket 생성
+      g. socket 연결
    3) 응답 읽기
