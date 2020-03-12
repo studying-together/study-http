@@ -55,46 +55,13 @@ public class HttpHandler implements Runnable {
         try {
             InputStream inputStream = socket.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            // 1. start line
-            HttpRequest httpRequest = parseStartLine(reader);
-            if(httpRequest == null) {
-                return null; //에러를 처리할 수 있는 시간이 없으니 null로 반환
-            }
-
-            // 2. header
-            String requestHeaderLine;
-            StringBuffer requestHeader = new StringBuffer();
-            while (reader.ready() && (requestHeaderLine = reader.readLine()) != null) {
-                if ("".equals(requestHeaderLine)) {
-                    break;    // 빈 줄 --> header 끝
-                }
-                requestHeader.append(requestHeaderLine);
-                requestHeader.append("\n");
-            }
-            //TODO:: 헤더 정보 HttpRequest에 넣어주기
-
-            // 3. body
-            String requestBodyLine;
-            StringBuffer requestBody = new StringBuffer();
-            while (reader.ready() && (requestBodyLine = reader.readLine()) != null) {
-                requestBody.append(requestBodyLine);
-                requestBody.append("\n");
-            }
-            //TODO:: 본문 정보 HttpRequest에 넣어주기
+            HttpRequest httpRequest = new HttpRequest().parseRequest(reader);
             LOGGER.info("request:\n {}", httpRequest);
             return httpRequest;
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
         return null;
-    }
-
-    private HttpRequest parseStartLine(BufferedReader reader) throws IOException {
-        final String startLine = reader.readLine();
-        if (startLine == null) {
-            return null;
-        }
-        return new HttpRequest().parseStartLine(startLine);
     }
 
     private void writeResponse(Status status) {
