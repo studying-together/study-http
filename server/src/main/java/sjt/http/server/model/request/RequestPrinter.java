@@ -5,14 +5,14 @@ import java.util.Optional;
 
 import sjt.http.server.model.util.JsonConverter;
 
-public class RequestPrint {
+public class RequestPrinter {
     private String startLine;
-    private String header;
+    private Map<String, String> headers;
     private String body;
 
-    public RequestPrint(HttpRequest request) {
-        this.startLine = request.getMethod() + " " + request.getUri() + "/" + request.getProtocolVersion();
-        this.header = Optional.ofNullable(request.getHeaders()).map(Map::toString).orElse(null);
+    public RequestPrinter(HttpRequest request) {
+        this.startLine = request.getMethod() + " " + request.getUri() + " " + request.getProtocolVersion();
+        this.headers = request.getHeaders();
         this.body = Optional.ofNullable(request.getBody()).orElse(null);
     }
 

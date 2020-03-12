@@ -37,6 +37,7 @@ public class HttpHandler implements Runnable {
     @Override
     public void run() {
         LOGGER.info("thread's name: {} ", Thread.currentThread().getName());
+
         HttpRequest httpRequest = readRequest();
         if(httpRequest == null) {
             writeResponse(Status.INTERNAL_SERVER_ERROR);    //에러를 처리할 수 있는 시간이 없으니 문제발생시 일단 500 반환

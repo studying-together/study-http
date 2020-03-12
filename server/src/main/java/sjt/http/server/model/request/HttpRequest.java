@@ -1,18 +1,18 @@
 package sjt.http.server.model.request;
 
 import sjt.http.server.model.HttpMethodType;
-import sjt.http.server.model.header.HttpHeader;
 import sjt.http.server.model.util.JsonConverter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class HttpRequest {
     transient private HttpMethodType method;
     transient private String uri;
     transient private String protocolVersion;
-    transient private Map<HttpHeader, String> headers;
+    transient private Map<String, String> headers;
     transient private String body;
 
     public HttpMethodType getMethod() {
@@ -27,7 +27,7 @@ public class HttpRequest {
         return protocolVersion;
     }
 
-    public Map<HttpHeader, String> getHeaders() {
+    public Map<String, String> getHeaders() {
         return headers;
     }
 
@@ -42,11 +42,6 @@ public class HttpRequest {
             this.uri = startLineData[1];
             this.protocolVersion = startLineData[2];
         }
-    }
-
-    public void parseRequestHeader(String requestHeaderLine) {
-        String[] splitedHeader = requestHeaderLine.split(": ");
-        System.out.println(splitedHeader);
     }
 
     public HttpRequest parseRequest(BufferedReader reader) throws IOException {
@@ -66,15 +61,18 @@ public class HttpRequest {
     }
 
     private HttpRequest parseHeader(BufferedReader reader) throws IOException {
-        //TODO:: 헤더 정보 HttpRequest에 넣어주기
         String headerLine;
-        StringBuilder requestHeader = new StringBuilder();
         while (reader.ready() && (headerLine = reader.readLine()) != null) {
             if ("".equals(headerLine)) {
                 break;    // 빈 줄 --> header 끝
             }
-            requestHeader.append(headerLine);
-            requestHeader.append("\n");
+            String[] keyValueHeaders = headerLine.split(": ");
+            String key = keyValueHeaders[0];
+            String value = keyValueHeaders[1];
+            if (headers == null) {
+                this.headers = new HashMap<>();
+            }
+            headers.put(key, value);
         }
         return this;
     }
@@ -92,6 +90,6 @@ public class HttpRequest {
 
     @Override
     public String toString() {
-        return JsonConverter.toString(new RequestPrint(this));
+        return JsonConverter.toString(new RequestPrinter(this));
     }
 }
