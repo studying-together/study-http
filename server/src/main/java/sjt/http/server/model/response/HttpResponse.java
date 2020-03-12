@@ -2,14 +2,17 @@ package sjt.http.server.model.response;
 
 import sjt.http.server.model.header.HttpHeader;
 import sjt.http.server.model.Status;
+import sjt.http.server.model.util.JsonConverter;
 
 import java.util.Map;
 
 public class HttpResponse {
     private String ProtocolVersion;
     private Status statusCode;
+    private String headers;
+    private String body;
 
-    private Map<HttpHeader, String> responsHeaders;
+    private Map<HttpHeader, String> responseHeaders;
 
     public String getProtocolVersion() {
         return ProtocolVersion;
@@ -27,19 +30,15 @@ public class HttpResponse {
         this.statusCode = statusCode;
     }
 
-    public Map<HttpHeader, String> getResponsHeaders() {
-        return responsHeaders;
+    public Map<HttpHeader, String> getResponseHeaders() {
+        return responseHeaders;
     }
 
-    public void setResponsHeaders(Map<HttpHeader, String> responsHeaders) {
-        this.responsHeaders = responsHeaders;
+    public void setResponseHeaders(Map<HttpHeader, String> responseHeaders) {
+        this.responseHeaders = responseHeaders;
     }
 
     @Override public String toString() {
-        return "HttpResponse{" +
-                "ProtocolVersion='" + ProtocolVersion + '\'' +
-                ", statusCode=" + statusCode +
-                ", responsHeaders=" + responsHeaders +
-                '}';
+        return JsonConverter.toString(this);
     }
 }

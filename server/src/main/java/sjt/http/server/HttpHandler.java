@@ -81,8 +81,7 @@ public class HttpHandler implements Runnable {
                 requestBody.append("\n");
             }
             //TODO:: 본문 정보 HttpRequest에 넣어주기
-
-            LOGGER.info("request: {}", httpRequest);
+            LOGGER.info("request:\n {}", httpRequest);
             return httpRequest;
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
