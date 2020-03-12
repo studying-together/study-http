@@ -78,13 +78,13 @@ public class HttpRequest {
     }
 
     private HttpRequest parseBody(BufferedReader reader) throws IOException {
-        //TODO:: 본문 정보 HttpRequest에 넣어주기
-        String requestBodyLine;
-        StringBuffer requestBody = new StringBuffer();
-        while (reader.ready() && (requestBodyLine = reader.readLine()) != null) {
-            requestBody.append(requestBodyLine);
+        String bodyLine;
+        StringBuilder requestBody = new StringBuilder();
+        while (reader.ready() && (bodyLine = reader.readLine()) != null) {
+            requestBody.append(bodyLine);
             requestBody.append("\n");
         }
+        this.body = requestBody.length() == 0 ? null : requestBody.toString();
         return this;
     }
 

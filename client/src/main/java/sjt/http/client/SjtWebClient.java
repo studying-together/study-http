@@ -32,8 +32,7 @@ public class SjtWebClient {
                 .append("Accept-Language: en-us\r\n")
                 .append("Accept-Encoding: gzip, deflate\r\n")
                 .append("Connection: Keep-Alive\r\n")
-                .append("\r\n")
-                .append("licenseID=string&content=string&/paramsXML=string\r\n");
+                .append("\r\n");
             writer.write(stringBuilder.toString());
             writer.flush();
             Stream<String> response = reader.lines();
