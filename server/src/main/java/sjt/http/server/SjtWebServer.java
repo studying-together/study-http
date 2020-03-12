@@ -47,7 +47,7 @@ public class SjtWebServer implements Runnable{
             HttpMessage responseMessage = HttpMessage.builder()
                     .startLine("HTTP/1.1" + SPACE + "200" + SPACE + "OK")
                     .header(header)
-                    .body("message body")
+                    .body(httpBody.toString())
                     .build();
             responseMessage.sendMessage(bufferedWriter);
 

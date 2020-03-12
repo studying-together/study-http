@@ -35,6 +35,7 @@ public class SjtWebClient {
                 .setHeader(GeneralHeader.CONNECTION, "keep-alive")
                 .setHeader(RequestHeader.HOST, "https://github.com/Study-Java-Together/study-http")
                 .setHeader(EntityHeader.CONTENT_TYPE, "application/json;charset=UTF-8") //"text/plain;charset=UTF-8"
+//                .setHeader(EntityHeader.CONTENT_TYPE, "text/html;")
                 .setHeaders(RequestHeader.ACCEPT_LANGUAGE, Stream.of("ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7")
                         .collect(Collectors.toList()));
 
@@ -42,20 +43,13 @@ public class SjtWebClient {
                 .startLine(HttpMethods.GET + SPACE + "/index.html" + SPACE + "HTTP/1.1")
                 .header(header)
                 .body("{\"name\":\"heedi\", \"age\":\"3\", \"favorite\":{\"food\":\"japchae\", \"place\":\"in my bed\"}}")
+//                .body("<title>First parse</title>" + "<p>Parsed HTML into a doc.</p>")
                 .build();
         requestMessage.sendMessage(bufferedWriter);
 
 
         // Get Response Message
-        StringBuilder response = new StringBuilder();
-        String msg;
-        do {
-            msg = bufferedReader.readLine();
-            response.append(msg).append(CARRIAGE_RETURN).append(LINE_FEED);
-        } while (!msg.equals(""));
-
-        System.out.println("[SERVER] :");
-        System.out.println(response.toString());
+        HttpMessage responseMessage = HttpMessage.getRequestMessage(bufferedReader);
 
         socket.close();
     }

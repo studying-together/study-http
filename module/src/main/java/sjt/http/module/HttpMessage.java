@@ -88,7 +88,7 @@ public class HttpMessage {
 
         } while (true);
 
-        System.out.println("[CLIENT] : " + startLine + "\r\n" +  header +  "\r\n" + request.toString());
+        System.out.println("[MESSAGE] : " + startLine + "\r\n" +  header +  "\r\n" + request.toString());
 
         return HttpMessage.from(startLine, header, request.toString());
     }

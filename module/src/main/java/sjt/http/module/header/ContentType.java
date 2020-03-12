@@ -1,6 +1,8 @@
 package sjt.http.module.header;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.util.Map;
@@ -13,7 +15,8 @@ public enum ContentType {
     },
     TEXT_HTML("text/html"){
         public String parse(String body) {
-            return null;
+            Document document = Jsoup.parse(body);
+            return document.outerHtml();
         }
     },
     APPLICATION_JSON("application/json"){ // RFC 4627
@@ -29,8 +32,10 @@ public enum ContentType {
             return null;
         }
     },
-    APPLICATION_X_WWW_FORM_URLENCODE("application/x-www-form-urlencode"){
+    APPLICATION_X_WWW_FORM_URLENCODED("application/x-www-form-urlencoded"){
         public String parse(String body) {
+            // This is the default content type. Forms submitted with this content type must be encoded as follows: *
+            //key=value&key=value
             return null;
         }
     },
