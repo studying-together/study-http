@@ -2,7 +2,6 @@ package sjt.http.client.clone;
 
 import com.squareup.okhttp.internal.Platform;
 import com.squareup.okhttp.internal.Util;
-import sjt.http.client.ResponseSource;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSocketFactory;

@@ -1,7 +1,5 @@
 package sjt.http.client.clone;
 
-import sjt.http.client.ResponseSource;
-
 import java.net.URI;
 
 public final class ResponseHeaders {

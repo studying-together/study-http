@@ -1,4 +1,4 @@
-package sjt.http.client;
+package sjt.http.client.clone;
 
 public enum ResponseSource {
 
