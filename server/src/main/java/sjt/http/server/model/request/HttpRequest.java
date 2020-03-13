@@ -77,6 +77,7 @@ public class HttpRequest {
         return this;
     }
 
+    //TODO:: content-type, 청크 등에 따라 파싱하도록 개선
     private HttpRequest parseBody(BufferedReader reader) throws IOException {
         String bodyLine;
         StringBuilder requestBody = new StringBuilder();

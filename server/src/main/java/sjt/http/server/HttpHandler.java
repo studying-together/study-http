@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 public class HttpHandler implements Runnable {
     private static final Logger LOGGER = LoggerFactory.getLogger(HttpHandler.class);
+    private static final byte[] CRLF = "\r\n".getBytes();
     private final Socket socket;
     private OutputStream outputStream;
 
@@ -73,6 +74,7 @@ public class HttpHandler implements Runnable {
         return new HttpResponse().load(request);
     }
 
+    //TODO:: writer 를 만들어서 권한 부여해주기
     private void writeResponse(HttpResponse httpResponse) {
         try (
             BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(this.outputStream)
@@ -81,13 +83,15 @@ public class HttpHandler implements Runnable {
             bufferedOutputStream.write(httpResponse.getProtocolVersion().getBytes());
             bufferedOutputStream.write(" ".getBytes());
             bufferedOutputStream.write(httpResponse.getStatusCode().getStatusCode().getBytes());
-            bufferedOutputStream.write("\r\n".getBytes());
+            bufferedOutputStream.write(CRLF);
 
             // 헤더
             bufferedOutputStream.write(httpResponse.getHeadersByte());
+            bufferedOutputStream.write(CRLF);
 
             // 바디
             bufferedOutputStream.write(httpResponse.getBody());
+            bufferedOutputStream.write(CRLF);
 
             bufferedOutputStream.flush();
         } catch (Exception e) {

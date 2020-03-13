@@ -90,15 +90,10 @@ public class HttpResponse {
         final String mockHeader = "Access-Control-Allow-Credentials: true\n"
             + "Cache-Control: no-cache\n"
             + "Connection: Keep-Alive\n"
-            + "Content-Encoding: gzip\n"
-            + "Content-Type: application/json\n"
+            + "Content-Type: text/html; charset=ko-KR\n"
             + "Date: Thu, 12 Mar 2020 09:28:35 GMT\n"
             + "Keep-Alive: timeout=20, max=996\n"
-            + "Server: Apache\n"
-            + "Set-Cookie: JSESSIONID=qKPOEv0kKPQx5Rt5OWe46YdQgMqMcjuPE3CujppEWT3iQUOy0lf_!-1878192317; path=/; HttpOnly\n"
-            + "Transfer-Encoding: chunked\n"
-            + "Vary: User-Agent,Accept-Encoding\n"
-            + "Via: STON Edge Server/2.6.402";
+            + "Server: Apache\n";
         return mockHeader.getBytes();
     }
 
