@@ -1,20 +1,23 @@
-package sjt.http.server.model.request;
+package model.request;
 
-import sjt.http.server.model.HttpMethodType;
-import sjt.http.server.model.header.HttpHeader;
-import sjt.http.server.model.header.HttpRequestHeader;
+import model.HttpMethodType;
+import model.header.HttpHeader;
+import model.header.HttpHeaders;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class HttpRequest {
-    // request line
     private HttpMethodType method;
     private String uri;
     private String protocolVersion;
     private Map<HttpHeader, String> requestHeader;
-    private String requestBody;
+    private Object requestBody;
 
-    // getter setter
+    public HttpRequest() {
+        requestHeader = new HashMap<>();
+    }
+
     public HttpMethodType getMethod() {
         return method;
     }
@@ -47,14 +50,19 @@ public class HttpRequest {
         this.requestHeader = requestHeader;
     }
 
-    public String getRequestBody() {
+    public Object getRequestBody() {
         return requestBody;
     }
 
-    public void setRequestBody(String requestBody) {
+    public void setRequestBody(Object requestBody) {
         this.requestBody = requestBody;
     }
 
+    /**
+     * 리퀘스트 라인 문자열을 메서드, uri, protocoltype 으로 변환한다.
+     *
+     * @param requestLine
+     */
     public void parseRequestLine(String requestLine) {
         String[] requestDatas = requestLine.split(" ");
 
@@ -65,9 +73,22 @@ public class HttpRequest {
         }
     }
 
+    /**
+     * 리퀘스트 헤더를 파싱한다.
+     *
+     * @param requestHeaderLine
+     */
     public void parseRequestHeader(String requestHeaderLine) {
         String[] splitedHeader = requestHeaderLine.split(": ");
+        HttpHeader header = HttpHeaders.requestHeaders.get(splitedHeader[0]);
 
+        if (header != null) {
+            requestHeader.put(header, splitedHeader[1]);
+        }
+    }
+
+    public boolean containHeader(HttpHeader httpHeader) {
+        return requestHeader.containsKey(httpHeader);
     }
 
     @Override public String toString() {

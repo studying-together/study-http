@@ -1,22 +1,27 @@
-package sjt.http.server.model.response;
+package model.response;
 
-import sjt.http.server.model.header.HttpHeader;
-import sjt.http.server.model.HttpStatusCode;
+import model.header.HttpHeader;
+import model.HttpStatusCode;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class HttpResponse {
-    private String ProtocolVersion;
+    private String protocolVersion;
     private HttpStatusCode statusCode;
-
     private Map<HttpHeader, String> responsHeaders;
+    private Object responseBody;
+
+    public HttpResponse() {
+        responsHeaders = new HashMap<>();
+    }
 
     public String getProtocolVersion() {
-        return ProtocolVersion;
+        return protocolVersion;
     }
 
     public void setProtocolVersion(String protocolVersion) {
-        ProtocolVersion = protocolVersion;
+        this.protocolVersion = protocolVersion;
     }
 
     public HttpStatusCode getStatusCode() {
@@ -35,9 +40,25 @@ public class HttpResponse {
         this.responsHeaders = responsHeaders;
     }
 
+    public Object getResponseBody() {
+        return responseBody;
+    }
+
+    public void setResponseBody(Object responseBody) {
+        this.responseBody = responseBody;
+    }
+
+    public void addResponseHeaders(HttpHeader httpHeader, String value) {
+        this.responsHeaders.put(httpHeader, value);
+    }
+
+    public String getStatusLine() {
+        return protocolVersion + " " + statusCode.getStatusCode() + "\r\n";
+    }
+
     @Override public String toString() {
         return "HttpResponse{" +
-                "ProtocolVersion='" + ProtocolVersion + '\'' +
+                "protocolVersion='" + protocolVersion + '\'' +
                 ", statusCode=" + statusCode +
                 ", responsHeaders=" + responsHeaders +
                 '}';

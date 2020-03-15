@@ -1,4 +1,9 @@
-package sjt.http.server.model.header;
+package model.header;
+
+import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public enum HttpRequestHeader implements HttpHeader{
     HOST("Host"),                   // 서버 도메인
@@ -18,12 +23,10 @@ public enum HttpRequestHeader implements HttpHeader{
         return header;
     }
 
-    public static HttpRequestHeader fromString(String headerStr) {
-        for (HttpRequestHeader requestHeader : HttpRequestHeader.values()) {
-            if (requestHeader.header.equals(headerStr)) {
-                return requestHeader;
-            }
-        }
-        return null;
+    public static HttpHeader fromString(String headerStr) {
+       return httpRequestHeaders.get(headerStr);
     }
+
+    public static final Map<String, HttpHeader> httpRequestHeaders = Arrays.stream(HttpRequestHeader.values())
+            .collect(Collectors.toMap(HttpRequestHeader::getHeader, Function.identity()));
 }

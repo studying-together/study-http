@@ -17,16 +17,7 @@ public class SjtWebClient {
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
         //writer.write("POST /cgi-bin/process.cgi HTTP/1.1\r\n");
-        writer.write("GET /text.txt HTTP/1.1\r\n");
-        writer.write("User-Agent: Mozilla/4.0 (compatible; MSIE5.01; Windows NT)\r\n");
-        writer.write("Host: www.tutorialspoint.com\r\n");
-        writer.write("Content-Type: application/x-www-form-urlencoded\r\n");
-        writer.write("Content-Length: length\r\n");
-        writer.write("Accept-Language: en-us\r\n");
-        writer.write("Accept-Encoding: gzip, deflate\r\n");
-        writer.write("Connection: Keep-Alive\r\n");
-        writer.write("\r\n");
-        writer.write("licenseID=string&content=string&/paramsXML=string\r\n");
+        getRequest(writer);
         writer.flush();
 
         // 서버에서 받은 응답 값 출력.
@@ -34,6 +25,33 @@ public class SjtWebClient {
         reponse.forEach(System.out::println);
 
         socket.close();
+    }
+
+    public static void getRequest(BufferedWriter writer) throws IOException{
+        writer.write("GET /text.txt HTTP/1.1\r\n");
+        writer.write("User-Agent: Mozilla/4.0 (compatible; MSIE5.01; Windows NT)\r\n");
+        writer.write("Host: www.tutorialspoint.com\r\n");
+        writer.write("Accept-Language: en-us\r\n");
+        writer.write("Accept-Encoding: gzip, deflate\r\n");
+        writer.write("Connection: Keep-Alive\r\n");
+        writer.write("\r\n");
+    }
+
+    public static void postRequest(BufferedWriter writer) throws IOException{
+        writer.write("POST /info HTTP/1.1\r\n");
+        writer.write("User-Agent: Mozilla/4.0 (compatible; MSIE5.01; Windows NT)\r\n");
+        writer.write("Host: www.tutorialspoint.com\r\n");
+        writer.write("Content-Type: application/json\r\n");
+        writer.write("Content-Length: length\r\n");
+        writer.write("Accept-Language: en-us\r\n");
+        writer.write("Accept-Encoding: gzip, deflate\r\n");
+        writer.write("Connection: Keep-Alive\r\n");
+        writer.write("\r\n");
+        writer.write("        {\n"
+                + "            \"followersCount\" : 220,\n"
+                + "            \"tweettext\":\"#Stack Overflow rocks\",\n"
+                + "            \"Name\": \"John Doe\"\n"
+                + "        }\r\n");
     }
 
 }

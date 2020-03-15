@@ -1,4 +1,9 @@
-package sjt.http.server.model.header;
+package model.header;
+
+import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public enum HttpEntityHeader implements HttpHeader {
     CONTENT_TYPE("Content-Type"),   //  엔티티 바디의 미디어 타입
@@ -25,4 +30,7 @@ public enum HttpEntityHeader implements HttpHeader {
         }
         return null;
     }
+
+    public static final Map<String, HttpHeader> httpEntityHeaders = Arrays.stream(HttpEntityHeader.values())
+            .collect(Collectors.toMap(HttpEntityHeader::getHeader, Function.identity()));
 }
