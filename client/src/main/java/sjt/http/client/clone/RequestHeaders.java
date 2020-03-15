@@ -32,7 +32,7 @@ public final class RequestHeaders {
     }
 
     public RawHeaders getHeaders() {
-        return null;
+        return headers;
     }
 
     public String getUserAgent() {

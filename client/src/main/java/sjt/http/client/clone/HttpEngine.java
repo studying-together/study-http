@@ -1,8 +1,5 @@
 package sjt.http.client.clone;
 
-import com.squareup.okhttp.internal.Platform;
-import com.squareup.okhttp.internal.Util;
-
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSocketFactory;
 import java.io.ByteArrayInputStream;
@@ -13,9 +10,9 @@ import java.net.*;
 import java.util.*;
 import java.util.zip.GZIPInputStream;
 
-import static com.squareup.okhttp.internal.http.HttpEngine.getDefaultUserAgent;
 import static sjt.http.client.clone.Util.EMPTY_BYTE_ARRAY;
 import static sjt.http.client.clone.Util.getDefaultPort;
+import static sjt.http.client.clone.Util.getEffectivePort;
 
 public class HttpEngine {
     private static final CacheResponse GATEWAY_TIMEOUT_RESPONSE = new CacheResponse() {
@@ -31,6 +28,7 @@ public class HttpEngine {
             return new ByteArrayInputStream(EMPTY_BYTE_ARRAY);
         }
     };
+    public static final int HTTP_CONTINUE = 100;
 
     protected final HttpUrlConnectionImpl policy;
 
@@ -39,7 +37,7 @@ public class HttpEngine {
     private ResponseSource responseSource;
 
     protected Connection connection;
-    protected RouterSelector routerSelector;
+    protected RouteSelector routeSelector;
     private OutputStream requestBodyOut;
 
     private Transport transport;
@@ -70,14 +68,10 @@ public class HttpEngine {
 
     private boolean connectionReleased;
 
-    public HttpEngine(HttpUrlConnectionImpl policy, String method, RawHeaders requestHeaders, Connection connection, RetryableOutputStream requestBodyOut) throws IOException {
+    public HttpEngine(HttpUrlConnectionImpl policy, String method, RawHeaders requestHeaders, Connection connection, RetryableOutputStream requestBodyOut) throws IOException, URISyntaxException {
         this.policy = policy;
         this.method = method;
-        try {
-            uri = Platform.get().toUriLenient(policy.getURL());
-        } catch (URISyntaxException e) {
-            throw new IOException(e.getMessage());
-        }
+        uri = Platform.get().toUriLenient(policy.getURL());
 
         this.requestHeaders = new RequestHeaders(uri, new RawHeaders(requestHeaders));
     }
@@ -176,7 +170,7 @@ public class HttpEngine {
         return true;
     }
 
-    private void sendSocketRequest() throws UnknownHostException {
+    private void sendSocketRequest() throws IOException {
         if (connection == null) {
             connect();
         }
@@ -192,12 +186,12 @@ public class HttpEngine {
         }
     }
 
-    protected final void connect() throws UnknownHostException {
+    protected final void connect() throws IOException {
         if (connection != null) {
             return;
         }
 
-        if (routerSelector == null) {
+        if (routeSelector == null) {
             String uriHost  = uri.getHost();
             if (uriHost == null) {
                 throw new UnknownHostException(uri.toString());
@@ -208,7 +202,22 @@ public class HttpEngine {
                 sslSocketFactory = policy.sslSocketFactory;
                 hostnameVerifier = policy.hostnameVerifier;
             }
+            Address address = new Address(uriHost, getEffectivePort(uri), sslSocketFactory,
+                    hostnameVerifier, policy.authenticator, policy.requestedProxy, policy.transports);
+            routeSelector = new RouteSelector(address, uri, policy.proxySelector, policy.connectionPool,
+                    Dns.DEFAULT, policy.getFailedRoutes());
         }
+        connection = routeSelector.next();
+        if (!connection.isConnected()) {
+            connection.connect(policy.getConnectTimeout(), policy.getReadTimeout(), getTunnelConfig());
+
+        }
+
+
+    }
+
+    private TunnelRequest getTunnelConfig() {
+        return null;
     }
 
     private void prepareRawRequestHeaders() throws IOException {
@@ -248,6 +257,11 @@ public class HttpEngine {
         }
     }
 
+    public static String getDefaultUserAgent() {
+        String agent = System.getProperty("http.agent");
+        return agent != null ? agent : ("Java" + System.getProperty("java.version"));
+    }
+
     boolean hasRequestBody() {
         return method.equals("POST") || method.equals("PUT");
     }
@@ -262,7 +276,34 @@ public class HttpEngine {
     }
 
     private String getRequestLine() {
-        return null;
+        String protocol = (connection == null || connection.getHttpMinorVersion() != 0) ? "HTTP/1.1" : "HTTP/1.0";
+        return method + " " + requestString() + " " + protocol;
+    }
+
+    private String requestString() {
+        URL url = policy.getURL();
+        if (includeAuthorityInRequestLine()) {
+            return url.toString();
+        } else {
+            return requestPath(url);
+        }
+    }
+
+    public static String requestPath(URL url) {
+        String fileOnly = url.getFile();
+        if (fileOnly == null) {
+            return "/";
+        } else if (!fileOnly.startsWith("/")) {
+            return "/" + fileOnly;
+        } else {
+            return fileOnly;
+        }
+    }
+
+    protected boolean includeAuthorityInRequestLine() {
+        return connection == null
+                ? policy.usingProxy()
+                : connection.getRoute().getProxy().type() == Proxy.Type.HTTP;
     }
 
     public boolean hasResponse() {
@@ -353,6 +394,14 @@ public class HttpEngine {
 
 
     }
+
+    public final ResponseHeaders getResponseHeaders() {
+        if (responseHeaders == null) {
+            throw new IllegalStateException();
+        }
+        return responseHeaders;
+    }
+
 
     private boolean hasResponseBody() {
         return false;

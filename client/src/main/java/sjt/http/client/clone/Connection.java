@@ -1,9 +1,7 @@
 package sjt.http.client.clone;
 
-import java.io.Closeable;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
+import java.net.Proxy;
 import java.net.Socket;
 
 public final class Connection implements Closeable {
@@ -13,6 +11,7 @@ public final class Connection implements Closeable {
     private Socket socket;
     private InputStream in;
     private OutputStream out;
+    private boolean connected = false;
     private SpdyConnection spdyConnection;
     private int httpMonitorVersion = 1;
     private long idleStartTimeNs;
@@ -69,5 +68,46 @@ public final class Connection implements Closeable {
     public Object newTranport(HttpEngine httpEngine) {
         return (spdyConnection != null) ?  new SpdyTransport(httpEngine,  spdyConnection)
                 : new HttpTransport(httpEngine, out, in);
+    }
+
+    public boolean isConnected() {
+        return connected;
+    }
+
+    public void connect(int connectTimeout, int readTimeout, TunnelRequest tunnelConfig) throws IOException {
+        if (connected) {
+            throw new IllegalStateException("already connected");
+        }
+
+        connected = true;
+        socket = (route.proxy.type() != Proxy.Type.HTTP) ? new Socket(route.proxy) : new Socket();
+        socket.connect(route.inetSocketAddress, connectTimeout);
+        socket.setSoTimeout(readTimeout);
+        in = socket.getInputStream();
+        out = socket.getOutputStream();
+
+        if (route.address.sslSocketFactory != null) {
+            upgradeToTls(tunnelConfig);
+        }
+    }
+
+    private void upgradeToTls(TunnelRequest tunnelRequest) throws IOException {
+        Platform platform = Platform.get();
+
+        if (requiresTunnel()) {
+            makeTunnel(tunnelRequest);
+        }
+    }
+
+    private void makeTunnel(TunnelRequest tunnelRequest) throws IOException {
+        RawHeaders requestHeaders = tunnelRequest.getRequestHeaders();
+        while (true) {
+            out.write(requestHeaders.toBytes());
+            RawHeaders responseHeaders = RawHeaders.fromBytes(in);
+        }
+    }
+
+    private boolean requiresTunnel() {
+        return route.address.sslSocketFactory != null && route.proxy.type() == Proxy.Type.HTTP;
     }
 }

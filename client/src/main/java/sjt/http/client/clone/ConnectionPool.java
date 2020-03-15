@@ -1,7 +1,6 @@
 package sjt.http.client.clone;
 
 import com.squareup.okhttp.internal.Platform;
-import com.squareup.okhttp.internal.Util;
 
 import java.net.SocketException;
 import java.util.ArrayList;
@@ -13,6 +12,24 @@ import java.util.concurrent.*;
 public class ConnectionPool {
 
     private static final int MAX_CONNECTION_TO_CLEAN_UP = 2;
+    private static final long DEFAULT_KEEP_ALIVE_DURATION_MS = 5 * 60 * 1000; // 5 min
+
+    private static final ConnectionPool systemDefault;
+
+    static {
+        String keepAlive = System.getProperty("http.keepAlive");
+        String keepAliveDuration = System.getProperty("http.keepAliveDuration");
+        String maxIdleConnections = System.getProperty("http.maxConnections");
+        long keepAliveDurationMs = keepAliveDuration != null ? Long.parseLong(keepAliveDuration)
+                : DEFAULT_KEEP_ALIVE_DURATION_MS;
+        if (keepAlive != null && !Boolean.parseBoolean(keepAlive)) {
+            systemDefault = new ConnectionPool(0, keepAliveDurationMs);
+        } else if (maxIdleConnections != null) {
+            systemDefault = new ConnectionPool(Integer.parseInt(maxIdleConnections), keepAliveDurationMs);
+        } else {
+            systemDefault = new ConnectionPool(5, keepAliveDurationMs);
+        }
+    }
 
     private int maxIdleConnections;
     private long keepAliveDurationNs;
@@ -62,6 +79,10 @@ public class ConnectionPool {
         this.keepAliveDurationNs = keepAliveDurationMs * 1000 * 1000;
     }
 
+    public static ConnectionPool getDefault() {
+        return systemDefault;
+    }
+
     public void recycle(Connection connection) {
         executorService.submit(connectionsCleanupCallable);
 
@@ -86,5 +107,37 @@ public class ConnectionPool {
             connections.addFirst(connection);
             connection.resetIdleStartTime();
         }
+    }
+
+    public Connection get(Address address) {
+        Connection foundConnection = null;
+        for (ListIterator<Connection> i = connections.listIterator(connections.size());
+             i.hasPrevious(); ) {
+            Connection connection = i.previous();
+            if (!connection.getRoute().getAddress().equals(address)
+                    || !connection.isAlive()
+                    || System.nanoTime() - connection.getIdleStartTimeNs() >= keepAliveDurationNs) {
+                continue;
+            }
+            i.remove();
+            if (!connection.isSpdy()) {
+                try {
+                    Platform.get().tagSocket(connection.getSocket());
+                } catch (SocketException e) {
+                    Util.closeQuietly(connection);
+                    Platform.get().logW("Unable to tagSocket()" + e);
+                    continue;
+                }
+            }
+            foundConnection = connection;
+            break;
+        }
+
+        if (foundConnection != null && foundConnection.isSpdy()) {
+            connections.addFirst(foundConnection);
+        }
+
+        executorService.submit(connectionsCleanupCallable);
+        return foundConnection;
     }
 }

@@ -7,6 +7,7 @@ import javax.net.ssl.SSLSocketFactory;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.*;
+import java.util.List;
 import java.util.Set;
 
 public class HttpUrlConnectionImpl extends HttpURLConnection {
@@ -15,12 +16,15 @@ public class HttpUrlConnectionImpl extends HttpURLConnection {
 
     private final RawHeaders rawRequestHeaders = new RawHeaders();
 
+    final ProxySelector proxySelector;
     final CookieHandler  cookieHandler;
     final OkResponseCache responseCache;
     final ConnectionPool connectionPool;
 
     SSLSocketFactory sslSocketFactory;
     HostnameVerifier hostnameVerifier;
+    List<String> transports;
+    OkAuthenticator authenticator;
 
     final Set<Route> failedRoutes;
 
@@ -32,7 +36,12 @@ public class HttpUrlConnectionImpl extends HttpURLConnection {
         this.failedRoutes = failedRoutes;
         this.connectionPool = client.getConnectionPool();
         this.requestedProxy = client.getProxy();
+        this.proxySelector = client.getProxySelector();
         this.cookieHandler = client.getCookieHandler();
+        this.sslSocketFactory = client.getSslSocketFactory();
+        this.hostnameVerifier = client.getHostnameVerifier();
+        this.transports = client.getTransports();
+        this.authenticator = client.getAuthenticator();
         this.responseCache = responseCache;
     }
 
@@ -124,6 +133,17 @@ public class HttpUrlConnectionImpl extends HttpURLConnection {
     public static final class HttpsEngine extends HttpEngine {
         public HttpsEngine(HttpUrlConnectionImpl customHttpUrlConnection, String method, RawHeaders requestHeaders, Connection connection, RetryableOutputStream requestBody) throws IOException {
             super(customHttpUrlConnection, method, requestHeaders, connection, requestBody);
+        }
+    }
+
+
+    @Override
+    public String getHeaderField(String fieldName) {
+        try {
+            RawHeaders rawHeaders = getResponse().getResponseHeaders().getHeaders();
+            return fieldName == null ? rawHeaders.getStatusLine() : rawHeaders.get(fieldName);
+        } catch (IOException e) {
+            return null;
         }
     }
 
