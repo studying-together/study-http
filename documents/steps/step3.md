@@ -9,7 +9,7 @@
 ##### CHH : 
 ##### KDH : 
 ##### KDH : 
-##### JMS : 
+##### JMS : HTTP Client는 HTTP 프로토콜에 맞게 request를 보내고 response를 받는 작업을 도와주는 라이브러리다.
 ##### HSM : 
 
 <hr>
