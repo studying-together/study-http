@@ -1,6 +1,6 @@
 # OK HTTP 1.0 오픈소스 분석
 
-![OkHttp Architecture](./images/okhttp-architecture.png)
+![OkHttp Architecture](images/okhttp-architecture.png)
 
 OkHttp Client 를 이용해 실행한다.
 
