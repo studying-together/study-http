@@ -34,7 +34,7 @@
 - 높은 버전은 어려우므로 1 버전으로 진행 !
 
 - OkHttp 를 **디버깅**하며 정리한 내용을 한 장의 문서로 만들어 **공유**해보자 !
-   - [YHJ](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/homelus/what-okHttp.md) Http 구조 정리! 
+   - YHJ [Http 구조 정리](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/homelus/what-okHttp.md)! 
    - KYS
    - CHH
    - KDH
