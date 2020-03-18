@@ -40,7 +40,7 @@
    - KDH
    - KDH
    - JMS
-   - HMS
+   - HMS [Http 구조 정리](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/sungminhong/what-okHttp.md)! 
 
 #### 다음을 참고하자
 
