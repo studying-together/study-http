@@ -23,8 +23,12 @@ public class HttpEngine {
             connection.start();
 
             // 1. request 보내기
-            String uri = host + ":" + port + path;
-            HttpRequest httpRequest = new HttpRequest(method, uri, HTTP_PROTOCOL_VERSION);
+            HttpRequest httpRequest = new HttpRequest(method, path, HTTP_PROTOCOL_VERSION);
+
+            // set header & body
+            httpRequest.addRequestHeader("Host", host + ":" + port);
+            httpRequest.addRequestHeader("Content-Type", "application/json");
+            httpRequest.setRequestBody(body);
             httpRequest.writeHttpRequest(connection.getOutputStream());
 
             // 2. response 받기
