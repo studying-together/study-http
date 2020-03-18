@@ -5,10 +5,10 @@
 #### HTTP Client 가 무엇인가요
 
 ##### YHJ : HTTP Server 와 통신하도록 도와주는 라이브러리, 통신을 효율적으로 사용할 수 있도록 내부적으로 여러 기능을 제공한다.
-##### KYS : 
+##### KYS : HTTP 서버와 통신을 할 수 있도록 기능을 제공하는 라이브러리, 사용자는 프로토콜의 변할 수 있는 부분만 결정해주면, 클라이언트가 서버와 소통할 수 있는 형태로 변환하여 요청 해주고, 응답 역시 사용자가 쉽게 해석하고 그에 맞는 처리를 **쉽게** 할 수 있도록 변환하여 제공해 준다.
 ##### CHH : 
 ##### KDH : 
-##### KDH : 
+##### KDH : 필요한 정보를 위해 Server에 요청을 보내고 받는 역할을 담당한다. Client가 Http 프로토콜을 기반으로 통신하는 과정에서 필요한 포맷과 기능을 지원하는 범용 라이브러리인 okHttp, RestTemplate(Spring), Apache의 HttpClient 등이 있다. 
 ##### JMS : HTTP Client는 HTTP 프로토콜에 맞게 request를 보내고 response를 받는 작업을 도와주는 라이브러리다.
 ##### HSM : 추상적으로 생각해보면 HTTP Client는 HTTP 통신으로 외부에 있는 누군가와 의사소통을 하려는 당사자라고 생각합니다. 구현에 초점을 두고 생각해본다면 HTTP 제약에 맞춰 목적지 서버와 통신을 위해 관련 요청을 하고 수신 처리를 하도록 도와주는 라이브러리라고 생각합니다.
 
@@ -38,7 +38,7 @@
    - KYS
    - CHH
    - KDH
-   - KDH
+   - KDH [Http 구조 정리](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/heedi/what-okHttp.md)!
    - JMS
    - HMS [Http 구조 정리](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/sungminhong/what-okHttp.md)! 
 
