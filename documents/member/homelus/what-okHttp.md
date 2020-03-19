@@ -1,6 +1,6 @@
 ## OK HTTP 1.0 오픈소스 분석
 
-![OkHttp Architecture](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/homelus/image/okhttp-architecture.png)
+![OkHttp Architecture](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/homelus/image/okhttp1.0-architecture.png)
 
 OkHttpClient 는 open() 메서드를 이용해 HttpURLConnection 을 생성하고 기본값들을 정의하고 전달하는 시작점의 역할을 한다.
 
