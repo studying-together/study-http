@@ -4,6 +4,7 @@
 1. :checkered_flag: [2020-02-18-첫번째 걸음](/documents/steps/step1.md)
 2. :house: [2020-03-05-두번째 걸음](/documents/steps/step2.md)
 3. :zap: [2020-03-12-세번째 걸음](/documents/steps/step3.md)
+4. :fearful: [2020-03-19-네번째 걸음](/documents/steps/step4.md)
 
 ### :walking: [RFC-2616 (HTTP/1.1) 번역](https://github.com/Study-Java-Together/study-http/blob/master/rfc-2616-HTTP1.1/ko/context.md )
 
