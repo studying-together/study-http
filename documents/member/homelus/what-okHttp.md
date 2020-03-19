@@ -1,6 +1,6 @@
 # OK HTTP 1.0 오픈소스 분석
 
-![OkHttp Architecture](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/homelus/image/okhttp-architecture.png)
+![OkHttp Architecture](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/homelus/image/okhttp_architecture.png)
 
 OkHttp Client 를 이용해 실행한다.
 
