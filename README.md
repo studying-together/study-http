@@ -11,7 +11,7 @@
 ## 스터디
 
 - 방식
-  - 질문이나 토의 주제는 Issues 등록
+  - 과제한 내용을 서로 나누고 다음주 과제 학습하기
 - 구조
   - Master branch 는 기능이 없는 뼈대로 사용
   - 개인의 branch 를 만들고 기능 구현
@@ -25,9 +25,8 @@
 - 실제로 어떻게 [**Connection** 이 맺어질까](/documents/connection.md)
 - HTTP 1.0 / 1.1 / 2.0 은 어떻게 통신하며 그러기 위해 어떻게 구현해야 할까 
 
-### :dart: 공부 목표
-- 간단한 HttpClient 를 만들어보자
-- 간단한 HttpServer 를 만들어보자
+### :art: 공부 목표
+- HttpClient / HttpServer 의 핵심을 이해하자 
 - open source 에 PR 을 날려보자
 
 ### 더 알아보기
