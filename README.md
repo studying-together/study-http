@@ -1,6 +1,6 @@
 # HTTP 공부하기
 
-## :trolleybus: 스터디 진행상황
+## :trolleybus: 스터디 진행 중
 1. :checkered_flag: [2020-02-18-첫번째 걸음](/documents/steps/step1.md)
 2. :house: [2020-03-05-두번째 걸음](/documents/steps/step2.md)
 3. :zap: [2020-03-12-세번째 걸음](/documents/steps/step3.md)
