@@ -6,7 +6,7 @@
 3. :zap: [2020-03-12-세번째 걸음](/documents/steps/step3.md)
 4. :fearful: [2020-03-19-네번째 걸음](/documents/steps/step4.md)
 
-### :walking: [RFC-2616 (HTTP/1.1) 번역](https://github.com/Study-Java-Together/study-http/blob/master/rfc-2616-HTTP1.1/ko/context.md )
+#### :walking: [RFC-2616 (HTTP/1.1)를 번역해볼까](https://github.com/Study-Java-Together/study-http/blob/master/rfc-2616-HTTP1.1/ko/context.md )
 
 ## 스터디
 
