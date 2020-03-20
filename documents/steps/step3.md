@@ -40,7 +40,7 @@
    - KDH [Http 디버깅 & 헤더 뜯어보기](../member/kimdahyeee/what-okHttp.md)
    - KDH [Http 구조 정리](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/heedi/what-okHttp.md)!
    - JMS
-   - HMS [Http 구조 정리](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/sungminhong/what-okHttp.md)! 
+   - HSM [Http 구조 정리](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/sungminhong/what-okHttp.md)! 
 
 #### 다음을 참고하자
 
