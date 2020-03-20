@@ -1,5 +1,5 @@
 #OK HTTP 디버깅
-![OkHttp Architecture](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/misudev/image/image.png)
+![OkHttp Architecture](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/misudev/image/okhttp.png)
 
 1. 클라이언트 생성 (OkHttpClient)
 2. 클라이언트 URL 설정 및 초기화 (OkHttpClient -> HttpURLConnectionImpl)
