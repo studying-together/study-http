@@ -3,7 +3,7 @@
 ### package 구조
 초기 버전이라 그런지 패키지 구조가 단순하다. 
 okhttp, internal, internal/http, internal/spdy, internal/tls 패키지로 구분해 놓았다. 
-![okhttp 패키지 구조](/image/okhttp-package.png)
+![okhttp 패키지 구조](./image/okhttp-package.png)
 
 ### 인터페이스 역할
 1. Transport : 실제 전송을 담당하는 역할의 클래스. 
