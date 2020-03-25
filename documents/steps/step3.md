@@ -36,7 +36,7 @@
 - OkHttp 를 **디버깅**하며 정리한 내용을 한 장의 문서로 만들어 **공유**해보자 !
    - YHJ [Http 구조 한눈에 보기](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/homelus/what-okHttp.md)! 
    - KYS [ok-http 정리](../member/pplenty/debug-ok-http.md)
-   - CHH
+   - CHH [okHttp 흐름 따라가기](https://github.com/study-java-together/study-http/blob/master/documents/member/vvshinevv/what-okHttp.md)
    - KDH [OkHttp디버깅 & 헤더 뜯어보기](../member/kimdahyeee/what-okHttp.md)
    - KDH [Http 구조 정리](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/heedi/what-okHttp.md)!
    - JMS [okHttp 디버깅 & 흐름 보기](../member/misudev/what-okhttp.md)
