@@ -11,7 +11,7 @@
 ### 조금 세밀한 부분에 집중해보자 !
 
 - HttpClient 에서 공부하고 싶은 부분 정리해보기
-   - YHJ : [Connection Pool 이 도대체 뭔데 ?]()
+   - YHJ : [Connection Pool 이 도대체 뭔데 ?](https://github.com/study-java-together/study-http/blob/master/documents/member/homelus/connection-pool.md)
    - KYS : 
    - CHH : 
    - KDH : 
