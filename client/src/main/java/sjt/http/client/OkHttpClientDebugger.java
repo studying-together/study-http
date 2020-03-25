@@ -1,12 +1,12 @@
 package sjt.http.client;
 
+import com.squareup.okhttp.ConnectionPool;
+import com.squareup.okhttp.HttpResponseCache;
 import com.squareup.okhttp.OkHttpClient;
 
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.Socket;
 import java.net.URL;
 
 public class OkHttpClientDebugger {
@@ -15,32 +15,27 @@ public class OkHttpClientDebugger {
         useOkHttpClient();
     }
 
-
     private static void useOkHttpClient() throws IOException {
+        ConnectionPool connectionPool = new ConnectionPool(10, 10 * 60 * 1000);
+        HttpResponseCache httpResponseCache = new HttpResponseCache(new File("./cache"), 100);
+
         OkHttpClient client = new OkHttpClient();
-        HttpURLConnection connection = client.open(new URL("http://localhost:8000"));
+
+        client.setResponseCache(httpResponseCache);
+        client.setConnectionPool(connectionPool);
+
+        HttpURLConnection connection = client.open(new URL("http://localhost:9090/hello"));
+        connection.setUseCaches(true);
+        connection.setConnectTimeout(10 * 60 * 1000);
+
         String contentType = connection.getContentType();
-        HttpURLConnection connection2 = client.open(new URL("http://localhost:8000"));
-        System.out.println("pool size: " + client.getConnectionPool().getHttpConnectionCount());
-
-        String contentType2 = connection.getContentType();
         System.out.println(contentType);
-        System.out.println("pool size: " + client.getConnectionPool().getHttpConnectionCount());
 
-
-
-
-        System.out.println(connection.getResponseCode());
-        System.out.println(connection.getResponseMessage());
-        System.out.println(connection.getHeaderFields().toString());
-
-        InputStream inputStream = connection.getInputStream();
-        byte[] buffer = new byte[512];
-        StringBuilder sb = new StringBuilder();
-        while (inputStream.read(buffer) != -1) {
-            sb.append(new String(buffer));
-        }
-        System.out.println(sb.toString());
+        HttpURLConnection connection2 = client.open(new URL("http://localhost:9090/hello"));
+        connection2.setUseCaches(true);
+        connection2.setConnectTimeout(10 * 60 * 1000);
+        String contentType2 = connection2.getContentType();
+        System.out.println(contentType2);
     }
 
 }

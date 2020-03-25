@@ -1,0 +1,13 @@
+http://localhost:9090/hello
+GET
+0
+HTTP/1.1 200 
+8
+Connection: keep-alive
+Content-Length: 5
+Content-Type: text/plain;charset=UTF-8
+Date: Wed, 25 Mar 2020 16:19:03 GMT
+Keep-Alive: timeout=60
+X-Android-Received-Millis: 1585153143725
+X-Android-Response-Source: NETWORK 200
+X-Android-Sent-Millis: 1585153143674
