@@ -11,13 +11,13 @@
 ### 조금 세밀한 부분에 집중해보자 !
 
 - HttpClient 에서 공부하고 싶은 부분 정리해보기
-   - YHJ [Connection Pool 이 도대체 뭔데 ?]()
-   - KYS 
-   - CHH
-   - KDH 
-   - KDH 
-   - JMS 
-   - HSM 
+   - YHJ : [Connection Pool 이 도대체 뭔데 ?]()
+   - KYS : 
+   - CHH : 
+   - KDH : 
+   - KDH : 
+   - JMS : 
+   - HSM : 
 
 #### 예제
 
