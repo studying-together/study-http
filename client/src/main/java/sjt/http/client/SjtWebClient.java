@@ -20,7 +20,7 @@ public class SjtWebClient {
         URLConnection urlConnection = url.openConnection();
         InputStream inputStream = urlConnection.getInputStream();
         byte[] buffer = new byte[512];
-        StringBuilder sb = newgit a StringBuilder();
+        StringBuilder sb = new StringBuilder();
         while (inputStream.read(buffer) != -1) {
             sb.append(new String(buffer));
         }
