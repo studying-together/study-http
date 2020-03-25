@@ -14,7 +14,7 @@
    - YHJ : [Connection Pool 이 도대체 뭔데 ?](https://github.com/study-java-together/study-http/blob/master/documents/member/homelus/connection-pool.md)
    - KYS : 
    - CHH : 
-   - KDH : 
+   - KDH : [REDIRECT](../member/kimdahyeee/okHttp-redirect.md)
    - KDH : 
    - JMS : 
    - HSM : 
