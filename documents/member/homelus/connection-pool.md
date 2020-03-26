@@ -18,9 +18,6 @@ Connection Pool 흔히 데이터베이스에서 쓰이는데 HttpClient 에서�
 
 ### 자세하게 알아보기 위해 HttpClient 에서 제공하는 ConnectionPool 관리자인 MultiThreadedHttpConnectionManager 를 참고해 설명한다.
 
-> HttpClient 는 우리가 스프링에서 흔히 사용하는 RestTemplate 에 사용된다.
-> RestTemplate 에서 제공하는 옵션들을 살펴보며 ConnectionPool 을 이해해보자
-
 저장소는 전역에서 사용되는 ConnectionPool 그리고 그 내부에서 Host 별로 사용되는 HostConnectionPool 이 존재한다.<br>
 (Map 으로 사용한다.)
 
