@@ -12,10 +12,10 @@
 
 - HttpClient 에서 공부하고 싶은 부분 정리해보기
    - YHJ : [Connection Pool 이 도대체 뭔데 ?](https://github.com/study-java-together/study-http/blob/master/documents/member/homelus/connection-pool.md)
-   - KYS : 
-   - CHH : 
+   - KYS : Cache
+   - CHH : DNS
    - KDH : [REDIRECT](../member/kimdahyeee/okHttp-redirect.md)
-   - KDH : 
+   - KDH : Cache
    - JMS : [OkHTTP에서 Https 통신 과정](https://github.com/study-java-together/study-http/blob/master/documents/member/misudev/okhttp-https.md)
    - HSM : 
 
