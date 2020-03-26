@@ -16,9 +16,14 @@ public class SjtWebServer {
         SpringApplication.run(SjtWebServer.class, args);
     }
 
-    @GetMapping("/{message}")
-    public String test(@PathVariable String message) {
+    @GetMapping("/upper/{message}")
+    public String test1(@PathVariable String message) {
         return message.toUpperCase();
+    }
+
+    @GetMapping("/lower/{message}")
+    public String test2(@PathVariable String message) {
+        return message.toLowerCase();
     }
 
 }
