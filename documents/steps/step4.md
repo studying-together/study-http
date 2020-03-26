@@ -17,7 +17,7 @@
    - KDH : [REDIRECT](../member/kimdahyeee/okHttp-redirect.md)
    - KDH : Cache
    - JMS : [OkHTTP에서 Https 통신 과정](https://github.com/study-java-together/study-http/blob/master/documents/member/misudev/okhttp-https.md)
-   - HSM : 
+   - HSM : socket 전송 시점 
 
 #### 예제
 
