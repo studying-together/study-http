@@ -1,5 +1,5 @@
 
-![Class Diagram](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/misudev/image/classdiagram.png){: width="70%"}
+![Class Diagram](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/misudev/image/classdiagram.png)
 
 ## Delegate pattern이 적용
 	 Delegate pattern은 상속을 대체할 때 사용한다.
