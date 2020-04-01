@@ -4,6 +4,9 @@
 
 - HTTP 스터디 4주 후 구성원 스스로 HTTP 이해도가 3점(만점: 10점) 정도 늘었다고 생각함
 
+![Goooood!!](https://github.com/study-java-together/study-http/blob/master/documents/steps/good.png)
+![Hmmmmmm!!](https://github.com/study-java-together/study-http/blob/master/documents/steps/soso.png)
+
 ## 어땠나요 
 
 - 3 Fs 을 기반으로 말해보기 -> Fact(사실), Feel(느낌), (Finding)교훈
