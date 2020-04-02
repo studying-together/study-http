@@ -7,6 +7,13 @@
 ![Goooood!!](https://github.com/study-java-together/study-http/blob/master/documents/steps/good.png)
 ![Hmmmmmm!!](https://github.com/study-java-together/study-http/blob/master/documents/steps/soso.png)
 
+- 의견 !
+  - 스스로 과제를 설정하고 공부할 때 느끼는 어려움이 있다는 의견 -> 주제를 조금 더 좁혀본다면?
+  - 만들어 보는 과정이 좀 더 길면 어떨까하는 의견
+  - 더 많이 얘기할 수 있는 분위기면 좋겠다는 의견
+  - 하나의 (작은) 주제를 가지고 두 명씩 같이 준비하면 어떨까 하는 의견
+  - 시간을 정해서 일정 텀을 가지고 생각을 공유하면 어떨까 하는 의견
+
 ## 어땠나요 
 
 - 3 Fs 을 기반으로 말해보기 -> Fact(사실), Feel(느낌), (Finding)교훈
