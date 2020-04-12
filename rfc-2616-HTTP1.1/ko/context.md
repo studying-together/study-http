@@ -4,10 +4,10 @@
 
 > 문서의 내용을 개인의 생각이나 느낌으로 한글로 번역한다.
 
-### 1. [Introduction]
+### 1. [Introduction]()
 
-    1.1 [Purpose]<br>
-    1.2 [Requirements]<br>
+    1.1 [Purpose]()<br>
+    1.2 [Requirements]()<br>
 
 ### 4. [HTTP Message](https://github.com/Study-Java-Together/study-http/blob/master/rfc-2616-HTTP1.1/ko/4.%20HTTP%20Message.md#4-http-message)
 #### 4.1 [Message Types](https://github.com/Study-Java-Together/study-http/blob/master/rfc-2616-HTTP1.1/ko/4.%20HTTP%20Message.md#41-message-types)
