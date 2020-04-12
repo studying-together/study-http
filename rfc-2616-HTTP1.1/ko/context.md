@@ -42,23 +42,23 @@
 #### [4. HTTP Message](https://github.com/Study-Java-Together/study-http/blob/master/rfc-2616-HTTP1.1/ko/4.%20HTTP%20Message.md#4-http-message)
 
 &nbsp;&nbsp;&nbsp; [4.1 Message Types](https://github.com/Study-Java-Together/study-http/blob/master/rfc-2616-HTTP1.1/ko/4.%20HTTP%20Message.md#41-message-types)<br>
-&nbsp;&nbsp;&nbsp; [4.2 Message Body](https://github.com/Study-Java-Together/study-http/blob/master/rfc-2616-HTTP1.1/ko/4.%20HTTP%20Message.md#42-message-headers)<br>
+&nbsp;&nbsp;&nbsp; [4.2 Message Headers](https://github.com/Study-Java-Together/study-http/blob/master/rfc-2616-HTTP1.1/ko/4.%20HTTP%20Message.md#42-message-headers)<br>
 &nbsp;&nbsp;&nbsp; [4.3 Message Body]()<br>
-&nbsp;&nbsp;&nbsp; [4.4 Message Body]()<br>
-&nbsp;&nbsp;&nbsp; [4.5 Message Body]()<br>
+&nbsp;&nbsp;&nbsp; [4.4 Message Length]()<br>
+&nbsp;&nbsp;&nbsp; [4.5 General Header Fields]()<br>
 
 #### [5. Request](https://github.com/Study-Java-Together/study-http/blob/master/rfc-2616-HTTP1.1/ko/5.%20Request.md)
 
-&nbsp;&nbsp;&nbsp; [5.1 Message Body]()<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [5.1.1 Message Body]()<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [5.1.2 Message Body]()<br>
-&nbsp;&nbsp;&nbsp; [5.2 Message Body]()<br>
-&nbsp;&nbsp;&nbsp; [5.3 Message Body]()<br>
+&nbsp;&nbsp;&nbsp; [5.1 Request-Line]()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [5.1.1 Method]()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [5.1.2 Request-URI]()<br>
+&nbsp;&nbsp;&nbsp; [5.2 The Resource Identified by a Request]()<br>
+&nbsp;&nbsp;&nbsp; [5.3 Request Header Fields]()<br>
 
 #### [6. Response]()
 
-&nbsp;&nbsp;&nbsp; [6.1 Message Body]()<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [6.1.1 Message Body]()<br>
-&nbsp;&nbsp;&nbsp; [6.2 Message Body]()<br>
+&nbsp;&nbsp;&nbsp; [6.1 Status-Line]()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [6.1.1 Status Code and Reason Phrase]()<br>
+&nbsp;&nbsp;&nbsp; [6.2 Response Header Fields]()<br>
 
 ...
