@@ -1,20 +1,25 @@
 
-# OKHttp 1.0.0 디버깅
+# OKHttp 1.0.0 디버깅 (수정중)
 OkHttpUrlConnection의 getContentType() 메소드를 따라 OkHttp에서 어떻게 request와 response를 수행하는지 훑어보자 ! 
 자세한 사항을 알고 싶다면, 직접 디버깅하는게 최선이다...
 
-## 수정중입니다,, !
+</br>
 
 ## OkHttpUrlConnectionImpl#getResponse()
+
 ### initHttpEngine()
   - HttpEngineFailure가 존재한다면 해당 Exception 발생
   - connected = true;
   - doOutput이 true인 경우, POST/PUT 메소드로 변환
   - *HttpEngine 생성*
   
+</br>
+
 ### HttpEngine을 반환한다.
 HttpEngine이 ResponseHeaders를 가지고 있을 경우, HttpEngine을 그대로 반환해주지만 
 앞서 initHttpEngine()에서 HttpEngine을 새로 생성했기 때문에 반환할 일이 없다 !
+
+</br>
 
 ### execute()
 ``` java
@@ -32,6 +37,9 @@ execute() 메소드에서는 httpEngine의 sendRequest(), readResponse() 메소�
 > 
 > ![](./image/responseSource.png)
 > 참고로 OKHttp 2.0부터는 제거되어 networkResponse(), cacheResponse() 메소드로 대체한다.
+
+
+</br>
 
 #### sendRequest()
 - prepareRawRequestHeaders() : 
@@ -51,6 +59,7 @@ execute() 메소드에서는 httpEngine의 sendRequest(), readResponse() 메소�
   transport 생성 및 POST, PUT 요청에 따른 requestBody 생성
   
 
+</br>
 
 #### sendResponse()
 - requestBodyOut이 RetryableOutputStream이라면 contentLength 설정
@@ -80,12 +89,17 @@ public void writeRequestHeaders() throws IOException {
 ```
 - responseSource가 CONDITIONAL_CACHE이고 cache 사용이 필수 -> 가능하다면, 캐싱 진행
 
+</br></br>
+
 ### !?!
-connectionPool 재반납
+connectionPool 재반납 </br>
 httpEngine.release(false);
 
+</br>
 
 ---
+
+</br>
 
 ### HttpEngine과 HttpURLConnectionImpl의 관계는 ?
 ![](./image/httpEngineAndUrlConnectionImpl.png)
@@ -94,6 +108,7 @@ HttpEngine의 policy라는 HttpURLConnectionImpl을 가진다.
 해당 변수는 HttpEngine이 HttpURLConnectionImpl의 initHttpEngine() 메소드에 의해 생성될 때, 바로 그 HttpURLConnectionImpl을 복사하여 할당한다.
 
  
+</br></br>
 
 > 디버깅하면서 간간히 발견했던 불필요한 조건 체크 같은 건 아래 if문을 보고 싹 잊어버렸다..
 ``` java
