@@ -5,6 +5,7 @@ OkHttpUrlConnection의 getContentType() 메소드를 따라 OkHttp에서 어떻�
 
 </br>
 
+![](./image/okHttp-debugging.jpeg)
 ## OkHttpUrlConnectionImpl#getResponse()
 getContentType() 메소드를 따라가다보면 getResponse() 메소드에 필수적으로 들어가게 될 것이다. 
 
@@ -55,19 +56,21 @@ execute() 메소드에서는 httpEngine의 sendRequest(), readResponse() 메소�
   gateway-timeout 이슈를 발생시킨다. 
  
 - sendSocketRequest() : </br>
-  connect() 메소드 실행 
-    - Https인 경우, SSLSocketFactory/HostnameVerifier 할당
-    - address와 routeSelector 객체 생성 후, next() 메소드를 이용해 connection 생성
-    - socket(proxy 타입에 따라) 생성 및 연결, timeout 설정
-    - **proxy가 만약 바뀐다면 requestLine을 재설정**(흥미로운 부분이다.) 
+  - connect() 메소드 실행 
+      - Https인 경우, SSLSocketFactory/HostnameVerifier 할당
+      - address와 routeSelector 객체 생성 후, next() 메소드를 이용해 connection 생성
+      - socket(proxy 타입에 따라) 생성 및 연결, timeout 설정
+      - **proxy가 만약 바뀐다면 requestLine을 재설정**(흥미로운 부분이다.) 
     </br>
     </br>
-  transport 생성 및 POST, PUT 요청에 따른 requestBody 생성
-  
+  - transport 생성 및 POST, PUT 요청에 따른 requestBody 생성
+  - hasRequestBody() && requestBodyOut == null이면 requestBodyOut를 초기화 (이 떄, 경우에 따라서 requestHeader를 write한다.)
 
 </br>
 
-#### sendResponse()
+#### readResponse()
+주석에서는 '잔여 request 헤더/바디 데이터를 flush하고, response 헤더를 파싱하고 바디 데이터를 읽어온다'고 설명하고 있다.
+
 - requestBodyOut이 RetryableOutputStream이라면 contentLength 설정
 - transport.writeRequestHeaders()
 >
@@ -95,13 +98,11 @@ public void writeRequestHeaders() throws IOException {
 ```
 - responseSource가 CONDITIONAL_CACHE이고 cache 사용이 필수 -> 가능하다면, 캐싱 진행
 
+- [hasResponseBody()](https://tools.ietf.org/html/rfc2616#section-4.3)를 만족할 경우, 
+캐싱 여부를 확인 및 캐싱한다.
+
 </br></br>
 
-### !?!
-connectionPool 재반납 </br>
-httpEngine.release(false);
-
-</br>
 
 ---
 
