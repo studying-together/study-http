@@ -38,7 +38,7 @@
    - KYS [ok-http 정리](../member/pplenty/debug-ok-http.md)
    - CHH [okHttp 흐름 따라가기](https://github.com/study-java-together/study-http/blob/master/documents/member/vvshinevv/what-okHttp.md)
    - KDH [OkHttp디버깅 & 헤더 뜯어보기](../member/kimdahyeee/what-okHttp.md)
-   - KDH [Http 구조 정리](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/heedi/what-okHttp.md)!
+   - KDH [okHttp 디버깅해보기](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/heedi/okHttp-debugging.md)!
    - JMS [okHttp 디버깅 & 흐름 보기](../member/misudev/what-okhttp.md)
    - HSM [ok-http 동작흐름 정리](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/sungminhong/what-okHttp.md)! 
 
