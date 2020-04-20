@@ -1,4 +1,4 @@
-## OkHttp 1.0의 Cache (수정중)
+## OKHttp 1.0.0의 Cache 
 
 
 1. RFC의 명세를 전적으로 따른다. 
@@ -54,5 +54,12 @@ RequestHeaders의 생성자를 보면 handle(HeaderParser.CacheControlHandler)�
 RequestHeaders는 Rawheaders값으로부터 대입한 헤더 정보들을 활용하기 좋게 boolean, String, Date와 같은 데이터 타입로 저장해두고 데이터 타입에 따라 파싱 메소드도 구현을 해두었다. isPublish나 no-store, no-cache와 같이 여부 정보를 따지는 헤더값일 경우 boolean 필드에 담는다. 
 
 <br>
-3. 
+3. 고민중입니다.
+
+
+<br>
+> OkHttp 디버깅 중 만난 cache 로직들 <br>
+> 
+[share notion](https://www.notion.so/Cache-e15edce0cc274539b27facca2b5465dd)
+
 
