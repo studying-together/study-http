@@ -1,5 +1,5 @@
 
-# OKHttp 1.0.0 디버깅 (수정중)
+# OKHttp 1.0.0 디버깅 
 OkHttpUrlConnection의 getContentType() 메소드를 따라 OkHttp에서 어떻게 request와 response를 수행하는지 훑어보자 ! 
 > 자세한 사항을 알고 싶다면, 직접 디버깅하는게 최선이다...
 
