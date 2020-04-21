@@ -7,11 +7,11 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class SjtWebServer {
+public class WebServer {
 
     public static void main(String[] args) throws IOException {
 
-        int port = 8081;
+        int port = 8080;
         ServerSocket serverSocket = new ServerSocket(port);
 
     }
