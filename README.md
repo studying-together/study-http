@@ -1,12 +1,17 @@
 # HTTP 공부하기
 
 ## :trolleybus: 스터디 진행 중
+
+### Step 1
 1. :checkered_flag: [2020-02-18-첫번째 걸음](/documents/steps/step1.md)
 2. :house: [2020-03-05-두번째 걸음](/documents/steps/step2.md)
 3. :zap: [2020-03-12-세번째 걸음](/documents/steps/step3.md)
 4. :fearful: [2020-03-19-네번째 걸음](/documents/steps/step4.md)
 5. :bicyclist: [2020-03-26-다섯번째 걸음](/documents/steps/step5.md)
 6. :beers: [2020-04-02-회고](/documents/steps/step6.md)
+
+### Step 2
+1. ⏰ [2020-04-23-일곱번째 걸음](/documents/steps/step7.md)
 
 #### :walking: [RFC-2616 (HTTP/1.1)를 번역해볼까](https://github.com/Study-Java-Together/study-http/blob/master/rfc-2616-HTTP1.1/ko/context.md )
 
