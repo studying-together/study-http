@@ -1,6 +1,6 @@
 package sjt.http.client;
 
-public class TOneWebClient implements WebClient {
+public class TgWebClient implements WebClient {
     public <T> T get(String host, int port, String path, Class<T> clazz) {
         return null;
     }
