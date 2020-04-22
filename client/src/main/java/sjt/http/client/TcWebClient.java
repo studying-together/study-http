@@ -1,6 +1,6 @@
 package sjt.http.client;
 
-public class SimpleWebClient implements WebClient {
+public class TcWebClient implements WebClient {
     public <T> T get(String host, int port, String path, Class<T> clazz) {
         return null;
     }
