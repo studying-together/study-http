@@ -11,7 +11,7 @@
 6. :beers: [2020-04-02-회고](/documents/steps/step6.md)
 
 ### Step 2
-1. ⏰ [2020-04-23-일곱번째 걸음](/documents/steps/step7.md)
+1. :alarm_clock: [2020-04-23-일곱번째 걸음](/documents/steps/step7.md)
 
 #### :walking: [RFC-2616 (HTTP/1.1)를 번역해볼까](https://github.com/Study-Java-Together/study-http/blob/master/rfc-2616-HTTP1.1/ko/context.md )
 
