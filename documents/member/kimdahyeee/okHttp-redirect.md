@@ -28,7 +28,7 @@ if (!getInstanceFollowRedirects()) {
   if (++redirectionCount > MAX_REDIRECTS) {
     throw new ProtocolException("Too many redirects: " + redirectionCount);
   }
-  if (responseCode == HTTP_TEMP_REDIRECT && !method.equals("GET") && !method.equals("HEAD")) {
+  if (responseCode == HTTP_TEMP_REDIRECT && !httpMethod.equals("GET") && !httpMethod.equals("HEAD")) {
     // "If the 307 status code is received in response to a request other than GET or HEAD,
     // the user agent MUST NOT automatically redirect the request"
     return Retry.NONE;

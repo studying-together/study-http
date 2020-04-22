@@ -35,10 +35,10 @@ only-if-cached 헤더는 새로운 데이터를 내려받지 않겠다는 것을
 HttpEngine이 생성될 때, requestHeader에 필요한 Header정보를 담는데  
 HttpURLConnectionImpl#initHttpEngine()에서 다음과 같이 HttpEngine을 생성한다.
 
-> httpEngine = newHttpEngine(method, rawRequestHeaders, null, null); 
+> httpEngine = newHttpEngine(httpMethod, rawRequestHeaders, null, null); 
 ``` java
 if (url.getProtocol().equals("http")) {
-  return new HttpEngine(this, method, requestHeaders, connection, requestBody);
+  return new HttpEngine(this, httpMethod, requestHeaders, connection, requestBody);
 } 
 ```
 이를 따라가다보면 requestHeaders는 OkHttp의 RequestHeaders 객체로 생성된다는 것을 알 수 있다. </br>

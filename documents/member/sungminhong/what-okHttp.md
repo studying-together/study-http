@@ -75,7 +75,7 @@ readResponse() 호출에서는 내부적으로 [BufferedOutputStream](https://do
      * passed to the operating system for writing; it does not guarantee that
      * they are actually written to a physical device such as a disk drive.
      * <p>
-     * The <code>flush</code> method of <code>OutputStream</code> does nothing.
+     * The <code>flush</code> httpMethod of <code>OutputStream</code> does nothing.
      *
      * @exception  IOException  if an I/O error occurs.
      */

@@ -26,15 +26,15 @@
             - httpEngineFailure 인스턴스가 null이 아니면 IOException 발생
             - httpEngine 인스턴스가 null이 아니면 해당 객체 리턴
             - connected 값 true 로 변경
-            - doOutput 값이 true이면 method 값이 GET이면 POST로 변환 / method 값이 PUT이나 POST가 아니면 ProtocolException 발생
-            - newHttpEngine(method, rawRequestHeaders, null, null) 메소드 호출
-                - 프로토콜이 http이면 new HttpEngine(this, method, requestHeaders, connection, requestBody) 생성자 호출
-                    - policy, method, connection, requestBodyOut, uri 인스턴스 초기화
+            - doOutput 값이 true이면 httpMethod 값이 GET이면 POST로 변환 / httpMethod 값이 PUT이나 POST가 아니면 ProtocolException 발생
+            - newHttpEngine(httpMethod, rawRequestHeaders, null, null) 메소드 호출
+                - 프로토콜이 http이면 new HttpEngine(this, httpMethod, requestHeaders, connection, requestBody) 생성자 호출
+                    - policy, httpMethod, connection, requestBodyOut, uri 인스턴스 초기화
                     - RequestHeaders 객체 생성
                         - uri, headers 값 초기화
                         - HeaderParser.CacheControlHandler 객체 생성
                         
-                - 프로토콜이 https이면 new HttpsURLConnectionImpl.HttpsEngine(this, method, requestHeaders, connection, requestBody); 생성자 호출
+                - 프로토콜이 https이면 new HttpsURLConnectionImpl.HttpsEngine(this, httpMethod, requestHeaders, connection, requestBody); 생성자 호출
             - httpEngine.hasResponse()의 값이 true이면 httpEngine 리턴
             - while(true) 코드블럭 진입
                 - execute() 메소드 실행
