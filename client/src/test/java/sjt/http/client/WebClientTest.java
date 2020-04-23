@@ -13,7 +13,7 @@ public class WebClientTest {
     @BeforeAll
     void setUp() {
         // 클래스 내 테스트에서 한번만 실행
-        webClient = new SimpleWebClient();
+        webClient = new TcWebClient();
     }
 
     @DisplayName("API 조회 테스트")
