@@ -15,7 +15,7 @@
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
-            <version>7.0.0</version>
+            <version>7.0.100</version>
         </dependency>
 
     </dependencies>
