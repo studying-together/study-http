@@ -1,5 +1,7 @@
 package sjt.http.client.core;
 
+import sjt.http.client.core.HttpResponse.Result;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -11,7 +13,7 @@ public class HttpClient {
     private InputStream inputStream;
     private OutputStream outputStream;
 
-    public Response execute(HttpMethod method, String host, int port, String path, String body) {
+    public Result execute(HttpMethod method, String host, int port, String path, String body) {
         try {
             openConnection(host, port);
             HttpRequest request = new HttpRequest(outputStream, method, createRequestUri(host, port, path), body);
@@ -19,11 +21,10 @@ public class HttpClient {
 
             request.sendRequest();
             response.readResponse();
+            return response.toResult();
         } catch (IOException e) {
             throw new HttpException(e);
         }
-
-        return null;
     }
 
     private String createRequestUri(String host, int port, String path) {

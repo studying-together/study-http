@@ -13,4 +13,13 @@ public class HttpResponse {
     public void readResponse() {
 
     }
+
+    public Result toResult() {
+        return new Result();
+    }
+
+    class Result {
+
+    }
+
 }
