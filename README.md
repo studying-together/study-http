@@ -31,7 +31,7 @@
 
 ### :art: 공부 목표
 - HttpClient / HttpServer 의 핵심을 이해하자 
-- open source 에 PR 을 날려보자
+- 직접 만들어보자 !
 
 ### 더 알아보기
 - Java 의 Socket 은 어떻게 동작하는가, In/Out putStream 은 어떻게 사용할까
@@ -42,8 +42,14 @@
 0. 들어가며
 <br> 왜 HTTP 를 공부해야 할까? [참고자료](https://www.slideshare.net/deview/d2-campus-http)
 
+#### Step1
+
 1. HttpClient 와 HttpServer 이해하기 (2주)
 <br> 직접 Client 와 Server 를 만들어보자 !
 
 2. 오픈소스는 HttpClient 를 어떻게 만들었을까 (2주)
 <br> OkHttp 오픈 소스 1.0 버전 분석하기 !
+
+#### Step2
+
+1. HttpClient 와 HttpServer 를 제대로 만들어보자 (4주)
