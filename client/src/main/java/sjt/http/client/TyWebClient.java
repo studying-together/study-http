@@ -10,12 +10,12 @@ public class TyWebClient implements WebClient {
     HttpClient httpClient = new HttpClient();
 
     public <T> T get(String host, int port, String path, Class<T> clazz) {
-        Response response = httpClient.execute(GET, host , port, path, null);
+        httpClient.execute(GET, host , port, path, null);
         return null;
     }
 
     public <T> T post(String host, int port, String path, String body, Class<T> clazz) {
-        Response response = httpClient.execute(POST, host, port, path, body);
+        httpClient.execute(POST, host, port, path, body);
         return null;
     }
 

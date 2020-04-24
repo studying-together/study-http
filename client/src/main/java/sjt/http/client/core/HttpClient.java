@@ -9,6 +9,8 @@ import java.net.Socket;
 
 public class HttpClient {
 
+    static final String CRLF = "\r\n";
+
     private Socket socket;
     private InputStream inputStream;
     private OutputStream outputStream;
