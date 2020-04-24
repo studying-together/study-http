@@ -13,11 +13,13 @@
 ### Step 2
 1. :alarm_clock: [2020-04-23-일곱번째 걸음](/documents/steps/step7.md)
 
-<hr/>
+<br>
 
 #### :pray: [과제를 진행하는 방법](/documents/policy.md)
 
 #### :walking: [RFC-2616 (HTTP/1.1)를 번역해볼까](https://github.com/Study-Java-Together/study-http/blob/master/rfc-2616-HTTP1.1/ko/context.md )
+
+<hr/>
 
 ## 스터디
 
