@@ -16,7 +16,7 @@ public class UserService {
     }
 
     public void postUser(String host, int port, String path, String body) {
-        webClient.post(host, port, path, body);
+        webClient.post(host, port, path, body, User.class);
     }
 
     public void putUser(String host, int port, String path, String body) {
