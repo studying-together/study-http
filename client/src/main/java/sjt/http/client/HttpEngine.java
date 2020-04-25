@@ -44,7 +44,8 @@ public class HttpEngine {
         try {
             return objectMapper.readValue(responseBody, clazz);
         } catch (JsonProcessingException e) {
-            throw new IllegalStateException(e);
+            logger.warn("Json Deserialize Failed  responseBody :: {}, clazz :: {}, error :: {} ", responseBody, clazz, e);
+            return null;
         }
     }
 
