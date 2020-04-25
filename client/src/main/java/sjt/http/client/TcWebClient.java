@@ -6,23 +6,23 @@ import sjt.http.server.servlet.Response;
 
 public class TcWebClient implements WebClient {
 
-    private TcHttpClient tcHttpClient = new TcHttpClient();
+    private TcHttpEngine tcHttpEngine = new TcHttpEngine();
 
     public <T> T get(String host, int port, String path, Class<T> clazz) {
-        tcHttpClient.startSession(host, port);
+        tcHttpEngine.startSession(host, port);
         GetMethod getMethod = new GetMethod(path);
 
-        Response response = tcHttpClient.execute(getMethod);
+        Response response = tcHttpEngine.execute(getMethod);
 
         return (T) response;
     }
 
     public <T> T post(String host, int port, String path, String body, Class<T> clazz) {
-        tcHttpClient.startSession(host, port);
+        tcHttpEngine.startSession(host, port);
         PostMethod postMethod = new PostMethod(path);
         postMethod.addParameter("body", body);
 
-        Response response = tcHttpClient.execute(postMethod);
+        Response response = tcHttpEngine.execute(postMethod);
 
         return (T) response;
     }

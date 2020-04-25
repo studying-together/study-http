@@ -16,7 +16,7 @@ import java.net.Socket;
 /**
  * 실제 통신 수행
  */
-public class TcHttpClient extends HttpClient {
+public class TcHttpEngine extends HttpClient {
     private Socket socket;
     private BufferedWriter bufferedWriter;
     private BufferedReader bufferedReader;
