@@ -2,8 +2,11 @@ package sjt.http.client.core;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.toMap;
 import static sjt.http.client.core.HttpClient.CRLF;
 
 public class HttpResponse {
@@ -49,8 +52,21 @@ public class HttpResponse {
         return sb.length() > 1 && CRLF.equals(sb.substring(sb.length() - 2));
     }
 
-    private Map<String, String> readHeaders() {
-        return null;
+    private Map<String, String> readHeaders() throws IOException {
+        StringBuilder sb = new StringBuilder();
+        do {
+            int read = inputStream.read();
+            sb.append(read);
+        } while (!endHeaders(sb));
+
+        return Stream.of(sb.toString().split(CRLF))
+                .map(String::trim)
+                .map("="::split)
+                .collect(toMap(arr -> arr[0], arr -> arr[1]));
+    }
+
+    private boolean endHeaders(StringBuilder sb) {
+        return sb.length() > 3 && (CRLF + CRLF).equals(sb.substring(sb.length() - 4));
     }
 
     private String readBody() {

@@ -51,7 +51,10 @@ public class HttpRequest {
     public String headers() {
         StringBuilder sb = new StringBuilder();
         for (Entry<String, String> e : headers.entrySet()) {
-            sb.append(e.getKey() + "=" + e.getValue() + CRLF);
+            sb.append(e.getKey())
+                    .append("=")
+                    .append(e.getValue())
+                    .append(CRLF);
         }
         return sb.toString();
     }
