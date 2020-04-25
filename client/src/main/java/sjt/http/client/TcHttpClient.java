@@ -1,8 +1,5 @@
 package sjt.http.client;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.HttpMethod;
 import sjt.http.server.servlet.Request;
 import sjt.http.server.servlet.Response;
 
@@ -16,50 +13,35 @@ import java.net.Socket;
 /**
  * 실제 통신 수행
  */
-public class TcHttpClient extends HttpClient {
+public class TcHttpClient {
     private Request request;
     private Response response;
+    private BufferedReader reader;
+    private BufferedWriter writer;
 
     // executes HTTP request
-    public Response execute(HttpMethod httpMethod) {
-
-        sendRequest(httpMethod);
-        readResponse();
-        return new Response();
+    public <T> T execute(HttpMethod httpMethod, String host, int port, String path, String body, Class<T> clazz) {
+        sendRequest(httpMethod, host, port, path, body);
+        return readResponse();
     }
 
-    private void sendRequest(HttpMethod httpMethod) {
-        initTcHttpClient();
+    private void sendRequest(HttpMethod httpMethod, String host, int port, String path, String body) {
+        initTcHttpClient(host, port);
 
-        try {
-            sendRequestHeader(httpMethod);
-
-            String method = httpMethod.getName();
-            if (method.equals("GET")) {
-                // GET
-            } else if (method.equals("POST")) {
-                // POST
-            } else {
-                // HEAD, PUT ..
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (HttpException e) {
-            e.printStackTrace();
-        }
-
+        // TODO : request 생성
+        // TODO : header, body write
     }
 
-    private void readResponse() {
+    private <T> T readResponse() {
+        return null;
     }
-
 
     // socket 초기화
-    private void initTcHttpClient() {
+    private void initTcHttpClient(String host, int port) {
         try {
-            setSocket(new Socket(sessionHost, sessionPort));
-            openConnection();
+            Socket socket = new Socket(host, port);
+            writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
         } catch (IOException e) {
             e.printStackTrace();
