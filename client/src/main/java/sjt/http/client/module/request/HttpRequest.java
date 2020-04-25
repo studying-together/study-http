@@ -45,7 +45,7 @@ public class HttpRequest {
             if("".equals(requestHeaderLine)){
                 break;
             }
-            String[] splitHeader = requestHeaderLine.split(": ");
+            String[] splitHeader = requestHeaderLine.split(HEADER_DELIMITER);
             requestHeader.put(splitHeader[0], splitHeader[1]);
         }
     }

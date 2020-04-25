@@ -37,7 +37,7 @@ public class HttpEngine {
         return null;
     }
 
-    public <T> T parseResponse(String responseBody, Class<T> clazz) {
+    private <T> T parseResponse(String responseBody, Class<T> clazz) {
         try {
             return objectMapper.readValue(responseBody, clazz);
         } catch (JsonProcessingException e) {
