@@ -6,7 +6,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 /**
- *  socket 연결을 위한 클래스입니다.
+ * socket 연결을 위한 클래스입니다.
  */
 public class Connection {
 

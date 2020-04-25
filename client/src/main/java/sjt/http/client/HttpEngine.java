@@ -2,6 +2,8 @@ package sjt.http.client;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sjt.http.client.module.HttpMethod;
 import sjt.http.client.module.request.HttpRequest;
 import sjt.http.client.module.response.HttpResponse;
@@ -10,6 +12,7 @@ import java.io.IOException;
 
 public class HttpEngine {
 
+    Logger logger = LoggerFactory.getLogger(HttpEngine.class);
     static final String HTTP_PROTOCOL_VERSION = "HTTP/1.1";
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -31,20 +34,18 @@ public class HttpEngine {
             return parseResponse(httpResponse.getResponseBody(), clazz);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            // TODO : wrapping exception vs log 남기기
+            throw new HttpEngineExecuteException(e);
         }
 
-        return null;
     }
 
     private <T> T parseResponse(String responseBody, Class<T> clazz) {
         try {
             return objectMapper.readValue(responseBody, clazz);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            throw new IllegalStateException(e);
         }
-
-        return null;
     }
 
 }

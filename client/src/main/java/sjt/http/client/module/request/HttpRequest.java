@@ -13,10 +13,10 @@ public class HttpRequest {
     private static final String HEADER_DELIMITER = ": ";
 
     private RequestLine requestLine;
-    private Map<String, String> requestHeader;
+    private Map<String, String> requestHeaders;
     private String requestBody;
 
-    public HttpRequest (HttpMethod httpMethod, String uri, String version) {
+    public HttpRequest(HttpMethod httpMethod, String uri, String version) {
         requestLine = new RequestLine(httpMethod, uri, version);
     }
 
@@ -27,7 +27,7 @@ public class HttpRequest {
      * @throws IOException
      */
     public void readHttpRequest(BufferedReader reader) throws IOException {
-        requestLine = new RequestLine(reader.readLine());
+        requestLine = RequestLine.parse(reader.readLine());
         readHeader(reader);
         readBody(reader);
     }
@@ -42,11 +42,11 @@ public class HttpRequest {
     private void readHeader(BufferedReader reader) throws IOException {
         String requestHeaderLine;
         while (reader.ready() && (requestHeaderLine = reader.readLine()) != null) {
-            if("".equals(requestHeaderLine)){
+            if ("".equals(requestHeaderLine)) {
                 break;
             }
             String[] splitHeader = requestHeaderLine.split(HEADER_DELIMITER);
-            requestHeader.put(splitHeader[0], splitHeader[1]);
+            requestHeaders.put(splitHeader[0], splitHeader[1]);
         }
     }
 
@@ -69,8 +69,8 @@ public class HttpRequest {
     }
 
     /**
-     *  request server에 전송하기.
-     *  requestLine, header, body 순으로 http request를 서버로 전송합니다.
+     * request server에 전송하기.
+     * requestLine, header, body 순으로 http request를 서버로 전송합니다.
      *
      * @param outputStream
      * @throws IOException
@@ -78,7 +78,7 @@ public class HttpRequest {
     public void writeHttpRequest(OutputStream outputStream) throws IOException {
         BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream);
 
-        bufferedOutputStream.write(requestLine.toString().getBytes());
+        bufferedOutputStream.write(requestLine.getRequestLineString().getBytes());
         writeHeader(bufferedOutputStream);
         writeBody(bufferedOutputStream);
 
@@ -86,13 +86,15 @@ public class HttpRequest {
     }
 
     private void writeHeader(BufferedOutputStream bufferedOutputStream) throws IOException {
-        if (requestHeader == null) {
+        if (requestHeaders == null) {
             return;
         }
 
         StringBuilder stringBuilder = new StringBuilder();
-        for (String key : requestHeader.keySet()) {
-            stringBuilder.append(key + HEADER_DELIMITER + requestHeader.get(key));
+        for (String key : requestHeaders.keySet()) {
+            stringBuilder.append(key)
+                    .append(HEADER_DELIMITER)
+                    .append(requestHeaders.get(key));
         }
 
         bufferedOutputStream.write(stringBuilder.toString().getBytes());
@@ -106,7 +108,6 @@ public class HttpRequest {
         bufferedOutputStream.write(requestBody.getBytes());
     }
 
-
     public RequestLine getRequestLine() {
         return requestLine;
     }
@@ -115,12 +116,12 @@ public class HttpRequest {
         this.requestLine = requestLine;
     }
 
-    public Map<String, String> getRequestHeader() {
-        return requestHeader;
+    public Map<String, String> getRequestHeaders() {
+        return requestHeaders;
     }
 
-    public void setRequestHeader(Map<String, String> requestHeader) {
-        this.requestHeader = requestHeader;
+    public void setRequestHeaders(Map<String, String> requestHeaders) {
+        this.requestHeaders = requestHeaders;
     }
 
     public String getRequestBody() {

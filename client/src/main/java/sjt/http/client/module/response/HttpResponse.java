@@ -11,7 +11,7 @@ public class HttpResponse {
     private static final String HEADER_DELIMITER = ": ";
 
     private String statusLine;
-    private Map<String, String> responseHeader;
+    private Map<String, String> responseHeaders;
     private String responseBody;
 
     /**
@@ -39,11 +39,11 @@ public class HttpResponse {
         String responseHeaderLine;
 
         while (reader.ready() && (responseHeaderLine = reader.readLine()) != null) {
-            if("".equals(responseHeaderLine)){
+            if ("".equals(responseHeaderLine)) {
                 break;
             }
             String[] splitHeader = responseHeaderLine.split(HEADER_DELIMITER);
-            responseHeader.put(splitHeader[0], splitHeader[1]);
+            responseHeaders.put(splitHeader[0], splitHeader[1]);
         }
     }
 
@@ -58,8 +58,7 @@ public class HttpResponse {
         StringBuilder stringBuilder = new StringBuilder();
 
         while (reader.ready() && (requestBodyLine = reader.readLine()) != null) {
-            stringBuilder.append(requestBodyLine);
-            stringBuilder.append("\r\n");
+            stringBuilder.append(requestBodyLine).append("\r\n");
         }
 
         responseBody = stringBuilder.toString();
@@ -73,12 +72,12 @@ public class HttpResponse {
         this.statusLine = statusLine;
     }
 
-    public Map<String, String> getResponseHeader() {
-        return responseHeader;
+    public Map<String, String> getResponseHeaders() {
+        return responseHeaders;
     }
 
-    public void setResponseHeader(Map<String, String> responseHeader) {
-        this.responseHeader = responseHeader;
+    public void setResponseHeaders(Map<String, String> responseHeaders) {
+        this.responseHeaders = responseHeaders;
     }
 
     public String getResponseBody() {
