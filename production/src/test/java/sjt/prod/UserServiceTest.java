@@ -5,10 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import sjt.http.client.TgWebClient;
 import sjt.http.client.WebClient;
 import sjt.prod.model.User;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class UserServiceTest {
@@ -67,4 +69,13 @@ public class UserServiceTest {
         assertNull(deletedUser);
     }
 
+    @DisplayName("사용자 조회 테스트")
+    @Test
+    void getUserTest() {
+        WebClient webClient = new TgWebClient();
+        UserService userService = new UserService(webClient);
+        User user = userService.getUser(HOST, PORT, "/user");
+
+        assertNotNull(user);
+    }
 }
