@@ -1,31 +1,25 @@
 package sjt.http.server;
 
+import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
-import org.apache.catalina.connector.Connector;
 import org.apache.catalina.startup.Tomcat;
-
-import javax.servlet.ServletException;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import sjt.http.server.servlet.TcHttpServlet;
 
 public class WebServer {
 
-    public static void main(String[] args) throws IOException, ServletException, LifecycleException {
+    public static void main(String[] args) throws LifecycleException {
 
 //        int port = 8080;
 //        ServerSocket serverSocket = new ServerSocket(port);
 
         Tomcat tomcat = new Tomcat();
-        String webPort = "8080";
-        tomcat.setPort(Integer.parseInt(webPort));
+        tomcat.setPort(8080);
+        Context context = tomcat.addContext("/","/");
 
-        Connector connector = tomcat.getConnector();
-        connector.setURIEncoding("UTF-8");
+        TcHttpServlet servlet = new TcHttpServlet();
+        String servletName = "TcServlet";
+        tomcat.addServlet("/", servletName, servlet);
+        context.addServletMapping("/user", servletName);
 
         tomcat.start();
         tomcat.getServer().await();
