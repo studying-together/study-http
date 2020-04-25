@@ -17,16 +17,13 @@ import java.net.Socket;
  * 실제 통신 수행
  */
 public class TcHttpEngine extends HttpClient {
-    private Socket socket;
-    private BufferedWriter bufferedWriter;
-    private BufferedReader bufferedReader;
     private Request request;
     private Response response;
 
     // executes HTTP request
     public Response execute(HttpMethod httpMethod) {
-        sendRequest(httpMethod);
 
+        sendRequest(httpMethod);
         readResponse();
         return new Response();
     }
@@ -46,7 +43,6 @@ public class TcHttpEngine extends HttpClient {
                 // HEAD, PUT ..
             }
 
-
         } catch (IOException e) {
             e.printStackTrace();
         } catch (HttpException e) {
@@ -59,12 +55,11 @@ public class TcHttpEngine extends HttpClient {
     }
 
 
-    // socket, writer/reader 초기화
+    // socket 초기화
     private void initTcHttpClient() {
         try {
-            socket = new Socket(sessionHost, sessionPort);
-            bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            setSocket(new Socket(sessionHost, sessionPort));
+            openConnection();
 
         } catch (IOException e) {
             e.printStackTrace();
