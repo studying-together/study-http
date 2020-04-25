@@ -1,12 +1,16 @@
 package sjt.http.client.core;
 
+import sjt.http.core.HttpProtocolUtil;
+import sjt.http.core.log.Logger;
+
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
-import static sjt.http.client.core.HttpClient.CRLF;
+import static sjt.http.core.HttpReaderUtil.CRLF;
 
 public class HttpRequest {
 
@@ -29,34 +33,33 @@ public class HttpRequest {
         this.method = method;
         this.requestUri = requestUri;
         this.body = body;
+        headers.put("Host", getHostName());
+    }
+
+    private String getHostName() {
+        try {
+            return InetAddress.getLocalHost().getHostName();
+        } catch (UnknownHostException e) {
+            throw new HttpException(e);
+        }
     }
 
     public void sendRequest() {
         try {
             outputStream.write(requestLine().getBytes(DEFAULT_CHARSET));
-            outputStream.write(headers().getBytes(DEFAULT_CHARSET));
-
+            outputStream.write(HttpProtocolUtil.mapHeaderToText(headers).getBytes("UTF-8"));
+            outputStream.flush();
             if (body != null) {
                 outputStream.write(body.getBytes(DEFAULT_CHARSET));
             }
         } catch (IOException e) {
             throw new HttpException("send request failed");
         }
+        Logger.log(this, "send request completed");
     }
 
     public String requestLine() {
         return method.name() + " " + requestUri + " " + version.name + CRLF;
-    }
-
-    public String headers() {
-        StringBuilder sb = new StringBuilder();
-        for (Entry<String, String> e : headers.entrySet()) {
-            sb.append(e.getKey())
-                    .append("=")
-                    .append(e.getValue())
-                    .append(CRLF);
-        }
-        return sb.toString();
     }
 
     public void setVersion(Version version) {

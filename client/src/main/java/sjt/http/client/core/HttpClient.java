@@ -1,6 +1,7 @@
 package sjt.http.client.core;
 
 import sjt.http.client.core.HttpResponse.Result;
+import sjt.http.core.log.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,11 +10,15 @@ import java.net.Socket;
 
 public class HttpClient {
 
-    static final String CRLF = "\r\n";
+    private int socketTimeout;
 
     private Socket socket;
     private InputStream inputStream;
     private OutputStream outputStream;
+
+    public HttpClient(int socketTimeout) {
+        this.socketTimeout = socketTimeout;
+    }
 
     public Result execute(HttpMethod method, String host, int port, String path, String body) {
         try {
@@ -35,7 +40,9 @@ public class HttpClient {
 
     private void openConnection(String host, int port) throws IOException {
         socket = new Socket(host, port);
+        socket.setSoTimeout(socketTimeout);
         inputStream = socket.getInputStream();
         outputStream = socket.getOutputStream();
+        Logger.log(this, "connection opened");
     }
 }

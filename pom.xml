@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <modules>
+        <module>core</module>
         <module>server</module>
         <module>client</module>
         <module>production</module>

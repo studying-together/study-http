@@ -1,13 +1,20 @@
 package sjt.http.client;
 
 import sjt.http.client.core.HttpClient;
-import sjt.http.client.core.Response;
 
 import static sjt.http.client.core.HttpMethod.*;
 
 public class TyWebClient implements WebClient {
 
-    HttpClient httpClient = new HttpClient();
+    private HttpClient httpClient;
+
+    public TyWebClient() {
+        this.httpClient = new HttpClient(30_000);
+    }
+
+    public TyWebClient(int socketTimeout) {
+        this.httpClient = new HttpClient(socketTimeout);
+    }
 
     public <T> T get(String host, int port, String path, Class<T> clazz) {
         httpClient.execute(GET, host , port, path, null);
