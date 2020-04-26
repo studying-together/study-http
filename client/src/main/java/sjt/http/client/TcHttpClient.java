@@ -18,19 +18,15 @@ public class TcHttpClient {
 
     // executes HTTP request
     public <T> T execute(HttpMethod httpMethod, String host, int port, String path, String body, Class<T> clazz) {
-        init(host,port);
-        StringBuilder stringBuilder = new StringBuilder()
-            .append("GET /home.html HTTP/1.1\r\n");
         sendRequest(httpMethod, host, port, path, body);
         return readResponse();
     }
 
     private void sendRequest(HttpMethod httpMethod, String host, int port, String path, String body) {
-//        initTcHttpClient(host, port);
-
         // TODO : request 생성
         // TODO : header, body write
         try {
+            init(host, port);
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOut()), MTU);
             writer.write(httpMethod.name() + " " + path + " " + HTTP_VERSION + CR);
             writer.flush();
@@ -47,13 +43,8 @@ public class TcHttpClient {
         return null;
     }
 
-    private void init(String host, int port) {
+    private void init(String host, int port) throws IOException {
         connection = new Connection();
-        try {
-            connection.connect(host, port, Integer.MAX_VALUE);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        connection.connect(host, port, Integer.MAX_VALUE);
     }
-
 }
