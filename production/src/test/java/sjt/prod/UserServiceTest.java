@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import sjt.http.client.TcWebClient;
 import sjt.http.client.WebClient;
 import sjt.prod.model.User;
 
@@ -31,7 +32,7 @@ public class UserServiceTest {
          *
          * 목을 제거하고 구현체를 사용하자
          */
-        WebClient webClient = Mockito.mock(WebClient.class);
+        TcWebClient webClient = Mockito.mock(TcWebClient.class);
 
         UserService userService = new UserService(webClient);
 
