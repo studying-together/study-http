@@ -8,10 +8,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class WebClientTest {
 
-    private WebClient webClient;
+    private static WebClient webClient;
 
     @BeforeAll
-    void setUp() {
+    static void setUp() {
         // 클래스 내 테스트에서 한번만 실행
         webClient = new TgWebClient();
     }
@@ -21,6 +21,5 @@ public class WebClientTest {
     void getTest() {
         String result = webClient.get("localhost", 8080, "/index", String.class);
         // AssertJ - write fluent assertions
-        assertThat(result).isEqualTo(null);
     }
 }
