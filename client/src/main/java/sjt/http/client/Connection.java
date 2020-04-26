@@ -4,14 +4,12 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.Reader;
 import java.net.Socket;
 
 public class Connection implements Closeable {
     private Socket socket;
     private InputStream in;
     private OutputStream out;
-    private Reader inB;
     private boolean connected = false;
 
     public void connect(String host, int port, int readTimeout) throws IOException {
