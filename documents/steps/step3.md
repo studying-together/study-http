@@ -34,13 +34,13 @@
 - 높은 버전은 어려우므로 1 버전으로 진행 !
 
 - OkHttp 를 **디버깅**하며 정리한 내용을 한 장의 문서로 만들어 **공유**해보자 !
-   - YHJ [Http 구조 정리](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/homelus/what-okHttp.md)! 
-   - KYS
-   - CHH
-   - KDH
-   - KDH [Http 구조 정리](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/heedi/what-okHttp.md)!
-   - JMS
-   - HSM [Http 구조 정리](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/sungminhong/what-okHttp.md)! 
+   - YHJ [Http 구조 한눈에 보기](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/homelus/what-okHttp.md)! 
+   - KYS [ok-http 정리](../member/pplenty/debug-ok-http.md)
+   - CHH [okHttp 흐름 따라가기](https://github.com/study-java-together/study-http/blob/master/documents/member/vvshinevv/what-okHttp.md)
+   - KDH [OkHttp디버깅 & 헤더 뜯어보기](../member/kimdahyeee/what-okHttp.md)
+   - KDH [okHttp 디버깅해보기](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/heedi/okHttp-debugging.md)!
+   - JMS [okHttp 디버깅 & 흐름 보기](../member/misudev/what-okhttp.md)
+   - HSM [ok-http 동작흐름 정리](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/sungminhong/what-okHttp.md)! 
 
 #### 다음을 참고하자
 

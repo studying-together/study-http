@@ -10,6 +10,17 @@
 
 ### 조금 세밀한 부분에 집중해보자 !
 
+- HttpClient 에서 공부하고 싶은 부분 정리해보기
+   - YHJ : [Connection Pool 이 도대체 뭔데 ?](https://github.com/study-java-together/study-http/blob/master/documents/member/homelus/connection-pool.md)
+   - KYS : Cache
+   - CHH : DNS
+   - KDH : [REDIRECT](../member/kimdahyeee/okHttp-redirect.md)
+   - KDH : Cache
+   - JMS : [OkHTTP에서 Https 통신 과정](https://github.com/study-java-together/study-http/blob/master/documents/member/misudev/okhttp-https.md)
+   - HSM :[socket write 시점](https://github.com/Study-Java-Together/study-http/blob/master/documents/member/sungminhong/what-okHttp.md)
+
+#### 예제
+
 ##### 캐시는 어떻게 사용될까?
 ##### Https 의 통신과정은 어떻게 처리될까?
 ##### OkHTTP 에서 사용되는 Proxy 는 무엇일까?
