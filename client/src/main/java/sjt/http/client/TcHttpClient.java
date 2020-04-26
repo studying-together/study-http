@@ -14,6 +14,8 @@ import java.net.Socket;
  * 실제 통신 수행
  */
 public class TcHttpClient {
+    private static final String HTTP_VERSION = "HTTP/1.1";
+
     private Request request;
     private Response response;
     private BufferedReader reader;
@@ -30,6 +32,14 @@ public class TcHttpClient {
 
         // TODO : request 생성
         // TODO : header, body write
+        try {
+            writer.write(httpMethod.name() + " " + path + " " + HTTP_VERSION);
+            writer.flush();
+
+        } catch (IOException e) {
+//            e.printStackTrace();
+            throw new RuntimeException("request write 실패...");
+        }
     }
 
     private <T> T readResponse() {
@@ -44,7 +54,8 @@ public class TcHttpClient {
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            throw new RuntimeException("socket 이슈 발생...");
         }
     }
 
