@@ -37,6 +37,7 @@ public class HttpEngine {
             writeHeader(writer, request);
             writeBody(writer, request);
             writer.flush();
+            LOGGER.info("HttpEngine sendRequest end");
         } catch (IOException e) {
             LOGGER.error("sendRequest 중 IOException 발생!", e);
             throw new RuntimeException(e);
@@ -102,16 +103,31 @@ public class HttpEngine {
      * @return
      */
     public Response readResponse() {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getIn()), MTU)) {
-            return new Response(reader);
+        LOGGER.info("HttpEngine readResponse start");
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getIn()), MTU);
+            final Response response = new Response(reader);
+            afterCompletion();
+            return response;
         } catch (IOException e) {
             LOGGER.error("readResponse 중 IOException 발생!", e);
             throw new RuntimeException(e);
+        } finally {
+            LOGGER.info("HttpEngine readResponse end");
         }
     }
 
     private void initHttpEngine(final String host, final int port) throws IOException {
         connection = new Connection();
         connection.connect(host, port, Integer.MAX_VALUE);
+    }
+
+    /**
+     * 후처리
+     */
+    public void afterCompletion() throws IOException {
+        LOGGER.info("afterCompletion start");
+        connection.close(); //TODO:: 추후 커넥션 풀이 생기면 커넥션 release 하도록 변경
+        LOGGER.info("afterCompletion send");
     }
 }
