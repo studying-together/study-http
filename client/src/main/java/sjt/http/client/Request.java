@@ -23,4 +23,6 @@ final public class Request {
     private final Map<String, String> headers;
     @Getter
     private final String body;
+    @Getter
+    private final String contentType;
 }
