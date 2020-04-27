@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -16,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class HttpEngine {
+    private static final Logger LOGGER = LoggerFactory.getLogger(HttpEngine.class);
     private static final String HTTP_VERSION = "HTTP/1.1";
     private static final String CRLF = "\r\n";
     private static final int MTU = 1500;
@@ -23,6 +27,7 @@ public class HttpEngine {
     private Connection connection;
 
     public void sendRequest(final Request request) {
+        LOGGER.info("HttpEngine sendRequest start");
         try {
             initHttpEngine(request.getHost(), request.getPort());
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOut()), MTU);
@@ -32,6 +37,7 @@ public class HttpEngine {
             writeBody(writer, request);
             writer.flush();
         } catch (IOException e) {
+            LOGGER.error("sendRequest 중 IOException 발생!", e);
             throw new RuntimeException(e);
         }
     }
@@ -84,6 +90,7 @@ public class HttpEngine {
         try {
             return objectMapper.readValue(response.getBody(), clazz);
         } catch (JsonProcessingException e) {
+            LOGGER.error("readResponse 중 JsonProcessingException 발생!", e);
             throw new RuntimeException(e);
         }
     }
@@ -97,6 +104,7 @@ public class HttpEngine {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getIn()), MTU)) {
             return new Response(reader);
         } catch (IOException e) {
+            LOGGER.error("readResponse 중 IOException 발생!", e);
             throw new RuntimeException(e);
         }
     }
