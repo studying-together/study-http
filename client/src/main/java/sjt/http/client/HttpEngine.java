@@ -28,6 +28,7 @@ public class HttpEngine {
 
     public void sendRequest(final Request request) {
         LOGGER.info("HttpEngine sendRequest start");
+        //TODO:: url이 있으면 그 안에서 host, port, path, 프래그먼트 직접 파싱하도록 하도록 하는 기능 추가
         try {
             initHttpEngine(request.getHost(), request.getPort());
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOut()), MTU);

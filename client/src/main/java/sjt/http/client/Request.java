@@ -20,6 +20,8 @@ final public class Request {
     @Getter
     private final Integer port;
     @Getter
+    private final String url;
+    @Getter
     private final Map<String, String> headers;
     @Getter
     private final String body;
