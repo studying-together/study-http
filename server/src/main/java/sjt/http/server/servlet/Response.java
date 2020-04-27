@@ -12,8 +12,7 @@ public class Response {
         if (body != null && body.length() != 0) {
             builder.append("Content-Length: ").append(body.length()).append(CRLF);
             builder.append("Content-Type: application/json").append(CRLF).append(CRLF);
-            //todo body
-//            builder.append(body);
+            builder.append(body).append(CRLF);
         } else {
             builder.append("Content-Length: 0").append(CRLF);
         }
