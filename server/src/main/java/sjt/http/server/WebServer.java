@@ -15,9 +15,14 @@ public class WebServer {
         ServerSocket serverSocket = new ServerSocket(port);
 
         // TODO : 테스트용 코드입니다. 구현 후 제거해주세요.
+//        while (true) {
+//            Socket socket = serverSocket.accept();
+//            executor.submit(new TestServer(socket));
+//        }
+
         while (true) {
             Socket socket = serverSocket.accept();
-            executor.submit(new TestServer(socket));
+            executor.submit(new RequestHandler(socket));
         }
 
     }
