@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.Map;
 
 public class HttpResponse {
@@ -11,7 +12,7 @@ public class HttpResponse {
     private static final String HEADER_DELIMITER = ": ";
 
     private String statusLine;
-    private Map<String, String> responseHeaders;
+    private Map<String, String> responseHeaders = new HashMap<>();
     private String responseBody;
 
     /**
@@ -54,11 +55,11 @@ public class HttpResponse {
      * @throws IOException
      */
     private void readBody(BufferedReader reader) throws IOException {
-        String requestBodyLine;
+        String responseBodyLine;
         StringBuilder stringBuilder = new StringBuilder();
 
-        while (reader.ready() && (requestBodyLine = reader.readLine()) != null) {
-            stringBuilder.append(requestBodyLine).append("\r\n");
+        while (reader.ready() && (responseBodyLine = reader.readLine()) != null) {
+            stringBuilder.append(responseBodyLine).append("\r\n");
         }
 
         responseBody = stringBuilder.toString();
