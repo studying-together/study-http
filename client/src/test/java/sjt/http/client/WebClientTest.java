@@ -1,5 +1,7 @@
 package sjt.http.client;
 
+import java.util.Map;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,9 +21,9 @@ public class WebClientTest {
     @DisplayName("API 조회 테스트")
     @Test
     void getTest() {
-        String result = webClient.get("localhost", 8080, "/index", String.class);
+        Map<String, String> result = webClient.get("localhost", 8080, "/user/1004", Map.class);
         // AssertJ - write fluent assertions
-        assertThat(result).isEqualTo(null);
+        assertThat(result).isInstanceOf(Map.class);
     }
 
     @DisplayName("API 등록 테스트")
