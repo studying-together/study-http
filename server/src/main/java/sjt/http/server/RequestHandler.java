@@ -1,5 +1,8 @@
 package sjt.http.server;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import sjt.http.server.controller.Controller;
+import sjt.http.server.controller.MappingControllerRegistry;
 import sjt.http.server.response.HttpCode;
 import sjt.http.server.servlet.Request;
 import sjt.http.server.servlet.Response;
@@ -22,7 +25,8 @@ public class RequestHandler implements Runnable {
 
     public void run() {
         try {
-            System.out.println(">>> thread info :: " + Thread.currentThread().getName());
+            System.out.println("\n>>> thread info :: " + Thread.currentThread().getName());
+            ObjectMapper mapper = new ObjectMapper();
             Request request = new Request(is);
             if (request.getStartLine() == null) {
                 this.connection.close();
@@ -30,7 +34,9 @@ public class RequestHandler implements Runnable {
             }
 
             //todo 테스트 데이터 처리..
-            os.write(Response.reply(HttpCode.HTTP_OK, "{\"name\":\"java\",\"age\":22}"));
+            Controller<?> mappedController = MappingControllerRegistry.getMappedController(request);
+            Object returnValue = mappedController.handle(request);
+            os.write(Response.reply(HttpCode.HTTP_OK, mapper.writeValueAsString(returnValue)));
             os.flush();
         } catch (IOException e) {
             this.connection.close();

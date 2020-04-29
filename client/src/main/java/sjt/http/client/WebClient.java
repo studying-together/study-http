@@ -6,8 +6,8 @@ public interface WebClient {
 
     <T> T post(String host, int port, String path, String body, Class<T> clazz);
 
-    void put(String host, int port, String path, String body);
+    <T> void put(String host, int port, String path, String body, Class<T> clazz);
 
-    void delete(String host, int port, String path);
+    <T> void delete(String host, int port, String path, Class<T> clazz);
 
 }

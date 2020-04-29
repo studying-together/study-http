@@ -1,5 +1,9 @@
 package sjt.http.server.servlet;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Getter;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -63,7 +67,18 @@ public class Request {
 
     }
 
-    public String getStartLine() {
-        return this.startLine;
+    private String readBody(BufferedReader reader, int contentLength) throws IOException {
+        char[] body = new char[contentLength];
+        reader.read(body, 0, contentLength);
+        return String.copyValueOf(body);
+    }
+
+    public <T> T getParsedBody(Class<T> clazz) {
+        try {
+            return MAPPER.readValue(body, clazz);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("cannot parse request body to " + clazz.getSimpleName());
+        }
     }
 }

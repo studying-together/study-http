@@ -20,11 +20,11 @@ public class UserService {
     }
 
     public void putUser(String host, int port, String path, String body) {
-        webClient.put(host, port, path, body);
+        webClient.put(host, port, path, body, User.class);
     }
 
     public void deleteUser(String host, int port, String path) {
-        webClient.delete(host, port, path);
+        webClient.delete(host, port, path, User.class);
     }
 
 }

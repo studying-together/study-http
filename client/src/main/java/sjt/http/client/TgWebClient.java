@@ -14,11 +14,13 @@ public class TgWebClient implements WebClient {
         return httpEngine.execute(HttpMethod.POST, host, port, path, clazz, body);
     }
 
-    public void put(String host, int port, String path, String body) {
-
+    @Override
+    public <T> void put(String host, int port, String path, String body, Class<T> clazz) {
+        httpEngine.execute(HttpMethod.PUT, host, port, path, clazz, body);
     }
 
-    public void delete(String host, int port, String path) {
-
+    @Override
+    public <T> void delete(String host, int port, String path, Class<T> clazz) {
+        httpEngine.execute(HttpMethod.DELETE, host, port, path, clazz, null);
     }
 }
