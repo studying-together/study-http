@@ -1,4 +1,4 @@
-package sjt.http.client;
+package sjt.client;
 
 import java.net.CookieHandler;
 import java.util.Map;
@@ -6,6 +6,9 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
+import sjt.http.HttpEngine;
+import sjt.http.Request;
+import sjt.http.Response;
 
 /**
  * 실제 통신 수행

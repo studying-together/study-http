@@ -1,16 +1,15 @@
-package sjt.http.client;
-
-import java.util.Map;
+package sjt.http;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Map;
+
 @Builder
 @RequiredArgsConstructor
-@EqualsAndHashCode
-final public class Request {
+@EqualsAndHashCode final public class Request {
     @Getter
     private final HttpMethod method;
     @Getter
