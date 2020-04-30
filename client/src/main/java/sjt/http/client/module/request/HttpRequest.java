@@ -6,14 +6,16 @@ import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.Map;
 
 public class HttpRequest {
 
     private static final String HEADER_DELIMITER = ": ";
+    private static final String CRLF = "\r\n";
 
     private RequestLine requestLine;
-    private Map<String, String> requestHeaders;
+    private Map<String, String> requestHeaders = new HashMap<>();
     private String requestBody;
 
     public HttpRequest(HttpMethod httpMethod, String uri, String version) {
@@ -91,12 +93,15 @@ public class HttpRequest {
         }
 
         StringBuilder stringBuilder = new StringBuilder();
-        for (String key : requestHeaders.keySet()) {
-            stringBuilder.append(key)
+        for (Map.Entry<String, String> entry : requestHeaders.entrySet()) {
+            stringBuilder
+                    .append(entry.getKey())
                     .append(HEADER_DELIMITER)
-                    .append(requestHeaders.get(key));
-        }
+                    .append(entry.getValue())
+                    .append(CRLF);
 
+        }
+        stringBuilder.append(CRLF);
         bufferedOutputStream.write(stringBuilder.toString().getBytes());
     }
 
@@ -120,8 +125,8 @@ public class HttpRequest {
         return requestHeaders;
     }
 
-    public void setRequestHeaders(Map<String, String> requestHeaders) {
-        this.requestHeaders = requestHeaders;
+    public void addRequestHeader(String key, String value) {
+        this.requestHeaders.put(key, value);
     }
 
     public String getRequestBody() {
@@ -129,6 +134,12 @@ public class HttpRequest {
     }
 
     public void setRequestBody(String requestBody) {
+        int contentLength = 0;
+
+        if (requestBody != null && !requestBody.isEmpty()) {
+            contentLength = requestBody.length();
+        }
+        addRequestHeader("Content-Length", String.valueOf(contentLength));
         this.requestBody = requestBody;
     }
 
