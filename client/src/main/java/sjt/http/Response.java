@@ -1,11 +1,11 @@
-package sjt.http.client;
+package sjt.http;
+
+import lombok.Getter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import lombok.Getter;
 
 public class Response {
     private static final String HEADER_DELIMITER = ": ";

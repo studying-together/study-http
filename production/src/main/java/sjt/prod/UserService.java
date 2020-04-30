@@ -1,6 +1,6 @@
 package sjt.prod;
 
-import sjt.http.client.TcWebClient;
+import sjt.client.TcWebClient;
 import sjt.prod.model.User;
 
 public class UserService {

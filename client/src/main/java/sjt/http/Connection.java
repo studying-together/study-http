@@ -1,4 +1,4 @@
-package sjt.http.client;
+package sjt.http;
 
 import java.io.Closeable;
 import java.io.IOException;
