@@ -41,7 +41,7 @@ public class UserServiceTest {
         userService.postUser(HOST, PORT, "/user", sampleUser);
 
         // 샘플 사용자 조회 및 검증
-//        User insertedUser = userService.getUser(HOST, PORT, "/user/1");
+        User insertedUser = userService.getUser(HOST, PORT, "/user/100");
 //        assertEquals(SAMPLE_ID, insertedUser.getId());
 //        assertEquals(SAMPLE_NAME, insertedUser.getName());
 //        assertEquals(SAMPLE_AGE, insertedUser.getAge());

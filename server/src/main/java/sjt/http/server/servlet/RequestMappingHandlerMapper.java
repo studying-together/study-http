@@ -22,8 +22,7 @@ public class RequestMappingHandlerMapper {
 
         for (Method method : clazz.getDeclaredMethods()) {
             if (method.isAnnotationPresent(RequestMapping.class)) {
-                System.out.println("catch method.. name : " + method.getName());
-
+                System.out.println("catch method.. name : "+ method.getName());
                 registerMethod(method.getAnnotation(RequestMapping.class), method);
             }
         }

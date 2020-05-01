@@ -43,4 +43,8 @@ public class Response {
         }
         body = stringBuilder.toString();
     }
+
+    public boolean hasBody() {
+        return body != null && body.length() > 0;
+    }
 }

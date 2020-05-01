@@ -1,14 +1,18 @@
 package sjt.http.server.servlet;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
 
 public class Controller {
 
     @RequestMapping(value = "/user", method = HttpMethod.POST)
-    public static String addUser(String user) {
+    public static Object addUser(String user) {
         // TODO : user 저장
-        return "200 OK";
+        String result = "{\n"
+                + "   \"id\":\"1004\",\n"
+                + "   \"name\":\"java\",\n"
+                + "   \"age\":22\n"
+                + "}";
+
+        return result;
     }
 
     @RequestMapping(value = "/user/1", method = HttpMethod.GET)

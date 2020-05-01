@@ -95,7 +95,12 @@ public class HttpEngine {
         Response response = readResponse();
         try {
             LOGGER.debug("response : {}", response.toString());
-            return objectMapper.readValue(response.getBody(), clazz);
+
+            if(response.hasBody()) {
+                return objectMapper.readValue(response.getBody(), clazz);
+            } else {
+                return null;
+            }
         } catch (JsonProcessingException e) {
             LOGGER.error("readResponse 중 JsonProcessingException 발생!", e);
             throw new RuntimeException(e);
