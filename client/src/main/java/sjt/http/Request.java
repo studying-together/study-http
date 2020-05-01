@@ -1,29 +1,26 @@
 package sjt.http;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.util.Map;
 
 @Builder
-@RequiredArgsConstructor
-@EqualsAndHashCode final public class Request {
-    @Getter
-    private final HttpMethod method;
-    @Getter
-    private final String host;
-    @Getter
-    private final String path;
-    @Getter
-    private final Integer port;
-    @Getter
-    private final String url;
-    @Getter
-    private final Map<String, String> headers;
-    @Getter
-    private final String body;
-    @Getter
-    private final String contentType;
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Request {
+    private HttpMethod method;
+    private String host;
+    private String path;
+    private Integer port;
+    private String url;
+    private String body;
+    private String contentType;
+
+    private Map<String, String> headers;
+
+    public void setHeaders(Map<String, String> headers) {
+        this.headers = headers;
+    }
 }
+

@@ -1,12 +1,14 @@
 package sjt.http;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+@ToString
 public class Response {
     private static final String HEADER_DELIMITER = ": ";
     @Getter

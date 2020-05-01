@@ -1,5 +1,7 @@
 package sjt.http.server;
 
+import sjt.http.server.servlet.Request;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -20,8 +22,10 @@ public class ServerExecutor {
         System.out.println("doExecute() called");
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
              BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()))) {
-            String requestTest = reader.readLine();
-            System.out.println("request: " + requestTest);
+
+            Request request = new Request(reader);
+            request.read();
+
             writeMockResponse(writer);
             System.out.println("writer flushed");
         } catch (IOException e) {
