@@ -34,4 +34,25 @@ public class Connection {
     public OutputStream getOutputStream() {
         return outputStream;
     }
+
+    public void close() {
+        try {
+            if (this.inputStream != null) {
+                inputStream.close();
+            }
+        } catch (IOException ignore) {
+        }
+        try {
+            if (this.outputStream != null) {
+                outputStream.close();
+            }
+        } catch (IOException ignore) {
+        }
+        try {
+            if (this.socket != null) {
+                socket.close();
+            }
+        } catch (IOException ignore) {
+        }
+    }
 }

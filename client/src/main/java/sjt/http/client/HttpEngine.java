@@ -38,7 +38,7 @@ public class HttpEngine {
             return parseResponse(httpResponse.getResponseBody(), clazz);
 
         } catch (IOException e) {
-            // TODO : wrapping exception vs log 남기기
+            connection.close();
             throw new HttpEngineExecuteException(e);
         }
 

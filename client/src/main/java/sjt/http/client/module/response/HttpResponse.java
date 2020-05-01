@@ -1,5 +1,7 @@
 package sjt.http.client.module.response;
 
+import lombok.Getter;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,6 +9,7 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
+@Getter
 public class HttpResponse {
 
     private static final String HEADER_DELIMITER = ": ";
@@ -65,27 +68,4 @@ public class HttpResponse {
         responseBody = stringBuilder.toString();
     }
 
-    public String getStatusLine() {
-        return statusLine;
-    }
-
-    public void setStatusLine(String statusLine) {
-        this.statusLine = statusLine;
-    }
-
-    public Map<String, String> getResponseHeaders() {
-        return responseHeaders;
-    }
-
-    public void setResponseHeaders(Map<String, String> responseHeaders) {
-        this.responseHeaders = responseHeaders;
-    }
-
-    public String getResponseBody() {
-        return responseBody;
-    }
-
-    public void setResponseBody(String responseBody) {
-        this.responseBody = responseBody;
-    }
 }
