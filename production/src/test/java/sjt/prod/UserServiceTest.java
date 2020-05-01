@@ -42,26 +42,26 @@ public class UserServiceTest {
 
         // 샘플 사용자 조회 및 검증
         User insertedUser = userService.getUser(HOST, PORT, "/user/100");
-//        assertEquals(SAMPLE_ID, insertedUser.getId());
-//        assertEquals(SAMPLE_NAME, insertedUser.getName());
-//        assertEquals(SAMPLE_AGE, insertedUser.getAge());
-//
-//        // 샘플 사용자 수정
-//        String updatedSampleUser = mapper.writeValueAsString(new User(SAMPLE_ID, SAMPLE_NAME, SAMPLE_UPDATED_AGE));
-//
-//        // 셈플 사용자 조회 및 검증
-//        userService.putUser(HOST, PORT, "/user", updatedSampleUser);
-//        User updatedUser = userService.getUser(HOST, PORT, "/user/1004");
-//        assertEquals(SAMPLE_ID, updatedUser.getId());
-//        assertEquals(SAMPLE_NAME, updatedUser.getName());
-//        assertEquals(SAMPLE_UPDATED_AGE, updatedUser.getAge());
-//
-//        // 샘플 사용자 삭제
-//        userService.deleteUser(HOST, PORT, "/user/1");
-//
-//        // 샘플 사용자 조회 및 검증
-//        User deletedUser = userService.getUser(HOST, PORT, "/user/1");
-//        assertNull(deletedUser);
+        assertEquals(SAMPLE_ID, insertedUser.getId());
+        assertEquals(SAMPLE_NAME, insertedUser.getName());
+        assertEquals(SAMPLE_AGE, insertedUser.getAge());
+
+        // 샘플 사용자 수정
+        String updatedSampleUser = mapper.writeValueAsString(new User(SAMPLE_ID, SAMPLE_NAME, SAMPLE_UPDATED_AGE));
+
+        // 셈플 사용자 조회 및 검증
+        userService.putUser(HOST, PORT, "/user", updatedSampleUser);
+        User updatedUser = userService.getUser(HOST, PORT, "/user/1004");
+        assertEquals(SAMPLE_ID, updatedUser.getId());
+        assertEquals(SAMPLE_NAME, updatedUser.getName());
+        assertEquals(SAMPLE_UPDATED_AGE, updatedUser.getAge());
+
+        // 샘플 사용자 삭제
+        userService.deleteUser(HOST, PORT, "/user/1");
+
+        // 샘플 사용자 조회 및 검증
+        User deletedUser = userService.getUser(HOST, PORT, "/user/1");
+        assertNull(deletedUser);
     }
 
 }
