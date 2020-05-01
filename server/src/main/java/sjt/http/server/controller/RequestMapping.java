@@ -1,4 +1,6 @@
-package sjt.http.server.servlet;
+package sjt.http.server.controller;
+
+import sjt.http.server.servlet.HttpMethod;
 
 import java.lang.annotation.*;
 

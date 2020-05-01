@@ -1,7 +1,9 @@
-package sjt.http.server.servlet;
+package sjt.http.server.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import sjt.http.server.servlet.Request;
+import sjt.http.server.servlet.Response;
 
 import java.lang.reflect.Method;
 

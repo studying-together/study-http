@@ -1,7 +1,8 @@
-package sjt.http.server.servlet;
+package sjt.http.server.controller;
 
 import lombok.Getter;
 import lombok.Setter;
+import sjt.http.server.servlet.Request;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;

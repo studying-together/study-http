@@ -1,7 +1,7 @@
 package sjt.http.server;
 
-import sjt.http.server.servlet.Controller;
-import sjt.http.server.servlet.ControllerContainer;
+import sjt.http.server.controller.Controller;
+import sjt.http.server.controller.ControllerContainer;
 import sjt.http.server.servlet.Request;
 import sjt.http.server.servlet.Response;
 

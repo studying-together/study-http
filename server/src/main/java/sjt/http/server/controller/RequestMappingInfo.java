@@ -1,7 +1,8 @@
-package sjt.http.server.servlet;
+package sjt.http.server.controller;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import sjt.http.server.servlet.HttpMethod;
 
 @Builder
 @EqualsAndHashCode
