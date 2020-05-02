@@ -3,6 +3,7 @@ package sjt.http.server;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import sjt.http.server.controller.Controller;
 import sjt.http.server.controller.MappingControllerRegistry;
+import sjt.http.server.exception.HttpInvalidRequestException;
 import sjt.http.server.response.HttpCode;
 import sjt.http.server.servlet.Request;
 import sjt.http.server.servlet.Response;
@@ -28,15 +29,22 @@ public class RequestHandler implements Runnable {
             System.out.println("\n>>> thread info :: " + Thread.currentThread().getName());
             ObjectMapper mapper = new ObjectMapper();
             Request request = new Request(is);
-            if (request.getStartLine() == null) {
-                this.connection.close();
-                return;
-            }
 
             //todo 테스트 데이터 처리..
             Controller<?> mappedController = MappingControllerRegistry.getMappedController(request);
             Object returnValue = mappedController.handle(request);
             os.write(Response.reply(HttpCode.HTTP_OK, mapper.writeValueAsString(returnValue)));
+            os.flush();
+        } catch (HttpInvalidRequestException e) {
+            handleHttpInvalidRequestException(os);
+        } catch (IOException e) {
+            this.connection.close();
+        }
+    }
+
+    private void handleHttpInvalidRequestException(OutputStream os) {
+        try {
+            os.write(Response.reply(HttpCode.HTTP_BAD_REQUEST, null));
             os.flush();
         } catch (IOException e) {
             this.connection.close();

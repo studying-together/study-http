@@ -1,17 +1,18 @@
 package sjt.http.server.response;
 
-public class HttpCode {
-    public static final int HTTP_OK = 200;
-    public static final int HTTP_NOT_FOUND = 404;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-    public static String msg(int httpCode) {
-        switch (httpCode) {
-            case HTTP_OK:
-                return " OK";
-            case HTTP_NOT_FOUND:
-                return " Not Found";
-            default:
-                return "";
-        }
-    }
+@AllArgsConstructor
+@Getter
+public enum HttpCode {
+    HTTP_OK(200, "OK"),
+    HTTP_CREATED(201, "Created"),
+    HTTP_MOVED_PERMANENTLY(301, "Moved Permanently"),
+    HTTP_BAD_REQUEST(400, "Bad request"),
+    HTTP_NOT_FOUND(404, "Not Found");
+
+    private int code;
+    private String msg;
+
 }
