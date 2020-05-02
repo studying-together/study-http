@@ -13,6 +13,7 @@ import java.util.Map;
 public class HttpResponse {
 
     private static final String HEADER_DELIMITER = ": ";
+    private static final String CRLF = "\r\n";
 
     private String statusLine;
     private Map<String, String> responseHeaders = new HashMap<>();
@@ -62,7 +63,7 @@ public class HttpResponse {
         StringBuilder stringBuilder = new StringBuilder();
 
         while (reader.ready() && (responseBodyLine = reader.readLine()) != null) {
-            stringBuilder.append(responseBodyLine).append("\r\n");
+            stringBuilder.append(responseBodyLine).append(CRLF);
         }
 
         responseBody = stringBuilder.toString();
