@@ -29,7 +29,10 @@ public class HttpEngine {
         //TODO:: url이 있으면 그 안에서 host, port, path, 프래그먼트 직접 파싱하도록 하도록 하는 기능 추가
         try {
             initHttpEngine(request.getHost(), request.getPort());
+
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOut()), MTU);
+
+            // TODO : Request 정리
             initHeader(request);
             writeStartLine(writer, request);
             writeHeader(writer, request);
@@ -52,6 +55,8 @@ public class HttpEngine {
         headers.putIfAbsent("Connection", "close"); //아직 지속연결 못함.
         headers.putIfAbsent("Host", request.getHost());
         headers.putIfAbsent("User-Agent", "TcHttpClient/1.0");
+
+        request.setHeaders(headers);
     }
 
     private void writeStartLine(final BufferedWriter writer, final Request request) throws IOException {
@@ -64,8 +69,9 @@ public class HttpEngine {
             return;
         }
         for (String key : header.keySet()) {
-            writer.write(key + ": " + header.get(key));
+            writer.write(key + ": " + header.get(key) + CRLF);
         }
+        writer.write(CRLF);
     }
 
     private void writeBody(final BufferedWriter writer, final Request request) throws IOException {
@@ -88,7 +94,13 @@ public class HttpEngine {
     public <T> T readResponse(final Class<T> clazz) {
         Response response = readResponse();
         try {
-            return objectMapper.readValue(response.getBody(), clazz);
+            LOGGER.debug("response : {}", response.toString());
+
+            if(response.hasBody()) {
+                return objectMapper.readValue(response.getBody(), clazz);
+            } else {
+                return null;
+            }
         } catch (JsonProcessingException e) {
             LOGGER.error("readResponse 중 JsonProcessingException 발생!", e);
             throw new RuntimeException(e);

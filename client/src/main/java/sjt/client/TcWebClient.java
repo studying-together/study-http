@@ -24,6 +24,7 @@ public class TcWebClient extends BaseWebClient {
                 .host(host)
                 .port(port)
                 .path(path)
+                .body(body)
                 .build();
         return tcHttpClient.execute(request, clazz);
     }

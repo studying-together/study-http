@@ -16,10 +16,10 @@ public class UserServiceTest {
     static String HOST = "127.0.0.1";
     static int PORT = 8080;
 
-    static String SAMPLE_ID = "1";
-    static String SAMPLE_NAME = "sjt";
-    static int SAMPLE_AGE = 2;
-    static int SAMPLE_UPDATED_AGE = 3;
+    static String SAMPLE_ID = "1004";
+    static String SAMPLE_NAME = "java";
+    static int SAMPLE_AGE = 22;
+    static int SAMPLE_UPDATED_AGE = 2;
 
     ObjectMapper mapper = new ObjectMapper();
 
@@ -31,7 +31,7 @@ public class UserServiceTest {
          *
          * 목을 제거하고 구현체를 사용하자
          */
-        TcWebClient webClient = Mockito.mock(TcWebClient.class);
+        TcWebClient webClient = new TcWebClient();
 
         UserService userService = new UserService(webClient);
 
@@ -40,9 +40,8 @@ public class UserServiceTest {
         // 샘플 사용자 등록
         userService.postUser(HOST, PORT, "/user", sampleUser);
 
-        Mockito.when(webClient.get(HOST, PORT, "/user/1", User.class)).thenReturn(new User(SAMPLE_ID, SAMPLE_NAME, SAMPLE_AGE));
         // 샘플 사용자 조회 및 검증
-        User insertedUser = userService.getUser(HOST, PORT, "/user/1");
+        User insertedUser = userService.getUser(HOST, PORT, "/user/100");
         assertEquals(SAMPLE_ID, insertedUser.getId());
         assertEquals(SAMPLE_NAME, insertedUser.getName());
         assertEquals(SAMPLE_AGE, insertedUser.getAge());
@@ -50,10 +49,9 @@ public class UserServiceTest {
         // 샘플 사용자 수정
         String updatedSampleUser = mapper.writeValueAsString(new User(SAMPLE_ID, SAMPLE_NAME, SAMPLE_UPDATED_AGE));
 
-        Mockito.when(webClient.get(HOST, PORT, "/user/1", User.class)).thenReturn(new User(SAMPLE_ID, SAMPLE_NAME, SAMPLE_UPDATED_AGE));
         // 셈플 사용자 조회 및 검증
         userService.putUser(HOST, PORT, "/user", updatedSampleUser);
-        User updatedUser = userService.getUser(HOST, PORT, "/user/1");
+        User updatedUser = userService.getUser(HOST, PORT, "/user/1004");
         assertEquals(SAMPLE_ID, updatedUser.getId());
         assertEquals(SAMPLE_NAME, updatedUser.getName());
         assertEquals(SAMPLE_UPDATED_AGE, updatedUser.getAge());
@@ -61,7 +59,6 @@ public class UserServiceTest {
         // 샘플 사용자 삭제
         userService.deleteUser(HOST, PORT, "/user/1");
 
-        Mockito.when(webClient.get(HOST, PORT, "/user/1", User.class)).thenReturn(null);
         // 샘플 사용자 조회 및 검증
         User deletedUser = userService.getUser(HOST, PORT, "/user/1");
         assertNull(deletedUser);
