@@ -2,7 +2,9 @@ package sjt.http.server.servlet;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AccessLevel;
 import lombok.Getter;
+import sjt.http.server.exception.HttpInvalidRequestException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,6 +13,7 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
+@Getter
 public class Request {
 
     private static final String END_OF_LINE = "";
@@ -18,30 +21,25 @@ public class Request {
     private static final String LINE_SEPARATOR = " ";
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
-    @Getter
     private final Map<String, String> headers;
 
-    @Getter
-    private final String startLine;
-
-    @Getter
     private HttpMethod httpMethod;
 
-    @Getter
     private String path;
 
+    @Getter(AccessLevel.NONE)
     private String httpVersion;
 
-    @Getter
     private String body;
 
     public Request(InputStream is) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        String line = reader.readLine();
+        if (line == null) {
+            throw new HttpInvalidRequestException("invalid Request");
+        }
+        parseRequestLine(line);
 
-        this.startLine = reader.readLine();
-        parseRequestLine(this.startLine);
-
-        String line;
         headers = new HashMap<>();
         while (!(line = reader.readLine()).equals(END_OF_LINE)) {
             int indexOfDelimiter = line.indexOf(HEADER_DELIMITER);

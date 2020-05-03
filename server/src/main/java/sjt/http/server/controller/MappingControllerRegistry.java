@@ -2,6 +2,7 @@ package sjt.http.server.controller;
 
 import sjt.http.server.db.InMemoryDb;
 import sjt.http.server.db.User;
+import sjt.http.server.exception.HttpInvalidRequestException;
 import sjt.http.server.servlet.Request;
 
 import java.util.HashMap;
@@ -26,7 +27,7 @@ public class MappingControllerRegistry {
     public static Controller<?> getMappedController(ControllerKey key) {
         Controller<?> mappedController = REGISTRY.get(key);
         if (mappedController == null) {
-            throw new IllegalArgumentException("매핑 된 Controller 를 찾을 수 없습니다. key={" + key + "}");
+            throw new HttpInvalidRequestException("매핑 된 Controller 를 찾을 수 없습니다. key={" + key + "}");
         }
         return mappedController;
     }

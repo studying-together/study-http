@@ -1,11 +1,12 @@
 package sjt.http.server;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-public class Connection {
+public class Connection implements Closeable {
     private Socket socket;
     private InputStream inputStream;
     private OutputStream outputStream;
@@ -25,6 +26,7 @@ public class Connection {
         return outputStream;
     }
 
+    @Override
     public void close() {
         if (!this.closed) {
             this.closed = true;

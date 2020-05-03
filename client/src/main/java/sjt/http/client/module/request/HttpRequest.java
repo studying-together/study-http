@@ -1,5 +1,7 @@
 package sjt.http.client.module.request;
 
+import lombok.Getter;
+import lombok.Setter;
 import sjt.http.client.module.HttpMethod;
 
 import java.io.BufferedOutputStream;
@@ -9,6 +11,8 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+@Getter
+@Setter
 public class HttpRequest {
 
     private static final String HEADER_DELIMITER = ": ";
@@ -113,24 +117,8 @@ public class HttpRequest {
         bufferedOutputStream.write(requestBody.getBytes());
     }
 
-    public RequestLine getRequestLine() {
-        return requestLine;
-    }
-
-    public void setRequestLine(RequestLine requestLine) {
-        this.requestLine = requestLine;
-    }
-
-    public Map<String, String> getRequestHeaders() {
-        return requestHeaders;
-    }
-
     public void addRequestHeader(String key, String value) {
         this.requestHeaders.put(key, value);
-    }
-
-    public String getRequestBody() {
-        return requestBody;
     }
 
     public void setRequestBody(String requestBody) {

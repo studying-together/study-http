@@ -5,9 +5,9 @@ import sjt.http.server.response.HttpCode;
 public class Response {
     private static final String CRLF = "\r\n";
 
-    public static byte[] reply(int code, String body) {
+    public static byte[] reply(HttpCode httpCode, String body) {
         StringBuilder builder = new StringBuilder();
-        builder.append("HTTP/1.1 ").append(code).append(HttpCode.msg(code)).append(CRLF);
+        builder.append("HTTP/1.1 ").append(httpCode.getCode()).append(" ").append(httpCode.getMsg()).append(CRLF);
 
         if (body != null && body.length() != 0) {
             builder.append("Content-Length: ").append(body.length()).append(CRLF);

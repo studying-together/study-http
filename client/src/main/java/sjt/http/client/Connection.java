@@ -1,5 +1,6 @@
 package sjt.http.client;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -8,7 +9,7 @@ import java.net.Socket;
 /**
  * socket 연결을 위한 클래스입니다.
  */
-public class Connection {
+public class Connection implements Closeable {
 
     private final String host;
     private final int port;
@@ -33,5 +34,27 @@ public class Connection {
 
     public OutputStream getOutputStream() {
         return outputStream;
+    }
+
+    @Override
+    public void close() {
+        try {
+            if (this.inputStream != null) {
+                inputStream.close();
+            }
+        } catch (IOException ignore) {
+        }
+        try {
+            if (this.outputStream != null) {
+                outputStream.close();
+            }
+        } catch (IOException ignore) {
+        }
+        try {
+            if (this.socket != null) {
+                socket.close();
+            }
+        } catch (IOException ignore) {
+        }
     }
 }
