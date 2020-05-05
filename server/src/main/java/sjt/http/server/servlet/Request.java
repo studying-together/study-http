@@ -60,12 +60,12 @@ public class Request {
 
     private void parseRequestLine(String requestLine) {
         String[] tokens = requestLine.split(LINE_SEPARATOR);
-        if (!HttpMethod.contains(tokens[0])) {
-            throw new IllegalArgumentException("Not support method. " + tokens[0]);
-        }
-
         if (tokens.length != 3) {
             throw new IllegalArgumentException("Can't parse request line : " + requestLine);
+        }
+
+        if (!HttpMethod.contains(tokens[0])) {
+            throw new IllegalArgumentException("Not support method. " + tokens[0]);
         }
 
         httpMethod = HttpMethod.valueOf(tokens[0]);
