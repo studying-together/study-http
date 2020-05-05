@@ -1,6 +1,7 @@
 package sjt.http.server;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import sjt.http.server.controller.Controller;
 import sjt.http.server.controller.MappingControllerRegistry;
 import sjt.http.server.exception.HttpInvalidRequestException;
@@ -13,6 +14,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
+@Slf4j
 public class RequestHandler implements Runnable {
     Connection connection;
     OutputStream os;
@@ -26,11 +28,10 @@ public class RequestHandler implements Runnable {
 
     public void run() {
         try {
-            System.out.println("\n>>> thread info :: " + Thread.currentThread().getName());
+            log.debug("\n>>> thread info :: {}", Thread.currentThread().getName());
             ObjectMapper mapper = new ObjectMapper();
             Request request = new Request(is);
 
-            //todo 테스트 데이터 처리..
             Controller<?> mappedController = MappingControllerRegistry.getMappedController(request);
             Object returnValue = mappedController.handle(request);
             os.write(Response.reply(HttpCode.HTTP_OK, mapper.writeValueAsString(returnValue)));
