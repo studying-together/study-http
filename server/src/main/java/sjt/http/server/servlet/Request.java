@@ -21,7 +21,7 @@ public class Request {
     private static final String LINE_SEPARATOR = " ";
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
-    private final Map<String, String> headers;
+    private final Map<String, String> headers = new HashMap<>();
 
     private HttpMethod httpMethod;
 
@@ -39,30 +39,38 @@ public class Request {
             throw new HttpInvalidRequestException("invalid Request");
         }
         parseRequestLine(line);
+        parseRequestHeaders(reader);
+        parseRequestBody(reader);
+    }
 
-        headers = new HashMap<>();
-        while (!(line = reader.readLine()).equals(END_OF_LINE)) {
-            int indexOfDelimiter = line.indexOf(HEADER_DELIMITER);
-            headers.put(line.substring(0, indexOfDelimiter), line.substring(indexOfDelimiter + HEADER_DELIMITER.length()));
-        }
-
+    private void parseRequestBody(BufferedReader reader) throws IOException {
         String contentLength = headers.get("Content-Length");
         if (contentLength != null) {
             body = readBody(reader, Integer.parseInt(contentLength));
         }
+    }
 
+    private void parseRequestHeaders(BufferedReader reader) throws IOException {
+        String line;
+        while (!(line = reader.readLine()).equals(END_OF_LINE)) {
+            int indexOfDelimiter = line.indexOf(HEADER_DELIMITER);
+            headers.put(line.substring(0, indexOfDelimiter), line.substring(indexOfDelimiter + HEADER_DELIMITER.length()));
+        }
     }
 
     private void parseRequestLine(String requestLine) {
         String[] tokens = requestLine.split(LINE_SEPARATOR);
         if (!HttpMethod.contains(tokens[0])) {
-            throw new IllegalArgumentException("Not support method." + tokens[0]);
+            throw new IllegalArgumentException("Not support method. " + tokens[0]);
+        }
+
+        if (tokens.length != 3) {
+            throw new IllegalArgumentException("Can't parse request line : " + requestLine);
         }
 
         httpMethod = HttpMethod.valueOf(tokens[0]);
         path = tokens[1];
         httpVersion = tokens[2];
-
     }
 
     private String readBody(BufferedReader reader, int contentLength) throws IOException {
