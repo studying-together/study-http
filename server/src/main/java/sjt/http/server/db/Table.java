@@ -1,20 +1,14 @@
 package sjt.http.server.db;
 
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by yusik on 2020/04/29.
  */
-@RequiredArgsConstructor
+@Slf4j
 public class Table<T extends TableSchema> extends ConcurrentHashMap<String, T> {
-
-    private final boolean debugMode;
-
-    public Table() {
-        this(false);
-    }
 
     public T insert(T row) {
         showTable();
@@ -45,12 +39,12 @@ public class Table<T extends TableSchema> extends ConcurrentHashMap<String, T> {
 
     // for debug
     public void showTable() {
-        if (debugMode && !isEmpty()) {
-            System.out.printf("== TABLE(total=%d) ============\n", size());
+        if (!isEmpty()) {
+            log.debug("== TABLE(total={}}) ============", size());
             for (T row : values()) {
-                System.out.println(row.printRow());
+                log.debug("{}", row.printRow());
             }
-            System.out.println("==============================\n");
+            log.debug("\"==============================");
         }
     }
 }
