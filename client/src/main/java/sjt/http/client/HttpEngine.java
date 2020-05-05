@@ -42,7 +42,7 @@ public class HttpEngine {
                     .findAny()
                     .orElseThrow(() -> new RuntimeException("can not find message converter"));
 
-            return (T) messageConverter.parseMessage(clazz, httpResponse.getResponseBody().getBytes());
+            return messageConverter.parseMessage(clazz, httpResponse.getResponseBody().getBytes());
 
         } catch (IOException e) {
             connection.close();

@@ -1,8 +1,8 @@
 package sjt.http.client.module.converter;
 
-public interface MessageConverter<T> {
+public interface MessageConverter {
 
     boolean canParse(String contentType);
 
-    T parseMessage(Class<? extends T> clazz, byte[] message);
+    <T> T parseMessage(Class<? extends T> clazz, byte[] message);
 }

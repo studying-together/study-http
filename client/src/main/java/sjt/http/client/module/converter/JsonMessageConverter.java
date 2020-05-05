@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 
 @Slf4j
-public class JsonMessageConverter<T> implements MessageConverter<T> {
+public class JsonMessageConverter implements MessageConverter {
     ObjectMapper objectMapper = new ObjectMapper();
     final String contentType = "application/json";
 
@@ -14,7 +14,8 @@ public class JsonMessageConverter<T> implements MessageConverter<T> {
         return this.contentType.equals(contentType);
     }
 
-    @Override public T parseMessage(Class<? extends T> clazz, byte[] message) {
+    @Override
+    public <T> T parseMessage(Class<? extends T> clazz, byte[] message) {
         try {
             return objectMapper.readValue(message, 0, message.length, clazz);
         } catch (IOException e) {
@@ -22,4 +23,5 @@ public class JsonMessageConverter<T> implements MessageConverter<T> {
             return null;
         }
     }
+
 }
