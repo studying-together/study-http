@@ -28,11 +28,11 @@ public class RequestHandler implements Runnable {
 
     public void run() {
         try {
-            log.debug("\n>>> thread info :: {}", Thread.currentThread().getName());
             ObjectMapper mapper = new ObjectMapper();
             Request request = new Request(is);
 
             Controller<?> mappedController = MappingControllerRegistry.getMappedController(request);
+            log.debug(">>> mappedController :: {}", mappedController);
             Object returnValue = mappedController.handle(request);
             os.write(Response.reply(HttpCode.HTTP_OK, mapper.writeValueAsString(returnValue)));
             os.flush();
