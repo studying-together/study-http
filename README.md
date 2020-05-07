@@ -12,7 +12,7 @@
 
 ### Step 2
 1. :alarm_clock: [2020-04-23-일곱번째 걸음](/documents/steps/step7.md)
-
+2. :smile: [2020-05-07-여덟번째 걸음](/documents/step/step8.md)
 <br>
 
 #### :pray: [과제를 진행하는 방법](/documents/policy.md)
