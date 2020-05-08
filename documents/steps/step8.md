@@ -18,11 +18,11 @@
 
 #### 팀1
 
-KYS(Content-Length, Chunked)/KDH(Content type)/CHH(Cache
+HSM/JMS(Cache)/KDH(Content-Length, Chunked)
 
 #### 팀2
 
-HSM/JMS(Cache)/KDH(Content-Length, Chunked)
+KYS(Content-Length, Chunked)/KDH(Content type)/CHH(Cache
 
 #### 일정
 
