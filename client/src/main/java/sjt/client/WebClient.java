@@ -1,20 +1,13 @@
 package sjt.client;
 
-import sjt.exception.WebClientException;
-
-import java.util.Map;
+import sjt.exception.TcClientException;
 
 public interface WebClient {
+    <T> T get(String host, int port, String path, Class<T> clazz) throws TcClientException;
 
-    <T> T get(String url, Class<T> clazz) throws WebClientException;
+    <T> T post(String host, int port, String path, String body, Class<T> clazz) throws TcClientException;
 
-    <T> Map<String, T> getMap(String url,  Class<T> clazz) throws WebClientException;
+    <T> void put(String host, int port, String path, String body, Class<T> clazz) throws TcClientException;
 
-    <T> T post(String url, Class<T> clazz) throws WebClientException;
-
-    <V> Map<String, V> postMap(String url, Class<V> clazz, Map<String, ?> params) throws WebClientException;
-
-    <T> T put(String url, Class<T> clazz, Map<String, ?> param) throws WebClientException;
-
-    <T> T delete(String url, Class<T> clazz) throws WebClientException;
+    <T> void delete(String host, int port, String path, Class<T> clazz) throws TcClientException;
 }
