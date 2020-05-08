@@ -1,28 +1,31 @@
 package sjt.http.server.db;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Created by yusik on 2020/04/29.
  */
+@Slf4j
 public class InMemoryDb {
     private static final Table<User> USER_TABLE = new Table<>();
 
     public static User saveUser(User user) {
-        System.out.println("## Save user: " + user);
+        log.debug("## Save user: {}", user);
         return USER_TABLE.insert(user);
     }
 
     public static User findUserById(String id) {
-        System.out.println("## Find user: " + id);
+        log.debug("## Find user: {}", id);
         return USER_TABLE.select(id);
     }
 
     public static User updateUser(User user) {
-        System.out.println("## Update user: " + user);
+        log.debug("## Update user: {}", user);
         return USER_TABLE.update(user);
     }
 
     public static User deleteUserById(String id) {
-        System.out.println("## Delete user: " + id);
+        log.debug("## Delete user: {}", id);
         return USER_TABLE.delete(id);
     }
 
