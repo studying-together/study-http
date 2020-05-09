@@ -8,25 +8,24 @@ import sjt.exception.TcClientException;
 import sjt.http.Response;
 
 @Slf4j
-public class ResponseToObjectParser {
+public class JsonParser implements HttpResponseParser {
+    private static final String JSON_CONTENT_TYPE = "application/json";
+    private final ObjectMapper objectMapper;
 
-    private ObjectMapper objectMapper;
-
-    public ResponseToObjectParser() {
+    public JsonParser() {
         this.objectMapper = new ObjectMapper();
     }
 
-    public ResponseToObjectParser(ObjectMapper objectMapper) {
+    public JsonParser(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
     }
 
-    /**
-     * parse 이후 <T> 반환
-     *
-     * @param clazz
-     * @param <T>
-     * @return
-     */
+    @Override
+    public boolean canParse(final String contentType) {
+        return JSON_CONTENT_TYPE.equals(contentType);
+    }
+
+    @Override
     public <T> T doParse(Response response, final Class<T> clazz) {
         try {
             log.debug("response : {}", response.toString());

@@ -3,6 +3,7 @@ package sjt.client;
 import java.net.CookieHandler;
 import java.util.Map;
 
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import sjt.exception.TcClientException;
 import sjt.http.HttpEngine;
@@ -22,6 +23,7 @@ public class TcHttpClient {
     }
 
     // executes HTTP request
+    @NonNull
     public Response execute(final Request request) {
         initCookie(request);
         final Response response = httpEngine.sendRequest(request);
