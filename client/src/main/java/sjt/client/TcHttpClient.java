@@ -3,9 +3,6 @@ package sjt.client;
 import java.net.CookieHandler;
 import java.util.Map;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import lombok.extern.slf4j.Slf4j;
 import sjt.exception.TcClientException;
 import sjt.http.HttpEngine;
@@ -13,49 +10,25 @@ import sjt.http.Request;
 import sjt.http.Response;
 
 /**
- * 실제 통신 수행
+ * 순수하게 http 관련 client 입니다.
  */
 @Slf4j
 public class TcHttpClient {
     private final HttpEngine httpEngine;
-    private ObjectMapper objectMapper;
     private CookieHandler cookieHandler;
 
-    public TcHttpClient(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
+    public TcHttpClient() {
         this.httpEngine = new HttpEngine();
     }
 
     // executes HTTP request
-    public <T> T execute(final Request request, final Class<T> clazz) {
+    public Response execute(final Request request) {
         initCookie(request);
         final Response response = httpEngine.sendRequest(request);
         if (response != null) {
-            return parse(response, clazz);
-        } else {
-            throw new TcClientException("The response should not be null.");
+            return response;
         }
-    }
-
-    /**
-     * parse 이후 <T> 반환
-     *
-     * @param clazz
-     * @param <T>
-     * @return
-     */
-    public <T> T parse(Response response, final Class<T> clazz) {
-        try {
-            log.debug("response : {}", response.toString());
-            if (response.hasBody()) {
-                return objectMapper.readValue(response.getBody(), clazz);
-            } else {
-                return null;
-            }
-        } catch (JsonProcessingException e) {
-            log.error("readResponse 중 JsonProcessingException 발생!", e);
-            throw new TcClientException(e);
-        }
+        throw new TcClientException("The response should not be null.");
     }
 
     public void initCookie(final Request request) {

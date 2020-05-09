@@ -1,13 +1,21 @@
-package sjt.client;
+package sjt;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
+import lombok.extern.slf4j.Slf4j;
+import sjt.client.TcHttpClient;
 import sjt.exception.TcClientException;
 import sjt.http.HttpMethod;
 import sjt.http.Request;
+import sjt.parser.ResponseToObjectParser;
 
-public class TcWebClient implements WebClient {
-    private TcHttpClient tcHttpClient = new TcHttpClient(new ObjectMapper());
+@Slf4j
+public class RestTemplate implements WebTemplate {
+    private final TcHttpClient tcHttpClient;
+    private final ResponseToObjectParser parser;
+
+    public RestTemplate(TcHttpClient tcHttpClient, ResponseToObjectParser parser) {
+        this.tcHttpClient = tcHttpClient;
+        this.parser = parser;
+    }
 
     @Override
     public <T> T get(final String host, final int port, final String path, final Class<T> clazz) throws TcClientException {
@@ -17,12 +25,11 @@ public class TcWebClient implements WebClient {
                                        .port(port)
                                        .path(path)
                                        .build();
-        return tcHttpClient.execute(request, clazz);
+        return parser.doParse(tcHttpClient.execute(request), clazz);
     }
 
     @Override
-    public <T> T post(final String host, final int port, final String path, final String body, final Class<T> clazz) throws
-                                                                                                                     TcClientException {
+    public <T> T post(final String host, final int port, final String path, final String body, final Class<T> clazz) throws TcClientException {
         final Request request = Request.builder()
                                        .method(HttpMethod.POST)
                                        .host(host)
@@ -30,7 +37,7 @@ public class TcWebClient implements WebClient {
                                        .path(path)
                                        .body(body)
                                        .build();
-        return tcHttpClient.execute(request, clazz);
+        return parser.doParse(tcHttpClient.execute(request), clazz);
     }
 
     @Override

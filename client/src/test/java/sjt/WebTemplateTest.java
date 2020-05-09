@@ -1,18 +1,18 @@
-package sjt.http.client;
+package sjt;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import sjt.client.TcWebClient;
-import sjt.client.WebClient;
+import sjt.client.TcHttpClient;
+import sjt.parser.ResponseToObjectParser;
 
-public class WebClientTest {
-    private static WebClient webClient;
+public class WebTemplateTest {
+    private static WebTemplate webTemplate;
 
     @BeforeAll
     static void setUp() {
-        webClient = new TcWebClient();
+        webTemplate = new RestTemplate(new TcHttpClient(), new ResponseToObjectParser());
     }
 
     @DisplayName("GET 테스트")
