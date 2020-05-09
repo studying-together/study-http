@@ -1,6 +1,7 @@
 package sjt.http;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
-class HttpEngineTest {
+public class HttpEngineTest {
+    private HttpEngine httpEngine;
 }
