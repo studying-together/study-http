@@ -6,11 +6,11 @@ import sjt.http.Response;
 
 @Slf4j
 public class TextParser implements HttpResponseParser {
-    private static final String JSON_CONTENT_TYPE = "text/plain";
+    private static final String TEXT_PLAIN_CONTENT_TYPE = "text/plain";
 
     @Override
     public boolean canParse(final String contentType) {
-        return JSON_CONTENT_TYPE.equals(contentType);
+        return TEXT_PLAIN_CONTENT_TYPE.equals(contentType);
     }
 
     @Override
