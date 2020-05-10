@@ -9,7 +9,7 @@ import sjt.http.Response;
 
 @Slf4j
 public class JsonParser implements HttpResponseParser {
-    private static final String JSON_CONTENT_TYPE = "application/json";
+    private static final String APPLICATION_JSON_CONTENT_TYPE = "application/json";
     private final ObjectMapper objectMapper;
 
     public JsonParser() {
@@ -22,7 +22,7 @@ public class JsonParser implements HttpResponseParser {
 
     @Override
     public boolean canParse(final String contentType) {
-        return JSON_CONTENT_TYPE.equals(contentType);
+        return APPLICATION_JSON_CONTENT_TYPE.equals(contentType);
     }
 
     @Override

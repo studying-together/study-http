@@ -21,7 +21,7 @@ public class RestTemplate implements WebTemplate {
     }
 
     @Override
-    public <T> T get(final String host, final int port, final String path, final Class<T> clazz) throws TcClientException {
+    public <T> T get(final String host, final int port, final String path, final Class<T> clazz) {
         final Request request = Request.builder()
                                        .method(HttpMethod.GET)
                                        .host(host)
@@ -32,8 +32,7 @@ public class RestTemplate implements WebTemplate {
     }
 
     @Override
-    public <T> T post(final String host, final int port, final String path, final String body, final Class<T> clazz) throws
-                                                                                                                     TcClientException {
+    public <T> T post(final String host, final int port, final String path, final String body, final Class<T> clazz) {
         final Request request = Request.builder()
                                        .method(HttpMethod.POST)
                                        .host(host)
@@ -45,7 +44,7 @@ public class RestTemplate implements WebTemplate {
     }
 
     @Override
-    public <T> void put(String host, int port, String path, String body, Class<T> clazz) throws TcClientException {
+    public <T> void put(String host, int port, String path, String body, Class<T> clazz) {
         final Request request = Request.builder()
                                        .method(HttpMethod.POST)
                                        .host(host)
@@ -57,7 +56,7 @@ public class RestTemplate implements WebTemplate {
     }
 
     @Override
-    public <T> void delete(String host, int port, String path, Class<T> clazz) throws TcClientException {
+    public <T> void delete(String host, int port, String path, Class<T> clazz) {
         final Request request = Request.builder()
                                        .method(HttpMethod.POST)
                                        .host(host)
@@ -67,7 +66,7 @@ public class RestTemplate implements WebTemplate {
         execute(request, clazz);
     }
 
-    private <T> T execute(final Request request, final Class<T> clazz) throws TcClientException {
+    private <T> T execute(final Request request, final Class<T> clazz) {
         final Response response = tcHttpClient.execute(request);
         return parsers.stream()
                       .filter(parser -> parser.canParse(response.getHeaders().get("Content-Type")))
