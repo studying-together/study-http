@@ -11,7 +11,7 @@ import sjt.http.Request;
 import sjt.http.Response;
 
 /**
- * 순수하게 http 관련 client 입니다.
+ * 순수 http 관련 client 입니다.
  */
 @Slf4j
 public class TcHttpClient {
