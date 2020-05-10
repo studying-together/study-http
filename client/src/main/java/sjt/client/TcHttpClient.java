@@ -3,34 +3,34 @@ package sjt.client;
 import java.net.CookieHandler;
 import java.util.Map;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import lombok.RequiredArgsConstructor;
+import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
+import sjt.exception.TcClientException;
 import sjt.http.HttpEngine;
 import sjt.http.Request;
 import sjt.http.Response;
 
 /**
- * 실제 통신 수행
+ * 순수하게 http 관련 client 입니다.
  */
-@RequiredArgsConstructor
+@Slf4j
 public class TcHttpClient {
-    private final ObjectMapper objectMapper;
-    private HttpEngine httpEngine;
+    private final HttpEngine httpEngine;
     private CookieHandler cookieHandler;
 
-    // executes HTTP request
-    public <T> T execute(final Request request, final Class<T> clazz) {
-        initCookie(request);
-        httpEngine = new HttpEngine(objectMapper);
-        httpEngine.sendRequest(request);
-        return httpEngine.readResponse(clazz);
+    public TcHttpClient() {
+        this.httpEngine = new HttpEngine();
     }
 
+    // executes HTTP request
+    @NonNull
     public Response execute(final Request request) {
         initCookie(request);
-        httpEngine.sendRequest(request);
-        return httpEngine.readResponse();
+        final Response response = httpEngine.sendRequest(request);
+        if (response != null) {
+            return response;
+        }
+        throw new TcClientException("The response should not be null.");
     }
 
     public void initCookie(final Request request) {

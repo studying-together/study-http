@@ -1,13 +1,13 @@
 package sjt.prod;
 
-import sjt.client.TcWebClient;
+import sjt.RestTemplate;
 import sjt.prod.model.User;
 
 public class UserService {
 
-    private TcWebClient webClient;
+    private RestTemplate webClient;
 
-    public UserService(TcWebClient webClient) {
+    public UserService(RestTemplate webClient) {
         this.webClient = webClient;
     }
 
