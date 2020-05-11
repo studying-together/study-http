@@ -19,7 +19,7 @@ public class WebClientTest {
     @DisplayName("API 조회 테스트")
     @Test
     void getTest() {
-        String result = webClient.get("localhost", 8080, "/index", String.class);
+        String result = webClient.get("localhost", 8888, "/echo/test", String.class);
         // AssertJ - write fluent assertions
     }
 
