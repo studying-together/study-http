@@ -22,4 +22,19 @@ public class WebClientTest {
         String result = webClient.get("localhost", 8080, "/index", String.class);
         // AssertJ - write fluent assertions
     }
+
+    @DisplayName("Content-Length")
+    @Test
+    void contentLength() {
+    }
+
+    @DisplayName("Content-Type")
+    @Test
+    void contentType() {
+    }
+
+    @DisplayName("Cache-Control")
+    @Test
+    void cacheControl() {
+    }
 }
