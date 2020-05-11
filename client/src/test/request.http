@@ -1,0 +1,7 @@
+GET http://localhost:8888/index
+
+###
+GET http://localhost:8888/echo/test
+Content-Type: application/json
+
+###
