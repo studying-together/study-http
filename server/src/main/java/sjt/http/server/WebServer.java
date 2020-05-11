@@ -1,21 +1,31 @@
 package sjt.http.server;
 
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+@Slf4j
+@SpringBootApplication
+@Controller
 public class WebServer {
-    private static final int THREAD_POOL_SIZE = 4;
-    private static final int PORT = 8080;
+    public static void main(String[] args) {
+        new SpringApplicationBuilder(WebServer.class)
+                .build()
+                .run(args);
+    }
 
-    public static void main(String[] args) throws IOException {
-        ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
-        ServerSocket serverSocket = new ServerSocket(PORT);
-        while (true) {
-            Socket socket = serverSocket.accept();
-            executorService.execute(() -> new ServerExecutor(socket).execute());
-        }
+    @GetMapping(value = "/hello", produces = "text/html")
+    public String getHello() {
+        return "hello";
+    }
+
+    @GetMapping(value = "/{message}", produces = "text/plain")
+    public @ResponseBody String getMessage(@PathVariable String message) {
+        log.info("get Message : {}" , message);
+        return message;
     }
 }
