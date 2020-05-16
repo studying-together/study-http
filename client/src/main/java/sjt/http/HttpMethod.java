@@ -7,4 +7,9 @@ public enum HttpMethod {
     public static boolean isBodyMethodType(final HttpMethod method) {
         return HttpMethod.POST.equals(method) || HttpMethod.PUT.equals(method);
     }
+
+    public static boolean requireRequestBody(HttpMethod method) {
+        return method.equals(POST)
+                || method.equals(PUT);
+    }
 }

@@ -1,14 +1,14 @@
 package sjt.http;
 
+import com.squareup.okhttp.OkHttpClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.httpclient.HttpClient;
 import sjt.exception.TcClientException;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -45,8 +45,12 @@ public class HttpEngine {
         final Map<String, String> headers = Optional.ofNullable(request.getHeaders()).orElseGet(HashMap::new);
         if (HttpMethod.isBodyMethodType(request.getMethod())) {
             headers.putIfAbsent("Content-Type", Optional.ofNullable(request.getContentType()).orElse("application/json"));
-            headers.putIfAbsent("Content-Length", String.valueOf(Optional.ofNullable(request.getBody()).orElse("").getBytes().length));
         }
+
+        if (HttpMethod.requireRequestBody(request.getMethod()) && request.getBody() != null) {
+            headers.putIfAbsent("Content-Length", HttpHeaders.getContentLength(request.getBody()));
+        }
+
         headers.putIfAbsent("Cache-Control", "no-cache");   //아직 cache 지원 못함.
         headers.putIfAbsent("Connection", "close"); //아직 지속연결 못함.
         headers.putIfAbsent("Host", request.getHost());
