@@ -50,16 +50,18 @@ public class HttpEngine {
             headers.putIfAbsent("Content-Type", Optional.ofNullable(request.getContentType()).orElse("application/json"));
         }
 
-        if (HttpMethod.allowRequestBody(request.getMethod()) && request.getBody() != null) {
-            // data가 인코딩 된다면 재설정될 수 있음
-            // TODO : chunck
-            headers.putIfAbsent("Content-Length", HttpHeaders.getContentLength(request.getBody()));
-        }
-
         headers.putIfAbsent("Cache-Control", "no-cache");   //아직 cache 지원 못함.
         headers.putIfAbsent("Connection", "close"); //아직 지속연결 못함.
         headers.putIfAbsent("Host", request.getHost());
         headers.putIfAbsent("User-Agent", "TcHttpClient/1.0");
+
+        if (HttpMethod.allowRequestBody(request.getMethod()) && request.getBody() != null) {
+            // data가 인코딩 된다면 재설정될 수 있음
+            int contentLength = HttpHeaders.getContentLength(request.getBody());
+
+            headers.putIfAbsent("Content-Length", String.valueOf(contentLength));
+        }
+
         request.setHeaders(headers);
     }
 
@@ -100,7 +102,13 @@ public class HttpEngine {
             final Response response = Response.create(reader);
 
             if(allowBody(response)) {
-                response.readBody(reader);
+                if (response.header(HttpHeaders.TRANSFER_ENCODING).equalsIgnoreCase("chuncked")) {
+                    // Content-Length 상관없이 chunck 형식에 따른다.
+                    response.readChunkedBody(reader);
+                } else {
+                    // Content-Length 만큼 읽는다.
+                    response.readBody(reader, response.getContentLength());
+                }
             }
 
             afterCompletion();
@@ -138,12 +146,11 @@ public class HttpEngine {
             return true;
         }
 
-        if (response.header("Transfer-Encoding").equalsIgnoreCase("chuncked")) {
+        if (response.header(HttpHeaders.TRANSFER_ENCODING).equalsIgnoreCase("chuncked")) {
             return true;
         }
 
-        // TODO : header 사용 정리
-        if(response.header("Content-Length") != null) {
+        if(response.getContentLength() != -1) {
             return true;
         }
 

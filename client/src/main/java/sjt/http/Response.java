@@ -73,12 +73,62 @@ public class Response {
         body = stringBuilder.toString();
     }
 
+    public void readBody(final BufferedReader reader, int length) throws IOException {
+        char[] buf = new char[length];
+        int bodySize = reader.read(buf);
+
+        if (bodySize != length) {
+            // Content-Length가 잘못된 정보거나 전송 중 서버에 문제가 발생했을 경우
+            log.debug("Response Body Size and Content-Length header value do not match .. ");
+        }
+
+        body = String.valueOf(buf);
+    }
+
+    public void readChunkedBody(BufferedReader reader) throws IOException {
+        // chunck data 길이 <CR><LF>
+        // chunck data
+        String bodyLine;
+        int len = -1;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        while (reader.ready() && (bodyLine = reader.readLine()) != null) {
+            if (len == 0) {
+                break;
+            }
+
+            if (len != -1) {
+                stringBuilder.append(bodyLine).append(CRLF);
+                len = -1;
+                continue;
+            }
+
+            len = Integer.parseInt(bodyLine);
+        }
+
+        body = stringBuilder.toString();
+    }
+
     public boolean hasBody() {
         return body != null && body.length() > 0;
     }
 
-    public String header(String s) {
-        return headers.get(s);
+    public String header(HttpHeaders httpHeaders) {
+        return headers.get(httpHeaders.name());
+    }
+
+    public int getContentLength() {
+        // 0 혹은 0보다 큰 숫자는 valid value
+        if(this.header(HttpHeaders.CONTENT_LENGTH) == null) {
+            return -1;
+        } else {
+            try {
+                return Integer.parseInt(this.header(HttpHeaders.CONTENT_LENGTH));
+            } catch (NumberFormatException e) {
+                log.warn("Response - Content-Length header occur NumberFormatException : " + e);
+                return -1;
+            }
+        }
     }
 
     public static class StatusLine {
