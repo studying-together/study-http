@@ -1,14 +1,10 @@
 package sjt.http;
 
-import com.squareup.okhttp.OkHttpClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.httpclient.HttpClient;
 import sjt.exception.TcClientException;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -20,8 +16,16 @@ public class HttpEngine {
     private static final String CRLF = "\r\n";
     private static final int MTU = 1500;
     private Connection connection;
+    private Request request;
 
-    public Response sendRequest(final Request request) {
+    public Response execute(final Request HttpRequest) {
+        request = HttpRequest;
+
+        sendRequest();
+        return readResponse();
+    }
+
+    public void sendRequest() {
         log.info("HttpEngine sendRequest start");
         //TODO:: url이 있으면 그 안에서 host, port, path, 프래그먼트 직접 파싱하도록 하도록 하는 기능 추가
         try {
@@ -34,7 +38,6 @@ public class HttpEngine {
             writeBody(writer, request);
             writer.flush();
             log.info("HttpEngine sendRequest end");
-            return readResponse();
         } catch (IOException e) {
             log.error("sendRequest 중 IOException 발생!", e);
             throw new TcClientException(e);
@@ -47,7 +50,9 @@ public class HttpEngine {
             headers.putIfAbsent("Content-Type", Optional.ofNullable(request.getContentType()).orElse("application/json"));
         }
 
-        if (HttpMethod.requireRequestBody(request.getMethod()) && request.getBody() != null) {
+        if (HttpMethod.allowRequestBody(request.getMethod()) && request.getBody() != null) {
+            // data가 인코딩 된다면 재설정될 수 있음
+            // TODO : chunck
             headers.putIfAbsent("Content-Length", HttpHeaders.getContentLength(request.getBody()));
         }
 
@@ -92,7 +97,12 @@ public class HttpEngine {
         log.info("HttpEngine readResponse start");
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getIn()), MTU);
-            final Response response = new Response(reader);
+            final Response response = Response.create(reader);
+
+            if(allowBody(response)) {
+                response.readBody(reader);
+            }
+
             afterCompletion();
             return response;
         } catch (IOException e) {
@@ -115,5 +125,28 @@ public class HttpEngine {
         log.info("afterCompletion start");
         connection.close(); //TODO:: 추후 커넥션 풀이 생기면 커넥션 release 하도록 변경
         log.info("afterCompletion send");
+    }
+
+    private boolean allowBody(Response response) {
+        if(!HttpMethod.allowResponseBody(request.getMethod())) {
+            return false;
+        }
+
+        // 정보성 Content-Length는 갖지만 응답 body는 없는 경우 : 1xx, 204, 304
+        int statusCode = response.getStatusLine().getStatus().value();
+        if (statusCode >= 200 && statusCode != 204 && statusCode != 304) {
+            return true;
+        }
+
+        if (response.header("Transfer-Encoding").equalsIgnoreCase("chuncked")) {
+            return true;
+        }
+
+        // TODO : header 사용 정리
+        if(response.header("Content-Length") != null) {
+            return true;
+        }
+
+        return false;
     }
 }

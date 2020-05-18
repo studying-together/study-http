@@ -25,15 +25,17 @@ public class Response {
     @Getter
     private String body;
 
-    public Response(BufferedReader reader) {
+    public static Response create(BufferedReader reader) {
+        Response response = new Response();
+
         try {
-            readStatus(reader);
-            readHeader(reader);
-            readBody(reader);
+            response.readStatus(reader);
+            response.readHeader(reader);
         } catch (IOException e) {
             log.error("Response 생성 중 IOException 발생!", e);
             throw new TcClientException(e);
         }
+        return response;
     }
 
     private void readStatus(final BufferedReader reader) throws IOException {
@@ -62,7 +64,7 @@ public class Response {
         }
     }
 
-    private void readBody(final BufferedReader reader) throws IOException {
+    public void readBody(final BufferedReader reader) throws IOException {
         String bodyLine;
         StringBuilder stringBuilder = new StringBuilder();
         while (reader.ready() && (bodyLine = reader.readLine()) != null) {
@@ -73,6 +75,10 @@ public class Response {
 
     public boolean hasBody() {
         return body != null && body.length() > 0;
+    }
+
+    public String header(String s) {
+        return headers.get(s);
     }
 
     public static class StatusLine {
