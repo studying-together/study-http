@@ -6,7 +6,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import sjt.RestTemplate;
+import sjt.client.TcHttpClient;
+import sjt.parser.HttpResponseParser;
+import sjt.parser.JsonParser;
+import sjt.parser.TextParser;
 import sjt.prod.model.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -26,12 +33,10 @@ public class UserServiceTest {
     @DisplayName("사용자 추가/수정/삭제/조회 테스트")
     @Test
     void userStory() throws JsonProcessingException {
-        /*
-         * 과제
-         *
-         * 목을 제거하고 구현체를 사용하자
-         */
-        RestTemplate webClient = new RestTemplate();
+        List<HttpResponseParser> parser = new ArrayList<>();
+        parser.add(new JsonParser());
+        parser.add(new TextParser());
+        RestTemplate webClient = new RestTemplate(new TcHttpClient(), parser);
 
         UserService userService = new UserService(webClient);
 
@@ -50,7 +55,7 @@ public class UserServiceTest {
         String updatedSampleUser = mapper.writeValueAsString(new User(SAMPLE_ID, SAMPLE_NAME, SAMPLE_UPDATED_AGE));
 
         // 셈플 사용자 조회 및 검증
-        userService.putUser(HOST, PORT, "/user", updatedSampleUser);
+        userService.putUser(HOST, PORT, "/user", updatedSampleUser, null);
         User updatedUser = userService.getUser(HOST, PORT, "/user/1004");
         assertEquals(SAMPLE_ID, updatedUser.getId());
         assertEquals(SAMPLE_NAME, updatedUser.getName());

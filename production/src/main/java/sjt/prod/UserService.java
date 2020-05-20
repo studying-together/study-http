@@ -19,12 +19,12 @@ public class UserService {
         return (T) webClient.post(host, port, path, body, User.class);
     }
 
-    public void putUser(String host, int port, String path, String body) {
-        webClient.put(host, port, path, body);
+    public <T> void putUser(String host, int port, String path, String body, Class<T> clazz) {
+        webClient.put(host, port, path, body, clazz);
     }
 
     public void deleteUser(String host, int port, String path) {
-        webClient.delete(host, port, path);
+        webClient.delete(host, port, path, null);
     }
 
 }

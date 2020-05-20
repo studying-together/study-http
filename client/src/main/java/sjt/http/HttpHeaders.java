@@ -1,5 +1,7 @@
 package sjt.http;
 
+import lombok.Getter;
+
 import java.nio.charset.StandardCharsets;
 
 public enum HttpHeaders {
@@ -11,6 +13,7 @@ public enum HttpHeaders {
     TRANSFER_ENCODING("Transfer-Encoding"),
     ;
 
+    @Getter
     private String fieldName;
 
     HttpHeaders(String fieldName) {

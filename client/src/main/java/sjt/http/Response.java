@@ -93,6 +93,10 @@ public class Response {
         StringBuilder stringBuilder = new StringBuilder();
 
         while (reader.ready() && (bodyLine = reader.readLine()) != null) {
+            if (len == -1 && bodyLine.equalsIgnoreCase("-1")) {
+                break;
+            }
+
             if (len == 0) {
                 break;
             }
@@ -103,7 +107,12 @@ public class Response {
                 continue;
             }
 
-            len = Integer.parseInt(bodyLine);
+            try {
+                len = Integer.parseInt(bodyLine);
+            } catch (NumberFormatException e) {
+                log.info("body is not chunked message");
+                stringBuilder.append(bodyLine).append(CRLF);
+            }
         }
 
         body = stringBuilder.toString();
@@ -114,7 +123,7 @@ public class Response {
     }
 
     public String header(HttpHeaders httpHeaders) {
-        return headers.get(httpHeaders.name());
+        return headers.get(httpHeaders.getFieldName());
     }
 
     public int getContentLength() {
@@ -125,7 +134,7 @@ public class Response {
             try {
                 return Integer.parseInt(this.header(HttpHeaders.CONTENT_LENGTH));
             } catch (NumberFormatException e) {
-                log.warn("Response - Content-Length header occur NumberFormatException : " + e);
+                log.warn("Response Content-Length header occurs NumberFormatException ..  error : " + e);
                 return -1;
             }
         }

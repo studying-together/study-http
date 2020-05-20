@@ -58,7 +58,6 @@ public class HttpEngine {
         if (HttpMethod.allowRequestBody(request.getMethod()) && request.getBody() != null) {
             // data가 인코딩 된다면 재설정될 수 있음
             int contentLength = HttpHeaders.getContentLength(request.getBody());
-
             headers.putIfAbsent("Content-Length", String.valueOf(contentLength));
         }
 
@@ -101,12 +100,14 @@ public class HttpEngine {
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getIn()), MTU);
             final Response response = Response.create(reader);
 
-            if(allowBody(response)) {
-                if (response.header(HttpHeaders.TRANSFER_ENCODING).equalsIgnoreCase("chuncked")) {
-                    // Content-Length 상관없이 chunck 형식에 따른다.
+            if (allowBody(response)) {
+                String te = response.header(HttpHeaders.TRANSFER_ENCODING);
+
+                if (te != null && te. equalsIgnoreCase("chunked")) {
+                    // Content-Length 상관없이 chunk 형식에 따른다.
                     response.readChunkedBody(reader);
                 } else {
-                    // Content-Length 만큼 읽는다.
+                    // Content-Length만큼 읽는다.
                     response.readBody(reader, response.getContentLength());
                 }
             }
@@ -136,7 +137,7 @@ public class HttpEngine {
     }
 
     private boolean allowBody(Response response) {
-        if(!HttpMethod.allowResponseBody(request.getMethod())) {
+        if (!HttpMethod.allowResponseBody(request.getMethod())) {
             return false;
         }
 
@@ -146,11 +147,11 @@ public class HttpEngine {
             return true;
         }
 
-        if (response.header(HttpHeaders.TRANSFER_ENCODING).equalsIgnoreCase("chuncked")) {
+        if (response.header(HttpHeaders.TRANSFER_ENCODING).equalsIgnoreCase("chunked")) {
             return true;
         }
 
-        if(response.getContentLength() != -1) {
+        if (response.getContentLength() != -1) {
             return true;
         }
 
