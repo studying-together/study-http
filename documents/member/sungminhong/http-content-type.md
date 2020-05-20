@@ -42,7 +42,7 @@ Media types 은 [section 3.7](https://tools.ietf.org/html/rfc2616#section-3.7)�
   
   (content of the uploaded file foo.txt)
   
-  ---------------------------974767299852498929531610575
+  ---------------------------974767299852498929531610575--
   ~~~
   출처: https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Content-Type
   
