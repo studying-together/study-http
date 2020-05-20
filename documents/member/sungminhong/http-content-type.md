@@ -47,5 +47,6 @@ Media types 은 [section 3.7](https://tools.ietf.org/html/rfc2616#section-3.7)�
   
 --- 
   +) 추가적으로 MDN의 Content-Type 한국어 페이지에 끝을 의미하는 문자 '--'가 누락되어 수정했습니다. ㅎㅎ
+<br/>
   출처: https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Content-Type
   
