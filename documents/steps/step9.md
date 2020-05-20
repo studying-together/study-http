@@ -18,4 +18,4 @@
 
 ##### Content-Type
 - [KDH 님 제목과 함께 수정해주세요 !](https://github.com/study-java-together/study-http/blob/master/documents/member/kimdahyeee/http-content-type.md)
-- [HSM 님 제목과 함께 수정해주세요 !](https://github.com/study-java-together/study-http/blob/master/documents/member/sungminhong/http-content-type.md)
+- [HSM: Content-Type 번역과 고민했던 부분 정리](https://github.com/study-java-together/study-http/blob/master/documents/member/sungminhong/http-content-type.md)
