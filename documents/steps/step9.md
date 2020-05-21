@@ -11,7 +11,7 @@
 
 #### 캐시를 어떻게 사용할까
 
-- [CHH 님 제목과 함께 수정해주세요 !](https://github.com/study-java-together/study-http/blob/master/documents/member/vvshinevv/http-cache.md)
+- [CHH: Cache 번역과 Cache-Control 모델 구성](https://github.com/study-java-together/study-http/blob/master/documents/member/vvshinevv/http-cache.md)
 - [JMS 님 제목과 함께 수정해주세요 !](https://github.com/study-java-together/study-http/blob/master/documents/member/misudev/http-cache.md)
 
 #### Content 를 어떻게 구분할까
