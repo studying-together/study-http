@@ -80,3 +80,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [14.9.4   Cache Revalidation and Reload Controls]()<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [14.9.5   No-Transform Directive]()<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [14.9.6   Cache Control Extensions]()<br>
+&nbsp;&nbsp;&nbsp; [14.10  Connection]()<br>
+&nbsp;&nbsp;&nbsp; [14.11 Content-Encoding]()<br>
+&nbsp;&nbsp;&nbsp; [14.12  Content-Language]()<br>
+&nbsp;&nbsp;&nbsp; [14.13  Content-Length](https://github.com/Study-Java-Together/study-http/blob/master/rfc-2616-HTTP1.1/ko/14.13.%20Content-Length.md)<br>
