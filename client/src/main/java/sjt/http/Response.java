@@ -18,6 +18,8 @@ import org.springframework.util.StringUtils;
 public class Response {
     private static final String HEADER_DELIMITER = ": ";
     private static final String CRLF = "\r\n";
+    private static final int TWO_OCTETS = 16;
+
     @Getter
     private StatusLine statusLine;
     @Getter
@@ -108,7 +110,7 @@ public class Response {
             }
 
             try {
-                len = Integer.parseInt(bodyLine);
+                len = Integer.parseInt(bodyLine, TWO_OCTETS);
             } catch (NumberFormatException e) {
                 log.info("body is not chunked message");
                 stringBuilder.append(bodyLine).append(CRLF);

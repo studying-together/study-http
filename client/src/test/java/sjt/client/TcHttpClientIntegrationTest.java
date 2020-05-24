@@ -102,4 +102,16 @@ public class TcHttpClientIntegrationTest {
 
         System.out.println(response.toString());
     }
+
+    @Test
+    public void 응답_본문값_있는_경우_테스트2() {
+        Response response = tcHttpClient.execute(Request.builder()
+                .method(HttpMethod.GET)
+                .host("localhost")
+                .port(8080)
+                .path("/message?message=onetwothreefour")
+                .build());
+
+        System.out.println(response.toString());
+    }
 }

@@ -23,8 +23,8 @@ public class WebServer {
         return "hello";
     }
 
-    @GetMapping(value = "/{message}", produces = "text/plain")
-    public @ResponseBody String getMessage(@PathVariable String message) {
+    @GetMapping(value = "/message", produces = "text/plain")
+    public @ResponseBody String getMessage(@RequestParam String message) {
         log.info("get Message : {}" , message);
         return message;
     }
