@@ -60,7 +60,7 @@ public class TcHttpClientIntegrationTest {
                 .method(HttpMethod.POST)
                 .host("localhost")
                 .port(8080)
-                .path("/send")
+                .path("/user")
                 .body("{\"id\":\"1\", \"name\":\"heedi\", \"age\":1004}")
                 .build());
 
@@ -84,10 +84,22 @@ public class TcHttpClientIntegrationTest {
                 .method(HttpMethod.PUT)
                 .host("localhost")
                 .port(8080)
-                .path("/test")
+                .path("/user")
                 .build());
 
         assertThat(Objects.isNull(response2.getBody()));
         System.out.println(response2.toString());
+    }
+
+    @Test
+    public void 응답_본문값_있는_경우_테스트() {
+        Response response = tcHttpClient.execute(Request.builder()
+                .method(HttpMethod.GET)
+                .host("localhost")
+                .port(8080)
+                .path("/hello")
+                .build());
+
+        System.out.println(response.toString());
     }
 }
