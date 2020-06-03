@@ -6,7 +6,7 @@
 
 #### [1. Introduction](https://github.com/Study-Java-Together/study-http/blob/master/rfc-2616-HTTP1.1/ko/1.%20Introduction.md)
 
-&nbsp;&nbsp;&nbsp; 1.1 [Purpose]()<br>
+&nbsp;&nbsp;&nbsp; 1.1 [Purpose](https://github.com/Study-Java-Together/study-http/blob/master/rfc-2616-HTTP1.1/ko/1.1%20Purpose.md)<br>
 &nbsp;&nbsp;&nbsp; 1.2 [Requirements]()<br>
 &nbsp;&nbsp;&nbsp; 1.3 [Terminology]()<br>
 &nbsp;&nbsp;&nbsp; 1.4 [Overall Operation]()<br>
