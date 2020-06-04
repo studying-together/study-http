@@ -27,4 +27,7 @@ SSL vs TLS (https://www.globalsign.com/en/blog/ssl-vs-tls-difference)
 ### 세부사항
 
 ##### SSL handshake
+
+### 참고
+##### [디지털 서명 검증](https://rsec.kr/?p=426)
 ##### [통신 과정 참고](https://www.ssl.com/article/ssl-tls-handshake-overview/)
