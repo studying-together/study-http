@@ -20,4 +20,4 @@
 
 #### HTTPS 는 어떻게 동작할까
 
-- [동작원리를 살펴보자]()
+- [동작원리를 살펴보자](https://github.com/study-java-together/study-http/blob/master/documents/member/homelus/https.md)
