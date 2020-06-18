@@ -15,6 +15,7 @@
 2. :smile: [2020-05-07-여덟번째 걸음](/documents/steps/step8.md)
 3. :mask: [2020-05-21-아홉번째 걸음](/documents/steps/step9.md)
 4. :confused: [2020-06-04-열번째 걸음](/documents/steps/step10.md)
+5. :book: [2020-06-18-회고](/documents/steps/step11.md)
 <br>
 
 #### :pray: [과제를 진행하는 방법](/documents/policy.md)
