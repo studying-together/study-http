@@ -131,4 +131,8 @@ public class HttpRequest {
         this.requestBody = requestBody;
     }
 
+    public Map<String, String> getHttpRequestHeaders() {
+        return this.requestHeaders;
+    }
+
 }

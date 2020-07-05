@@ -33,7 +33,12 @@ public class HttpEngine {
             httpRequest.setRequestBody(body);
             httpRequest.writeHttpRequest(connection.getOutputStream());
 
+            // 실제 요청하기 전에 이 부분에서 캐시를 가로채는 로직을 넣어야 함
+
             HttpResponse httpResponse = new HttpResponse();
+
+
+
             httpResponse.readHttpResponse(connection.getInputStream());
             String contentType = httpResponse.getResponseHeaders().get("Content-Type");
 

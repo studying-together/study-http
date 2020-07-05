@@ -1,6 +1,7 @@
 package sjt.http.client.module.response;
 
 import lombok.Getter;
+import sjt.http.StatusLine;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,7 +16,7 @@ public class HttpResponse {
     private static final String HEADER_DELIMITER = ": ";
     private static final String CRLF = "\r\n";
 
-    private String statusLine;
+    private StatusLine statusLine;
     private Map<String, String> responseHeaders = new HashMap<>();
     private String responseBody;
 
@@ -29,7 +30,7 @@ public class HttpResponse {
     public void readHttpResponse(InputStream inputStream) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
-        statusLine = reader.readLine();
+        this.statusLine = StatusLine.parse(reader.readLine());
         readHeader(reader);
         readBody(reader);
     }
